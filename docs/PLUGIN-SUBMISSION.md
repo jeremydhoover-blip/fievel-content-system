@@ -1,6 +1,6 @@
 # Plugin directory submission
 
-Prepared 2026-10-21 for version 0.2.0. Submission is done by Jeremy from his own
+Prepared 2026-10-21 for version 0.2.1. Submission is done by Jeremy from his own
 accounts; nothing here has been submitted. Push `main` and republish Pages first,
 so the privacy policy URL is live when reviewers open it.
 
@@ -9,7 +9,7 @@ so the privacy policy URL is live when reviewers open it.
 | Field | Value |
 | --- | --- |
 | Name | `fievel` (display name Fievel Content System on Claude, Fievel on Codex) |
-| Version | 0.2.0 |
+| Version | 0.2.1 |
 | Short description | Build your content system |
 | Description | Build and improve a portable content system with guided workflows and local quality checks. |
 | Category | Productivity |
@@ -46,7 +46,7 @@ Checked locally with Claude Code 2.1.304: `claude plugin validate --strict`
 passes for the plugin and the catalog; an isolated install from GitHub lists six
 skills. Checklist items verified by tests: README over 40 words, MIT license,
 every file under 256 KiB, 66 files (limit 512), text and PNG only, no symlinks,
-version raised from 0.1.0. Anthropic's security scan and human review are not run.
+version raised from 0.1.0 (now 0.2.1 after the live-trial fixes). Anthropic's security scan and human review are not run.
 
 ## Codex: OpenAI plugin directory
 
@@ -54,9 +54,9 @@ Requires identity verification for your OpenAI organization. Guide:
 https://developers.openai.com/plugins/deploy/submission; desktop-only guide:
 https://developers.openai.com/plugins/deploy/desktop-only.
 
-1. Use the prepared `release/fievel-codex-0.2.0.zip` (ignored by Git), or rebuild
+1. Use the prepared `release/fievel-codex-0.2.1.zip` (ignored by Git), or rebuild
    it from the committed bundle so `plugin.json` sits at the archive root:
-   `python -c "import shutil; shutil.make_archive('release/fievel-codex-0.2.0', 'zip', 'plugins/fievel')"`
+   `python -c "import shutil; shutil.make_archive('release/fievel-codex-0.2.1', 'zip', 'plugins/fievel')"`
 2. In the OpenAI Platform, open Plugins → **Upload new or existing plugin**,
    choose your verified identity, choose **Skills only** and upload the ZIP.
 3. Listing URLs and release notes are imported from `plugin.json`
@@ -68,7 +68,7 @@ https://developers.openai.com/plugins/deploy/desktop-only.
 5. Wait for the skill scan to pass, submit for review, then publish after approval.
 
 Checked locally with Codex 0.162.0-alpha.17.2: the ZIP unpacks to the committed
-bundle, installs as 0.2.0 in an isolated Codex home and exposes six `fievel:*`
+bundle, installs as 0.2.1 in an isolated Codex home and exposes six `fievel:*`
 skills. OpenAI's skill scan and review are not run.
 
 ## Draft data handling answers

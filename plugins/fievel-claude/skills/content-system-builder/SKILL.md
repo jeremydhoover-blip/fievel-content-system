@@ -18,7 +18,10 @@ Resolve R from this skill's actual installed path, never a development checkout.
 - Keep the current working directory in the user's chosen workspace. Run the CLI
   by its absolute path: `python "R/scripts/fievel.py" <command> <project> ...`.
   Replace R with the resolved path. Resolve project and output paths in the user's
-  workspace. Never create projects, install dependencies, or edit inside R or the
+  workspace. Run one simple command per step: the Python interpreter
+  with the CLI path and its arguments, without chained commands, shell variables
+  or PowerShell scripts. Read and list files with the host's file tools. Simple
+  commands keep the user's permission prompts clear and predictable. Never create projects, install dependencies, or edit inside R or the
   plugin cache. Never copy Fievel AGENTS.md over a user's repository instructions.
 - Check Python 3.10+ and `python -c "import jsonschema"`. If missing, explain the
   prerequisite. When setup is authorized, create a new `.fievel-venv` in the user's
@@ -41,9 +44,10 @@ model evaluations unless the user authorized them.
 
 Read AGENTS.md, docs/WORKFLOW.md and the selected project's progress.json.
 Required inputs: selected project folder, product/audience intent, and any supplied
-standards. Start with stages 1 and 2; ask only for missing decisions. Use the
-existing-guidelines path to map supplied rules, preserving their source IDs and
-approval status. Do not turn inferred preferences into approved organization rules.
+standards. Start with stages 1 and 2; ask only for missing decisions. When the
+user supplies or names a source document, run the source-discovery skill first to
+inventory and assess it; then use the existing-guidelines path to map its rules,
+preserving their source IDs and approval status. Do not turn inferred preferences into approved organization rules.
 
 For existing material, read knowledge/content-design/using-existing-guidelines.md.
 Show a small source-to-proposed-rule mapping with precise evidence location where

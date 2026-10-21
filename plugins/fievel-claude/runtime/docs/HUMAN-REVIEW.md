@@ -86,7 +86,9 @@ contain failures. There is no overall quality pass label.
 ## Migration and boundaries
 
 Legacy sheets and deterministic execution reports retain their original shapes.
-The new validator accepts only human_review_evidence version 1.0. To move an old
+The validator accepts human_review_evidence versions 1.0 and 1.1. New packages are
+1.1, whose system_sha256 covers content files but not progress.json; 1.0 keeps its
+seven-file hash (ADR-007). To move an old
 sheet forward, prepare a new evidence package and have a human review it. Do not
 copy old results onto changed context. No package schema migration is required.
 The viewer still supports deterministic reports only. AI suggestions must be kept

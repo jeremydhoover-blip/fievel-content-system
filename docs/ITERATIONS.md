@@ -645,3 +645,20 @@ LT-01 (progress in fingerprint makes reports stale), LT-02 (source-discovery not
 routed), LT-03 (denied PowerShell/compound commands) and LT-04 (cost growth).
 Evidence: audits/2026-10-21/live-claude-trial/RESULTS.md. Not run: Codex, an
 interactive user, content-audit, real sources.
+
+
+## I38 Live-trial fixes: content fingerprint, source routing, simple commands
+
+2026-10-21. User asked to fix LT-01, LT-02 and LT-03 from I37. ADR-007: reports,
+review sheets, viewer snapshots, consumer exports and source audits now record
+system_sha256 over content files only, with system_scope "content"; progress.json
+is excluded. Review evidence moves to 1.1. Reports without a scope and evidence
+1.0 keep the seven-file meaning through matches_system, so stored evidence is not
+rewritten and still reproduces or goes stale as before. Five new tests cover
+progress edits, content and governance edits, viewer reproduction, legacy files
+and unknown scopes. LT-02: content-system-builder now hands supplied documents to
+source-discovery first, whose description names that trigger. LT-03: the plugin
+preamble asks for one simple Python command per step and host file tools for
+reading. Version 0.2.1; bundles and Codex ZIP rebuilt. 95 tests, adapter sync,
+evidence verification, viewer and review browser suites and Claude validate
+--strict pass. Not run: a live session confirming LT-02 and LT-03 behavior.

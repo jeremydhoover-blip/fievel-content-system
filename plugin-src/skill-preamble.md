@@ -11,7 +11,10 @@ Resolve R from this skill's actual installed path, never a development checkout.
 - Keep the current working directory in the user's chosen workspace. Run the CLI
   by its absolute path: `python "R/scripts/fievel.py" <command> <project> ...`.
   Replace R with the resolved path. Resolve project and output paths in the user's
-  workspace. Never create projects, install dependencies, or edit inside R or the
+  workspace. Run one simple command per step: the Python interpreter
+  with the CLI path and its arguments, without chained commands, shell variables
+  or PowerShell scripts. Read and list files with the host's file tools. Simple
+  commands keep the user's permission prompts clear and predictable. Never create projects, install dependencies, or edit inside R or the
   plugin cache. Never copy Fievel AGENTS.md over a user's repository instructions.
 - Check Python 3.10+ and `python -c "import jsonschema"`. If missing, explain the
   prerequisite. When setup is authorized, create a new `.fievel-venv` in the user's

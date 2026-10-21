@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fievel",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Build and improve a portable content system with guided workflows and local quality checks.",
   "homepage": "https://jeremydhoover-blip.github.io/fievel-content-system/",
   "repository": "https://github.com/jeremydhoover-blip/fievel-content-system",

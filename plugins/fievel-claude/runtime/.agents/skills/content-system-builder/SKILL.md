@@ -7,9 +7,10 @@ description: Build or improve portable Fievel content standards and product cont
 
 Read AGENTS.md, docs/WORKFLOW.md and the selected project's progress.json.
 Required inputs: selected project folder, product/audience intent, and any supplied
-standards. Start with stages 1 and 2; ask only for missing decisions. Use the
-existing-guidelines path to map supplied rules, preserving their source IDs and
-approval status. Do not turn inferred preferences into approved organization rules.
+standards. Start with stages 1 and 2; ask only for missing decisions. When the
+user supplies or names a source document, run the source-discovery skill first to
+inventory and assess it; then use the existing-guidelines path to map its rules,
+preserving their source IDs and approval status. Do not turn inferred preferences into approved organization rules.
 
 For existing material, read knowledge/content-design/using-existing-guidelines.md.
 Show a small source-to-proposed-rule mapping with precise evidence location where

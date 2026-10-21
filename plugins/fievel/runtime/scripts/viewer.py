@@ -90,8 +90,9 @@ def load_snapshot(folder, report=None):
                           locator=f'rules[{index}]', source_links=links, checks=linked_checks,
                           uncovered=not linked_checks, ambiguous=rule_counts[rule['id']] != 1))
 
-    system_hash = f.fingerprint(package) if len(package) == len(f.FILES) else None
-    report_state = _report(folder, report, system_hash)
+    complete = package if len(package) == len(f.FILES) else None
+    system_hash = f.system_fingerprint(complete) if complete else None
+    report_state = _report(folder, report, complete)
     lessons = []
     for title, path in LESSONS:
         try:
@@ -101,12 +102,12 @@ def load_snapshot(folder, report=None):
             issue('knowledge/' + path, str(exc))
     return {'kind': 'fievel_viewer_snapshot', 'viewer_version': '1',
             'generated_at': datetime.now(timezone.utc).isoformat(), 'folder': folder.name,
-            'system_sha256': system_hash, 'file_sha256': digests, 'package': package,
+            'system_scope': f.SYSTEM_SCOPE, 'system_sha256': system_hash, 'file_sha256': digests, 'package': package,
             'issues': issues, 'rules': rules, 'checks': checks, 'report': report_state,
             'stages': list(f.STAGES), 'lessons': lessons}
 
 
-def _report(folder, path, system_hash):
+def _report(folder, path, package):
     result = {'state': 'none', 'summary': None, 'results': [], 'responses': {},
               'name': None, 'message': 'No execution report selected. Defined checks are not results.'}
     if path is None:
@@ -121,13 +122,14 @@ def _report(folder, path, system_hash):
             return result
         if not isinstance(report.get('system_sha256'), str):
             raise ValueError('Missing package identity in the report.')
-        if system_hash is None:
+        if package is None:
             raise ValueError('Cannot match a report to structurally invalid or incomplete package files.')
-        if report['system_sha256'] != system_hash:
+        if not f.matches_system(report, package):
             result.update(state='stale', message='The selected report describes a different package snapshot. Its totals are not presented as current results.')
             return result
         expected = f.evaluate(folder, report.get('responses'))
-        for key in ('target', 'system_sha256', 'responses_sha256', 'summary', 'results'):
+        # Identity was checked above in the report's own scope; legacy reports use the seven-file hash.
+        for key in ('target', 'responses_sha256', 'summary', 'results'):
             if json.dumps(report.get(key), sort_keys=True) != json.dumps(expected[key], sort_keys=True):
                 raise ValueError(f'Report {key} does not reproduce from the selected package and responses.')
         timestamp = report.get('executed_at')

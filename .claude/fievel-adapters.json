@@ -3,10 +3,10 @@
   "files": {
     ".claude/skills/ai-behavior-designer/SKILL.md": "0559a4c4785f4868916d43ed5d3634645685912595ee0c513c98fc1d6a5f85ca",
     ".claude/skills/content-audit/SKILL.md": "bc2b3306bdc4d28c4fab97be02604018ac58fa00c6a3517b4fabcde9ec3138b9",
-    ".claude/skills/content-system-builder/SKILL.md": "fc176a8563e5472dfa611b32b577e405c45c9b8da0280d1a45de385e7ed33582",
+    ".claude/skills/content-system-builder/SKILL.md": "d3b52d974cb3f447ece788ee333dddb735e4412657eeb17e391d67ea15d38ac5",
     ".claude/skills/evaluation-designer/SKILL.md": "d53ac725d8c8bf348d07ac1e088257d39db6aff320d844c03938b22859c560b0",
     ".claude/skills/getting-started/SKILL.md": "6217bede56923a5e8e398bbcae856a7209cd4a7e066568c851ad19f31ff848b4",
-    ".claude/skills/source-discovery/SKILL.md": "23006bd492258e5c1654c19c72f408237160b0693604f822247e224f5d0dc2be",
+    ".claude/skills/source-discovery/SKILL.md": "549761caa732d4d822ba7eaa6296f220e93facd682c294b282661c87bf3ac712",
     "CLAUDE.md": "5c90cad03435a77ada017d5b66fa5ad713e32b0301da1c5a674a279735daa83f",
     ".github/copilot-instructions.md": "5c90cad03435a77ada017d5b66fa5ad713e32b0301da1c5a674a279735daa83f"
   }

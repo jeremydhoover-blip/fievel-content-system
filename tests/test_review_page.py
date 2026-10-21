@@ -33,7 +33,7 @@ class ReviewPageTests(unittest.TestCase):
     def test_unsafe_text_is_escaped_in_visible_and_embedded_data(self):
         unsafe='</script><img src=x onerror=alert(1)>'
         self.review['system_snapshot']['product']['name']=unsafe
-        self.review['system_sha256']=f.fingerprint(self.review['system_snapshot'])
+        self.review['system_sha256']=f.system_fingerprint(self.review['system_snapshot'])
         path=self.save();out=self.base/'safe.html';export_review_page(path,out)
         html=out.read_text(encoding='utf-8')
         self.assertNotIn(unsafe,html)

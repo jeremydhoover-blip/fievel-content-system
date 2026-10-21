@@ -125,6 +125,26 @@ def fingerprint(data):
     return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
 
+SYSTEM_SCOPE = 'content'
+
+
+def system_fingerprint(data):
+    """Identify a package by its content files; progress is session bookkeeping (ADR-007)."""
+    return fingerprint({name: value for name, value in data.items() if name != 'progress'})
+
+
+def matches_system(record, data):
+    """Compare a record's system_sha256 using the scope it declares; no scope is the legacy seven-file hash."""
+    scope = record.get('system_scope')
+    if scope is None:
+        expected = fingerprint(data)
+    elif scope == SYSTEM_SCOPE:
+        expected = system_fingerprint(data)
+    else:
+        raise ValueError(f'Unsupported system_scope: {scope}')
+    return record.get('system_sha256') == expected
+
+
 def evaluate(folder, responses):
     data = validate(folder, require_coverage=True)
     # Saved responses are a concrete target; this never generates an AI response.
@@ -150,7 +170,7 @@ def evaluate(folder, responses):
                          ('No saved response supplied' if response is None else 'Case-insensitive literal substring check')})
     counts = {status: sum(r['status'] == status for r in rows) for status in ('pass', 'fail', 'not_run')}
     return {'kind': 'deterministic_execution', 'executed_at': datetime.now(timezone.utc).isoformat(),
-            'target': 'saved_responses', 'system_sha256': fingerprint(data),
+            'target': 'saved_responses', 'system_scope': SYSTEM_SCOPE, 'system_sha256': system_fingerprint(data),
             'responses_sha256': fingerprint(responses), 'responses': responses,
             'summary': counts, 'results': rows,
             'limitation': 'Literal checks cannot establish correctness, tone, authorization, or absence of invented facts.'}
@@ -158,7 +178,7 @@ def evaluate(folder, responses):
 
 def review_sheet(folder, responses):
     report = evaluate(folder, responses)
-    return {'kind': 'human_review', 'system_sha256': report['system_sha256'],
+    return {'kind': 'human_review', 'system_scope': report['system_scope'], 'system_sha256': report['system_sha256'],
             'responses_sha256': report['responses_sha256'], 'reviewer': None, 'reviewed_at': None,
             'responses': responses, 'judgments': [dict(row, status='pending', rationale='')
             for row in report['results'] if row['method'] == 'human']}

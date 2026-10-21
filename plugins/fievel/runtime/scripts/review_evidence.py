@@ -70,9 +70,10 @@ def validate_inputs(data, responses, config):
 def prepare_review(folder, responses, config):
     data = core.validate(folder, require_coverage=True)
     validate_inputs(data, responses, config)
-    review = {'kind': 'human_review_evidence', 'version': '1.0',
+    # Version 1.1 identifies the package by content files only (ADR-007).
+    review = {'kind': 'human_review_evidence', 'version': '1.1',
               'prepared_at': datetime.now(timezone.utc).isoformat(),
-              'system_snapshot': data, 'system_sha256': core.fingerprint(data),
+              'system_snapshot': data, 'system_sha256': core.system_fingerprint(data),
               'responses': responses, 'responses_sha256': core.fingerprint(responses),
               'review_config': config, 'config_sha256': core.fingerprint(config),
               'reviewer': None, 'reviewer_kind': 'human', 'reviewed_at': None,
@@ -98,18 +99,22 @@ def validate_review(review, folder=None, require_complete=False):
     keys(review, ['kind', 'version', 'prepared_at', 'system_snapshot', 'system_sha256',
                   'responses', 'responses_sha256', 'review_config', 'config_sha256',
                   'reviewer', 'reviewer_kind', 'reviewed_at', 'judgments'], 'Evidence review')
-    if review['kind'] != 'human_review_evidence' or review['version'] != '1.0':
+    if review['kind'] != 'human_review_evidence' or review['version'] not in ('1.0', '1.1'):
         raise ValueError('Unsupported evidence review version or kind; regenerate legacy sheets')
+    # 1.0 hashed all seven files; 1.1 hashes content files only (ADR-007).
+    identity = {'system_sha256': review['system_sha256'],
+                'system_scope': core.SYSTEM_SCOPE if review['version'] == '1.1' else None}
     if review['reviewer_kind'] != 'human':
         raise ValueError('AI suggestions cannot be validated as human review')
     timestamp(review['prepared_at'], 'prepared_at')
     data, responses, config = review['system_snapshot'], review['responses'], review['review_config']
-    for value, hash_key in [(data, 'system_sha256'), (responses, 'responses_sha256'),
-                             (config, 'config_sha256')]:
+    if not core.matches_system(identity, data):
+        raise ValueError('system_sha256: snapshot hash mismatch')
+    for value, hash_key in [(responses, 'responses_sha256'), (config, 'config_sha256')]:
         if core.fingerprint(value) != review[hash_key]:
             raise ValueError(f'{hash_key}: snapshot hash mismatch')
     evidence = validate_inputs(data, responses, config)
-    if folder is not None and core.fingerprint(core.validate(folder)) != review['system_sha256']:
+    if folder is not None and not core.matches_system(identity, core.validate(folder)):
         raise ValueError('Review is stale for the current package')
     expected = human_checks(data)
     rules = {r['id']: r for r in data['standards']['rules'] + data['behavior']['rules']}

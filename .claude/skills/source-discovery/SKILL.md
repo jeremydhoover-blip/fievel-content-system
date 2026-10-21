@@ -1,6 +1,6 @@
 ---
 name: source-discovery
-description: Inventory and assess local or approved sources for a Fievel content system, preserving authority and provenance.
+description: Inventory and assess local or approved sources for a Fievel content system, preserving authority and provenance. Use when a user brings a style guide, policy or other document into their system, before its rules are mapped.
 ---
 
 # Source Discovery

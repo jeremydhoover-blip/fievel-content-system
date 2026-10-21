@@ -29,7 +29,7 @@ complete export. Outputs refuse overwrites and source package files stay unchang
 ## Contract version 1.0
 
 - consumer_review_export identifies the format and named consumer.
-- system_sha256 records the current seven-file package. provenance_sha256 records
+- system_sha256 records the package content files (system_scope "content": all files except progress.json; see ADR-007). provenance_sha256 records
   the optional explicit provenance input; content_sha256 hashes the exported content.
 - selection lists the policy, selected and excluded rule IDs and included draft count.
 - rules preserves each selected instruction, ID, status and source IDs exactly,

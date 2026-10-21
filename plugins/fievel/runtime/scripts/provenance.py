@@ -87,7 +87,7 @@ def audit_sources(folder, as_of, provenance=None, max_age_days=None):
             add('error','conflict_decision_incomplete','Resolved conflict needs resolution, decision owner and date',conflict_id=cid)
         if item['decided_on'] is not None:checked_date(item['decided_on'],'decided_on',conflict_id=cid)
     return {'kind':'source_provenance_audit','version':'1.0','as_of':as_of,'max_age_days':max_age_days,
-            'system_sha256':core.fingerprint(data),'provenance_sha256':core.fingerprint(config),
+            'system_scope':core.SYSTEM_SCOPE,'system_sha256':core.system_fingerprint(data),'provenance_sha256':core.fingerprint(config),
             'counts':{s:sum(f['severity']==s for f in findings) for s in ('error','warning')},
             'findings':findings,'source_locations_checked':False,'declared_conflicts':len(config['conflicts']),
             'limitations':['Source locations and excerpt accuracy were not checked.',

@@ -43,7 +43,7 @@ def export_consumer(folder, consumer, as_of, include_drafts=False, provenance=No
                                   'composition':'requires_consumer_owner_review'}}
     return {'kind':'consumer_review_export','version':'1.0','consumer':consumer.strip(),
             'status':'draft_review_artifact','exported_at':datetime.now(timezone.utc).isoformat(),
-            'as_of':as_of,'system_sha256':core.fingerprint(data),
+            'as_of':as_of,'system_scope':core.SYSTEM_SCOPE,'system_sha256':core.system_fingerprint(data),
             'provenance_sha256':audit['provenance_sha256'],
             'content_sha256':core.fingerprint(content),'content':content,
             'limitations':['Rule approval is declared metadata, not authenticated approval.',
