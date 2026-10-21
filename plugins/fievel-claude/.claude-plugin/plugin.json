@@ -2,7 +2,7 @@
   "name": "fievel",
   "displayName": "Fievel Content System",
   "version": "0.2.1",
-  "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+  "description": "Build and improve a portable content system with guided workflows and local quality checks. Runs bundled Python tools on your computer, with your permission; requires Python 3.10+.",
   "homepage": "https://jeremydhoover-blip.github.io/fievel-content-system/",
   "repository": "https://github.com/jeremydhoover-blip/fievel-content-system",
   "license": "MIT",

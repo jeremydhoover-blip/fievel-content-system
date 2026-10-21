@@ -11,7 +11,7 @@ so the privacy policy URL is live when reviewers open it.
 | Name | `fievel` (display name Fievel Content System on Claude, Fievel on Codex) |
 | Version | 0.2.1 |
 | Short description | Build your content system |
-| Description | Build and improve a portable content system with guided workflows and local quality checks. |
+| Description | Build and improve a portable content system with guided workflows and local quality checks. Runs bundled Python tools on your computer, with your permission; requires Python 3.10+. |
 | Category | Productivity |
 | Website | https://jeremydhoover-blip.github.io/fievel-content-system/ |
 | Support | https://github.com/jeremydhoover-blip/fievel-content-system/issues |

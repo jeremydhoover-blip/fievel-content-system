@@ -9,7 +9,7 @@
       "name": "fievel",
       "displayName": "Fievel Content System",
       "source": "./plugins/fievel-claude",
-      "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+      "description": "Build and improve a portable content system with guided workflows and local quality checks. Runs bundled Python tools on your computer, with your permission; requires Python 3.10+.",
       "category": "productivity"
     }
   ]
