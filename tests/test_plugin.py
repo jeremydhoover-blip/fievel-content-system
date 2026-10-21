@@ -89,6 +89,8 @@ class PluginBundleTests(unittest.TestCase):
                     claude['privacyPolicyUrl'], interface['websiteURL'], interface['supportURL'], interface['privacyPolicyURL']):
             self.assertTrue(url.startswith('https://'), url)
         self.assertEqual(claude['privacyPolicyUrl'], interface['privacyPolicyURL'])
+        self.assertEqual(claude['name'], 'fievel')
+        self.assertEqual(claude['displayName'], 'Fievel Content System')
         self.assertTrue(interface['privacyPolicyURL'].endswith('/privacy.html'))
         self.assertTrue((ROOT / 'website/dist/privacy.html').is_file())
         self.assertTrue(codex['extensions']['com.openai']['publication']['release_notes'])

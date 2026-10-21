@@ -1,5 +1,6 @@
 {
   "name": "fievel",
+  "displayName": "Fievel Content System",
   "version": "0.2.0",
   "description": "Build and improve a portable content system with guided workflows and local quality checks.",
   "homepage": "https://jeremydhoover-blip.github.io/fievel-content-system/",

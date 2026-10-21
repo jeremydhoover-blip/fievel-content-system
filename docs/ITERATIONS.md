@@ -617,3 +617,15 @@ validate --strict passes; the Codex ZIP (release/, ignored) matches the bundle a
 installs as 0.2.0 with six skills in an isolated home. PLUGIN-SUBMISSION.md holds
 listing values, steps and draft data-handling answers. Not run: either directory's
 scan or review, a live model session, and the privacy page on the deployed site.
+
+
+## I36 Claude directory name hold
+
+2026-10-21. The Anthropic directory validation passed with warnings and held the
+name for review: NAME_CONFUSABLE, "fievel" against the connector "level". The
+portal allows changing name, displayName or author.name. Set displayName
+"Fievel Content System" in the derived Claude manifest and catalog entry, keeping
+name `fievel` so install commands and skill namespaces are unchanged. Unknown-key
+warnings for documentationUrl, privacyPolicyUrl, supportUrl and icon are expected
+listing fields. 90 tests pass; validate --strict passes; an isolated install shows
+"Fievel Content System (fievel) 0.2.0". Not run: the portal's revalidation.

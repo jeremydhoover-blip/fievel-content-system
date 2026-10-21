@@ -8,7 +8,7 @@ so the privacy policy URL is live when reviewers open it.
 
 | Field | Value |
 | --- | --- |
-| Name | `fievel` (display name Fievel) |
+| Name | `fievel` (display name Fievel Content System on Claude, Fievel on Codex) |
 | Version | 0.2.0 |
 | Short description | Build your content system |
 | Description | Build and improve a portable content system with guided workflows and local quality checks. |
@@ -35,6 +35,12 @@ checklist: https://claude.com/docs/plugins/pre-submission-checklist.
    `plugins/fievel-claude`, branch `main`.
 3. Validate. Listing details are read from `.claude-plugin/plugin.json`.
 4. Answer data handling and compliance (draft answers below), then submit.
+
+The first validation held the name for review (`NAME_CONFUSABLE`: "fievel" is
+one letter from the connector "level"). The Claude manifest and catalog now set
+`displayName` to "Fievel Content System"; `name` stays `fievel`, so install
+commands and `fievel:` skill names are unchanged. The `documentationUrl`,
+`privacyPolicyUrl`, `supportUrl` and `icon` warnings need no action.
 
 Checked locally with Claude Code 2.1.304: `claude plugin validate --strict`
 passes for the plugin and the catalog; an isolated install from GitHub lists six

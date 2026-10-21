@@ -29,6 +29,9 @@ def claude_manifest(source):
     authored = json.loads(source)
     interface = authored.get('extensions', {}).get('com.openai', {}).get('interface', {})
     manifest = {key: authored[key] for key in ('name', 'version', 'description', 'homepage', 'repository', 'license')}
+    # A distinct display name keeps the directory's name-confusion check from
+    # matching an unrelated listing; `name` stays the install and skill namespace.
+    manifest = {'name': manifest.pop('name'), 'displayName': 'Fievel Content System', **manifest}
     if interface.get('developerName'):
         manifest['author'] = {'name': interface['developerName']}
     manifest['keywords'] = ['content-design', 'content-system', 'ai-behavior', 'evaluation']
