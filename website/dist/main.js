@@ -41,6 +41,10 @@ function choosePath(name) {
 document.querySelectorAll('[data-path]').forEach(button => button.addEventListener('click', () => choosePath(button.dataset.path)));
 document.querySelectorAll('[data-start-path]').forEach(link => link.addEventListener('click', () => choosePath(link.dataset.startPath)));
 choosePath('plugin');
+// Copy fields wrap long commands; size each one to its text where field-sizing is unsupported.
+const copyAreas=[...document.querySelectorAll('.copy-field textarea')];
+function fitCopyAreas(){copyAreas.forEach(area=>{if(area.offsetParent===null)return;area.style.height='auto';area.style.height=area.scrollHeight+'px';});}
+if(!CSS.supports('field-sizing','content')){fitCopyAreas();window.addEventListener('resize',fitCopyAreas);document.querySelectorAll('[data-path]').forEach(button=>button.addEventListener('click',fitCopyAreas));}
 // Success shows on the button itself; the status line stays for screen readers and for manual-copy help.
 const copyTimers=new Map();
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
@@ -141,8 +145,9 @@ applyMotion();
 
 // Highlight real graph relationships on hover, keyboard focus and selection.
 const graphLinks = [ ['context','standards'], ['sources','behavior'], ['standards','behavior'], ['behavior','skills'], ['evaluations','behavior'], ['governance','skills'], ['governance','sources'], ['behavior','tools'] ];
+// The wide and phone maps list their edges in the same order as graphLinks.
 const graphPaths = [...document.querySelectorAll('.ontology-edges path')];
-function highlightConnections(key){graphPaths.forEach((path,index)=>path.classList.toggle('is-connected',graphLinks[index].includes(key)));}
+function highlightConnections(key){graphPaths.forEach((path,index)=>path.classList.toggle('is-connected',graphLinks[index%graphLinks.length].includes(key)));}
 function selectedConnections(){highlightConnections(document.querySelector('[data-entity][aria-pressed="true"]')?.dataset.entity);}
 document.querySelectorAll('[data-entity]').forEach(node=>{
  node.addEventListener('pointerenter',()=>highlightConnections(node.dataset.entity));

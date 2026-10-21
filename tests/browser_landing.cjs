@@ -19,14 +19,14 @@ const {pathToFileURL}=require('url');let browser;
  assert.equal(await page.locator('.overline,.eyebrow').count(),0);
  assert.equal(await page.locator('[data-entity]:visible').count(),8);
  {const top=()=>page.locator('.hero h1').evaluate(n=>n.getBoundingClientRect().top-n.closest('.hero').getBoundingClientRect().top);const before=await top();await page.locator('[data-entity="context"]:visible').click();assert(Math.abs(await top()-before)<1,"map selection shifted the hero copy");}
- assert.equal(await page.locator('.ontology-edges path').count(),8);
+ assert.equal(await page.locator('.ontology-graph:visible .ontology-edges path').count(),8);
  assert(!/booking|refund|behavior\.json|no files are being written/i.test(await page.locator('body').innerText()));
  assert((await page.locator('[data-message="1"]').textContent()).includes("I'm Fievel"));
  for(const [entity,text] of [['standards','voice'],['sources','ground'],['behavior','responsibilities'],['skills','workflows'],['evaluations','scenarios'],['governance','ownership'],['context','who you serve'],['tools','MCP servers']]){
   await page.locator(`[data-entity="${entity}"]:visible`).click();assert((await page.locator('#entity-detail').textContent()).includes(text));
  }
- await page.locator('[data-entity="behavior"]').hover();assert.equal(await page.locator('.ontology-edges .is-connected').count(),5);
- await page.locator('[data-entity="governance"]').focus();assert.equal(await page.locator('.ontology-edges .is-connected').count(),2);
+ await page.locator('[data-entity="behavior"]:visible').hover();assert.equal(await page.locator('.ontology-graph:visible .ontology-edges .is-connected').count(),5);
+ await page.locator('[data-entity="governance"]:visible').focus();assert.equal(await page.locator('.ontology-graph:visible .ontology-edges .is-connected').count(),2);
  const repo='https://github.com/jeremydhoover-blip/fievel-content-system';
  for(const link of await page.locator('a[href^="https://github.com/"]').evaluateAll(nodes=>nodes.map(n=>n.href)))assert(link.startsWith(repo));
  for(const id of await page.locator('a[href^="#"]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href').slice(1)).filter(Boolean)))assert(await page.locator(`[id="${id}"]`).count());
@@ -62,7 +62,8 @@ const {pathToFileURL}=require('url');let browser;
  await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw Error('denied');};});await page.locator('[data-copy="first-prompt"]').click();assert((await page.locator('#copy-status').textContent()).includes('Text selected'));assert.equal(await page.evaluate(()=>document.activeElement.id),'first-prompt');
  await page.goto(url);await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.className),'skip');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>location.hash),'#main');
  for(const width of [1440,1024,768,390,320]){
-  await page.setViewportSize({width,height:1000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`Overflow at ${width}`);assert(await page.locator('.ontology-graph').isVisible());assert.equal(await page.locator('.ontology-node rect').count(),8);layouts.push({width,overflow:false,connectedGraph:true});
+  await page.setViewportSize({width,height:1000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`Overflow at ${width}`);assert.equal(await page.locator('.ontology-graph:visible').count(),1);assert.equal(await page.locator('.ontology-node rect:visible').count(),8);assert.equal(await page.locator('.ontology-graph:visible').evaluate(n=>n.closest('.graph-scroll')?n.closest('.graph-scroll').scrollWidth>n.closest('.graph-scroll').clientWidth+1:false),false,`Map scrolls at ${width}`);for(const area of await page.locator('.copy-field textarea:visible').all())assert(await area.evaluate(n=>n.scrollWidth<=n.clientWidth+1&&n.scrollHeight<=n.clientHeight+1),`Copy field scrolls at ${width}`);
+  layouts.push({width,overflow:false,connectedGraph:true});
   if([1440,390].includes(width))await page.screenshot({path:path.join(out,`landing-${width}.png`),fullPage:true});
  }
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:1000}});await fallback.goto(url);

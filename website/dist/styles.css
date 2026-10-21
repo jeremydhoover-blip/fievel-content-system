@@ -500,3 +500,22 @@ body{background:var(--bg)}
 .card-title .brand-icon{flex-shrink:0}
 .card-title .brand-icon{width:20px;height:23px;margin:-3px 0}
 .card-title .brand-icon img{width:36px;height:36px;left:-8px;top:-7px}
+/* Phones: a two-column map that fits the screen, so nothing scrolls sideways */
+.ontology .ontology-graph-portrait{display:none}
+@media(max-width:640px){
+.ontology .graph-scroll{display:none}
+.ontology .ontology-graph-portrait{display:block;width:100%;max-width:420px;min-width:0;margin:0 auto;overflow:visible}
+.ontology-graph-portrait .ontology-node rect{fill:url(#node-surface-p)}
+.ontology-graph-portrait .ontology-edges path.is-connected{marker-end:url(#arrow-active-p)}
+}
+/* Agent cards share rows, so titles, buttons, links and Learn more line up and the cards match in height */
+@supports (grid-template-rows:subgrid){
+.agent-options{align-items:stretch;row-gap:0}
+.agent-card{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-content:start}
+.agent-card h3,.agent-card .agent-links{align-self:start}
+@media(max-width:480px){.agent-options{row-gap:12px}}
+}
+/* Command and prompt fields wrap and grow to fit, so nothing scrolls inside them */
+.copy-field textarea{white-space:pre-wrap;overflow-wrap:anywhere;overflow:hidden;field-sizing:content;min-height:0}
+@media(max-width:640px){.ontology-graph-portrait .ontology-node[aria-pressed=true] rect{fill:var(--apricot)}}
+.ontology-node,.eval-step{-webkit-tap-highlight-color:transparent}
