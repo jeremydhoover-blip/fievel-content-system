@@ -146,7 +146,11 @@ def matches_system(record, data):
 
 
 def evaluate(folder, responses):
-    data = validate(folder, require_coverage=True)
+    return evaluate_data(validate(folder, require_coverage=True), responses)
+
+
+def evaluate_data(data, responses):
+    """Run literal checks for an already validated, fully covered package."""
     # Saved responses are a concrete target; this never generates an AI response.
     if not isinstance(responses, dict) or not responses:
         raise ValueError('Provide a nonempty object mapping scenario IDs to saved response text.')

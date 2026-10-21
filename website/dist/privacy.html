@@ -11,16 +11,27 @@
 <header class="header wrap"><a class="wordmark" href="./"><span class="brand-icon" aria-hidden="true"><img src="assets/fievel-logo.png" alt="" width="512" height="512"></span><span>Fievel</span></a></header>
 <main id="main" class="section wrap policy">
 <h1>Privacy policy</h1>
-<p class="policy-date">Effective 21 October 2026</p>
+<p class="policy-date">Effective 22 October 2026</p>
 
 <p>Fievel is an open source plugin and repository that helps you build a content
 system with your coding agent. This policy covers the Fievel plugin for Claude Code,
 Codex and GitHub Copilot, the Fievel repository and this website.</p>
 
 <h2>What Fievel collects</h2>
-<p>Nothing. Fievel has no accounts, servers, analytics, telemetry or advertising.
-Its Python tools and generated pages run on your computer and make no network
-requests. We never receive your project files, prompts or conversations.</p>
+<p>Fievel has no accounts, analytics, telemetry or advertising, and keeps none of your
+content. Its Python tools, its local tool server and the pages it generates run on
+your computer and make no network requests. The only exception is the optional
+hosted server described below, which processes content without keeping it.</p>
+
+<h2>Fievel's hosted server</h2>
+<p>The Fievel plugin for Codex and ChatGPT can use a hosted Fievel server to validate
+a content system and run literal checks. When your agent uses it, it sends the files
+and saved responses needed for that request. The server processes them in memory,
+returns the result and discards them. It stores no content, has no accounts and does
+not log what you send. Its host, Google Cloud, may record technical information such
+as IP addresses, request times and paths, as described in the
+<a href="https://cloud.google.com/terms/cloud-privacy-notice">Google Cloud Privacy Notice</a>.
+The Claude Code plugin does not use the hosted server.</p>
 
 <h2>Where your files are stored</h2>
 <p>Your content system is saved as files in the folder you choose. Fievel does not

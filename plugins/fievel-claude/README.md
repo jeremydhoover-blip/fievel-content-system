@@ -17,6 +17,10 @@ files you own.
 | evaluation-designer | Create quality checks, check saved responses and prepare human review |
 | content-audit | Review an existing Fievel system for gaps, conflicts and coverage |
 
+Fievel also provides tools your agent calls directly: in Claude Code a local tool
+server creates, validates and checks your project and builds its viewer; in Codex a
+hosted server offers lessons, templates, validation and checks.
+
 Start a new chat in your project folder and ask Fievel to get started. A
 fictional practice example is included, so you can try it without company data.
 
@@ -27,10 +31,11 @@ with your permission, installs it in a `.fievel-venv` folder in your workspace.
 
 ## Your data
 
-Fievel's tools run on your computer and make no network requests. Your project
-files stay in the folder you choose; nothing is saved inside the plugin. What
-you share in the conversation is handled by your coding agent under its own
-terms. See the [privacy policy](https://jeremydhoover-blip.github.io/fievel-content-system/privacy.html).
+Fievel's local tools run on your computer and make no network requests. Your
+project files stay in the folder you choose; nothing is saved inside the plugin.
+In Codex, the hosted server processes the content your agent sends and keeps none
+of it. What you share in the conversation is handled by your coding agent under
+its own terms. See the [privacy policy](https://jeremydhoover-blip.github.io/fievel-content-system/privacy.html).
 
 ## Links
 

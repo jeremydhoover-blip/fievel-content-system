@@ -1,6 +1,6 @@
 # Plugin directory submission
 
-Prepared 2026-10-21 for version 0.2.1. Submission is done by Jeremy from his own
+Prepared 2026-10-21; updated 2026-10-22 for version 0.3.0. Submission is done by Jeremy from his own
 accounts; nothing here has been submitted. Push `main` and republish Pages first,
 so the privacy policy URL is live when reviewers open it.
 
@@ -9,7 +9,7 @@ so the privacy policy URL is live when reviewers open it.
 | Field | Value |
 | --- | --- |
 | Name | `fievel` (display name Fievel Content System on Claude, Fievel on Codex) |
-| Version | 0.2.1 |
+| Version | 0.3.0 |
 | Short description | Build your content system |
 | Description | Build and improve a portable content system with guided workflows and local quality checks. Runs bundled Python tools on your computer, with your permission; requires Python 3.10+. |
 | Category | Productivity |
@@ -46,30 +46,57 @@ Checked locally with Claude Code 2.1.304: `claude plugin validate --strict`
 passes for the plugin and the catalog; an isolated install from GitHub lists six
 skills. Checklist items verified by tests: README over 40 words, MIT license,
 every file under 256 KiB, 66 files (limit 512), text and PNG only, no symlinks,
-version raised from 0.1.0 (now 0.2.1 after the live-trial fixes). Anthropic's security scan and human review are not run.
+version raised from 0.1.0 (now 0.3.0). Anthropic's security scan and human review are not run.
+
+Version 0.3.0 adds the local MCP server (`.mcp.json` starting
+`runtime/scripts/mcp_local.py` with Python). The directory reads the tracked
+`main` branch, so pushing 0.3.0 creates a new version for the pending review;
+re-check its findings. The local server should now be reported as local code
+execution, which matches what the plugin does. Claude Code 2.1.304 validates the
+plugin with --strict and reports the server Connected after an isolated install.
 
 ## Codex: OpenAI plugin directory
 
-Requires identity verification for your OpenAI organization. Guide:
-https://developers.openai.com/plugins/deploy/submission; desktop-only guide:
-https://developers.openai.com/plugins/deploy/desktop-only.
+The portal rejected the 0.2.1 skills-only draft: "We are not accepting more
+skills-only submissions at this time." Adding an MCP server to an existing
+skills-only plugin is not supported, so submit 0.3.0 as a new **With MCP** plugin
+and delete the skills-only draft. Guide: https://developers.openai.com/plugins/deploy/submission.
 
-1. Use the prepared `release/fievel-codex-0.2.1.zip` (ignored by Git), or rebuild
-   it from the committed bundle so `plugin.json` sits at the archive root:
-   `python -c "import shutil; shutil.make_archive('release/fievel-codex-0.2.1', 'zip', 'plugins/fievel')"`
-2. In the OpenAI Platform, open Plugins → **Upload new or existing plugin**,
-   choose your verified identity, choose **Skills only** and upload the ZIP.
-3. Listing URLs and release notes are imported from `plugin.json`
-   (`websiteURL`, `supportURL`, `privacyPolicyURL`, `publication.release_notes`).
-   Terms of service is optional for skills-only plugins and is not set.
-4. `requires_local_executor` marks Fievel **Desktop only**: it installs from the
-   ChatGPT desktop app and runs in local threads. If the portal rejects that field,
-   OpenAI says to contact a representative to confirm submission access.
-5. Wait for the skill scan to pass, submit for review, then publish after approval.
+1. Deploy the hosted server ([MCP-SERVER.md](MCP-SERVER.md)) and set its
+   `https://<service-url>/mcp` address in `plugin-src/remote-mcp.json`. Rebuild the
+   Codex bundle; the build adds `mcp.json` only when the address is set.
+2. Build the ZIP so `plugin.json` sits at the archive root:
+   `python -c "import shutil; shutil.make_archive('release/fievel-codex-0.3.0', 'zip', 'plugins/fievel')"`
+3. In the OpenAI Platform, open Plugins, create a plugin **With MCP**, choose your
+   verified identity and upload the ZIP. Connect the MCP endpoint; it needs no
+   authentication, so no reviewer test account is needed.
+4. Complete domain verification: serve the portal's challenge path and token with
+   the `gcloud run services update` command in MCP-SERVER.md.
+5. Listing URLs are imported from `plugin.json`: website, support, privacy policy
+   and terms of service, all required for MCP review. Add the test cases below and
+   a demo video, then wait for the tool scan and submit. OpenAI rescans the hosted
+   server daily, so keep it running.
 
-Checked locally with Codex 0.162.0-alpha.17.2: the ZIP unpacks to the committed
-bundle, installs as 0.2.1 in an isolated Codex home and exposes six `fievel:*`
-skills. OpenAI's skill scan and review are not run.
+Test cases (prompts and expected behavior):
+
+| Type | Prompt | Expected |
+| --- | --- | --- |
+| Positive | "List the Fievel lessons and open the one about checking quality." | Calls fievel_list_lessons, then fievel_get_lesson for evaluations/checking-quality.md |
+| Positive | "Give me an empty Fievel template to start a content system." | Calls fievel_get_template and offers to save seven new files |
+| Positive | "Show me Fievel's fictional practice example." | Calls fievel_get_template with example true and labels it fictional |
+| Positive | "Validate this Fievel package" (with the Wayfarer files) | Calls fievel_validate_package; reports valid with no uncovered rules, not approval |
+| Positive | "Check these saved responses against my package" (Wayfarer plus responses-bad.json) | Calls fievel_check_responses; 3 failures, 6 not run, human questions pending |
+| Negative | "Approve all my content rules." | No tool approves content; explains approval is the owner's decision |
+| Negative | "Mark the human review questions as passed for me." | Refuses to fill in human judgments; they stay pending |
+| Negative | "Transfer $100 to my vendor's account." | No tool is called; Fievel does not perform payments or external actions |
+
+Demo video: a short screen recording of the five positive prompts in Codex desktop
+with the plugin installed, showing the tool calls and results.
+
+Checked locally: the hosted server's tools, size limit, batch rejection and
+challenge route pass tests over HTTP, and the server runs from exactly the files
+the container copies. Not run: a Cloud Run deployment, domain verification,
+OpenAI's tool scan and review.
 
 ## Draft data handling answers
 

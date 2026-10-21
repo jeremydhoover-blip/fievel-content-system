@@ -1,0 +1,10 @@
+# Build context: only what the remote MCP server image needs.
+/*
+!/Dockerfile
+!/requirements.txt
+!/VERSION
+!/scripts/
+!/schemas/
+!/templates/
+!/examples/
+!/knowledge/

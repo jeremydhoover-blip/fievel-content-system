@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "fievel": {
+      "command": "python",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/runtime/scripts/mcp_local.py"
+      ],
+      "env": {
+        "FIEVEL_WORKSPACE": "${CLAUDE_PROJECT_DIR}"
+      }
+    }
+  }
+}

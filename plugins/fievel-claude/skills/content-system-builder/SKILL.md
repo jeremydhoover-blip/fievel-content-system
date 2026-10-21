@@ -12,6 +12,13 @@ separate from the installed plugin. Find the plugin root two directories above
 this SKILL.md; its `runtime/` directory is the bundled resource root, called R below.
 Resolve R from this skill's actual installed path, never a development checkout.
 
+- Prefer Fievel's MCP tools when they are available (names start with `fievel_`).
+  Local tools such as `fievel_init`, `fievel_validate`, `fievel_check` and
+  `fievel_view` work only inside the user's workspace and never overwrite files;
+  call `fievel_setup_status` first. Remote tools such as `fievel_validate_package`
+  and `fievel_check_responses` receive package content, store nothing, and return
+  results to save as new files; tell the user that content is sent to the Fievel
+  server for processing. Without tools, use the CLI as described below.
 - Read `R/AGENTS.md` for Fievel's conversation and workflow rules. References in
   this skill and in AGENTS.md to AGENTS.md, docs/, knowledge/, templates/, examples/,
   schemas/, scripts/ and .agents/skills/ are relative to R, not the user's working directory.
@@ -21,8 +28,8 @@ Resolve R from this skill's actual installed path, never a development checkout.
   workspace. Run one simple command per step: the Python interpreter
   with the CLI path and its arguments, without chained commands, shell variables
   or PowerShell scripts. Read and list files with the host's file tools. Simple
-  commands keep the user's permission prompts clear and predictable. Never create projects, install dependencies, or edit inside R or the
-  plugin cache. Never copy Fievel AGENTS.md over a user's repository instructions.
+  commands keep the user's permission prompts clear and predictable. Never create
+  projects, install dependencies, or edit inside R or the plugin cache. Never copy Fievel AGENTS.md over a user's repository instructions.
 - Check Python 3.10+ and `python -c "import jsonschema"`. If missing, explain the
   prerequisite. When setup is authorized, create a new `.fievel-venv` in the user's
   workspace and install `R/requirements.txt` with its Python. Reuse a working

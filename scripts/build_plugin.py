@@ -7,7 +7,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ('WORKFLOW.md', 'HUMAN-REVIEW.md', 'SOURCE-PROVENANCE.md', 'CONSUMER-EXPORT.md')
 SCRIPTS = ('fievel.py', 'adapters.py', 'consumer.py', 'provenance.py',
-           'review_evidence.py', 'review_page.py', 'viewer.py')
+           'review_evidence.py', 'review_page.py', 'viewer.py',
+           'mcp_protocol.py', 'mcp_tools.py', 'mcp_local.py')
+# Claude Code starts the local server from the plugin; ${...} values are substituted at load time.
+CLAUDE_MCP = {'mcpServers': {'fievel': {'command': 'python',
+                                        'args': ['${CLAUDE_PLUGIN_ROOT}/runtime/scripts/mcp_local.py'],
+                                        'env': {'FIEVEL_WORKSPACE': '${CLAUDE_PROJECT_DIR}'}}}}
 TARGETS = ('codex', 'claude')
 SKILLS = ('getting-started', 'content-system-builder', 'source-discovery',
           'ai-behavior-designer', 'evaluation-designer', 'content-audit')
@@ -83,6 +88,17 @@ def package_files(root=ROOT, target='codex'):
                 add(relative, f'runtime/{relative}')
     add('website/dist/assets/fievel-logo.png', 'assets/fievel-logo.png')
     add('plugin-src/README.md', 'README.md')
+    if target == 'claude':
+        result['.mcp.json'] = (json.dumps(CLAUDE_MCP, indent=2) + '\n').encode('utf-8')
+    else:
+        # Codex connects to the hosted server once its HTTPS address is configured.
+        url = json.loads(read('plugin-src/remote-mcp.json'))['url']
+        if url:
+            if not url.startswith('https://') or not url.endswith('/mcp'):
+                raise ValueError('plugin-src/remote-mcp.json url must be an https:// address ending in /mcp')
+            result['mcp.json'] = (json.dumps({
+                '$schema': 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json',
+                'mcpServers': {'fievel': {'type': 'streamable-http', 'url': url}}}, indent=2) + '\n').encode('utf-8')
     add('LICENSE', 'LICENSE')
     return result
 

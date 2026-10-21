@@ -662,3 +662,20 @@ preamble asks for one simple Python command per step and host file tools for
 reading. Version 0.2.1; bundles and Codex ZIP rebuilt. 95 tests, adapter sync,
 evidence verification, viewer and review browser suites and Claude validate
 --strict pass. Not run: a live session confirming LT-02 and LT-03 behavior.
+
+
+## I39 MCP servers for Claude Code and the Codex directory
+
+2026-10-22. OpenAI's portal rejected the skills-only draft ("We are not
+accepting more skills-only submissions at this time"); the user chose local and
+remote MCP servers and Google Cloud Run hosting. ADR-008: a dependency-free MCP
+layer with shared lesson, template and format tools; a stdio local server wrapping
+the CLI inside FIEVEL_WORKSPACE, shipped in the Claude bundle via .mcp.json; and a
+stateless HTTP remote server for the Codex bundle (mcp.json added once its URL is
+set), with a 2 MiB cap, no batching, no content logging and a domain-challenge
+route. Added evaluate_data, Dockerfile, .gcloudignore/.dockerignore, MCP-SERVER.md
+deploy guide, privacy and terms sections for the hosted server, skill preamble
+guidance, Codex test cases and version 0.3.0. 100 tests pass; Claude validate
+--strict passes and an isolated install reports the local server Connected; the
+remote server runs from the container's file set. Not run: Cloud Run deployment,
+domain verification, OpenAI tool scan, a live session using the tools.

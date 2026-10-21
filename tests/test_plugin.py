@@ -103,6 +103,23 @@ class PluginBundleTests(unittest.TestCase):
             self.assertLess(max(len(content) for content in files.values()), 256 * 1024)
             self.assertLessEqual(len(files) + 1, 512)
 
+    def test_mcp_server_configuration(self):
+        claude = package_files(target='claude')
+        server = json.loads(claude['.mcp.json'])['mcpServers']['fievel']
+        self.assertEqual(server['args'], ['${CLAUDE_PLUGIN_ROOT}/runtime/scripts/mcp_local.py'])
+        self.assertEqual(server['env'], {'FIEVEL_WORKSPACE': '${CLAUDE_PROJECT_DIR}'})
+        for name in ('mcp_protocol.py', 'mcp_tools.py', 'mcp_local.py'):
+            self.assertIn(f'runtime/scripts/{name}', claude)
+        self.assertNotIn('runtime/scripts/mcp_remote.py', claude)
+        codex = package_files(target='codex')
+        url = json.loads((ROOT / 'plugin-src/remote-mcp.json').read_text(encoding='utf-8'))['url']
+        if url:
+            remote = json.loads(codex['mcp.json'])['mcpServers']['fievel']
+            self.assertEqual(remote, {'type': 'streamable-http', 'url': url})
+        else:
+            self.assertNotIn('mcp.json', codex)
+        self.assertNotIn('.mcp.json', codex)
+
     def test_public_plugin_text_has_no_internal_status(self):
         for text in (package_files(target='codex')['plugin.json'], package_files(target='claude')['.claude-plugin/plugin.json'],
                      (ROOT / '.agents/plugins/marketplace.json').read_bytes(), (ROOT / '.claude-plugin/marketplace.json').read_bytes()):
