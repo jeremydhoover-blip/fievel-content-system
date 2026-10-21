@@ -7,7 +7,7 @@ designers and AI experience designers. Work with a coding agent to connect produ
 context, writing standards, sources, AI behavior, quality checks and governance.
 Your output is a set of readable, reusable files that you own.
 
-Version 0.1.0 includes a seven-stage workflow, six skills, draft templates, a
+Version 0.2.0 includes a seven-stage workflow, six skills, draft templates, a
 complete fictional booking support example, a local command-line tool and a
 read-only viewer that maps how your system connects. There is no hosted service
 or custom agent framework.

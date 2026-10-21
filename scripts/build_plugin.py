@@ -28,12 +28,15 @@ def claude_manifest(source):
     """Derive Claude Code's .claude-plugin/plugin.json from the authored manifest."""
     authored = json.loads(source)
     interface = authored.get('extensions', {}).get('com.openai', {}).get('interface', {})
-    manifest = {key: authored[key] for key in ('name', 'version', 'description', 'license')}
+    manifest = {key: authored[key] for key in ('name', 'version', 'description', 'homepage', 'repository', 'license')}
     if interface.get('developerName'):
         manifest['author'] = {'name': interface['developerName']}
     manifest['keywords'] = ['content-design', 'content-system', 'ai-behavior', 'evaluation']
     # Read only for directory listings; must stay inside the plugin root.
     manifest['icon'] = './assets/fievel-logo.png'
+    manifest['documentationUrl'] = authored['repository'] + '#install-as-a-plugin'
+    manifest['supportUrl'] = interface['supportURL']
+    manifest['privacyPolicyUrl'] = interface['privacyPolicyURL']
     return (json.dumps(manifest, indent=2) + '\n').encode('utf-8')
 
 
@@ -76,6 +79,7 @@ def package_files(root=ROOT, target='codex'):
                 relative = path.relative_to(root).as_posix()
                 add(relative, f'runtime/{relative}')
     add('website/dist/assets/fievel-logo.png', 'assets/fievel-logo.png')
+    add('plugin-src/README.md', 'README.md')
     add('LICENSE', 'LICENSE')
     return result
 

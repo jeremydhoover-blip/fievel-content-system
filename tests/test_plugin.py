@@ -81,6 +81,26 @@ class PluginBundleTests(unittest.TestCase):
         onboarding = json.loads(package_files(target='codex')['plugin.json'])['extensions']['com.openai']['onboardingSkill']
         self.assertIn(onboarding.removeprefix('./'), package_files(target='codex'))
 
+    def test_directory_listing_metadata(self):
+        claude = json.loads(package_files(target='claude')['.claude-plugin/plugin.json'])
+        codex = json.loads(package_files(target='codex')['plugin.json'])
+        interface = codex['extensions']['com.openai']['interface']
+        for url in (claude['homepage'], claude['repository'], claude['documentationUrl'], claude['supportUrl'],
+                    claude['privacyPolicyUrl'], interface['websiteURL'], interface['supportURL'], interface['privacyPolicyURL']):
+            self.assertTrue(url.startswith('https://'), url)
+        self.assertEqual(claude['privacyPolicyUrl'], interface['privacyPolicyURL'])
+        self.assertTrue(interface['privacyPolicyURL'].endswith('/privacy.html'))
+        self.assertTrue((ROOT / 'website/dist/privacy.html').is_file())
+        self.assertTrue(codex['extensions']['com.openai']['publication']['release_notes'])
+        for target in ('codex', 'claude'):
+            files = package_files(target=target)
+            readme = files['README.md'].decode('utf-8')
+            self.assertGreaterEqual(len(readme.split()), 40)
+            self.assertTrue(all(f'| {name} |' in readme for name in ('getting-started', 'content-audit')))
+            # Anthropic directory limits: files under 256 KiB, at most 512 files.
+            self.assertLess(max(len(content) for content in files.values()), 256 * 1024)
+            self.assertLessEqual(len(files) + 1, 512)
+
     def test_public_plugin_text_has_no_internal_status(self):
         for text in (package_files(target='codex')['plugin.json'], package_files(target='claude')['.claude-plugin/plugin.json'],
                      (ROOT / '.agents/plugins/marketplace.json').read_bytes(), (ROOT / '.claude-plugin/marketplace.json').read_bytes()):

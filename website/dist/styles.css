@@ -237,3 +237,6 @@ body:not(.js) .agent-options{display:grid}
 .plugin-option h3{font-size:17px;margin-bottom:6px}.plugin-option>p{font-size:13px;color:var(--muted);margin-bottom:18px;max-width:64ch}
 .plugin-fields{display:grid;grid-template-columns:1fr;gap:16px}.plugin-fields .copy-field{margin:0}.plugin-fields textarea{white-space:pre;overflow-x:auto}
 @media(max-width:760px){.plugin-fields{grid-template-columns:1fr}.plugin-option{padding:18px}}
+
+/* Privacy policy page */
+.policy{max-width:720px;border-top:0}.policy h1{max-width:none;font-size:clamp(34px,4vw,48px)}.policy h2{font-size:22px;letter-spacing:-.5px;margin:34px 0 10px;max-width:none}.policy p{font-size:15px;line-height:1.8;color:var(--ink)}.policy a{color:var(--accent)}.policy-date{color:var(--muted)!important;font-size:13px!important}

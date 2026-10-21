@@ -58,7 +58,7 @@ const {pathToFileURL}=require('url');let browser;
   assert(text.includes('marketplace add jeremydhoover-blip/fievel-content-system')&&text.includes(`${install} fievel@fievel-content-system`),text);
   assert.equal(await page.locator('#copy-status').textContent(),`${tool} install commands copied.`);
  }
- assert.equal(await page.locator('.footer a').getAttribute('href'),`${repo}/blob/main/LICENSE`);assert(!/all rights reserved/i.test(await page.locator('.footer').textContent()));
+ assert.equal(await page.locator('.footer a[href$="LICENSE"]').getAttribute('href'),`${repo}/blob/main/LICENSE`);assert.equal(await page.locator('.footer a[href="./privacy.html"]').count(),1);assert(!/all rights reserved/i.test(await page.locator('.footer').textContent()));
  await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw Error('denied');};});await page.locator('[data-copy="first-prompt"]').click();assert((await page.locator('#copy-status').textContent()).includes('Text selected'));assert.equal(await page.evaluate(()=>document.activeElement.id),'first-prompt');
  await page.goto(url);await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.className),'skip');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>location.hash),'#main');
  for(const width of [1440,1024,768,390,320]){

@@ -602,3 +602,18 @@ renamed catalog to fievel-content-system; isolated install and prompt render lis
 six fievel:* skills with no icon warnings. README now has exact install commands.
 Not run: a live model session in either host, a GitHub-sourced install, the CI
 matrix and the Pages deployment.
+
+
+## I35 Directory submission preparation
+
+2026-10-21. User asked to prepare both plugins for directory submission and will
+submit personally. Version raised to 0.2.0. Added plugin-src/README.md as the
+bundle README, homepage/repository, Codex websiteURL/supportURL/privacyPolicyURL
+and release notes, and Claude documentationUrl/supportUrl/privacyPolicyUrl.
+Added website/dist/privacy.html, linked from the landing footer. Rebuilt both
+bundles; a new test covers listing URLs, README length and Anthropic's file size
+and count limits. 90 tests pass; adapters match; landing suite passes. Claude Code
+validate --strict passes; the Codex ZIP (release/, ignored) matches the bundle and
+installs as 0.2.0 with six skills in an isolated home. PLUGIN-SUBMISSION.md holds
+listing values, steps and draft data-handling answers. Not run: either directory's
+scan or review, a live model session, and the privacy page on the deployed site.

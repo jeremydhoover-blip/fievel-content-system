@@ -1,8 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fievel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+  "homepage": "https://jeremydhoover-blip.github.io/fievel-content-system/",
+  "repository": "https://github.com/jeremydhoover-blip/fievel-content-system",
   "license": "MIT",
   "extensions": {
     "com.openai": {
@@ -24,7 +26,13 @@
         ],
         "brandColor": "#B65B3D",
         "logo": "./assets/fievel-logo.png",
-        "composerIcon": "./assets/fievel-logo.png"
+        "composerIcon": "./assets/fievel-logo.png",
+        "websiteURL": "https://jeremydhoover-blip.github.io/fievel-content-system/",
+        "supportURL": "https://github.com/jeremydhoover-blip/fievel-content-system/issues",
+        "privacyPolicyURL": "https://jeremydhoover-blip.github.io/fievel-content-system/privacy.html"
+      },
+      "publication": {
+        "release_notes": "Six guided skills for building a portable content system: getting started, content standards, sources, AI behavior, evaluations and audits. Local Python tools validate your files, run saved-response checks and generate a read-only viewer. Your project stays in your own folder."
       }
     }
   }

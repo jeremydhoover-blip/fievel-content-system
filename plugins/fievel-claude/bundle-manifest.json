@@ -1,6 +1,7 @@
 {
-  ".claude-plugin/plugin.json": "9347e43d2197a15e11360daa6cccc0d48fab80241b8f2025655ab5cd3c357a18",
+  ".claude-plugin/plugin.json": "cf94a63a7b9e578a8e8eae4c4aec6320796dbf63119a0fba5728408e5a383c23",
   "LICENSE": "8b0f501af0a0befb3d93c054c0bfd52af519c2d7bb8eb81bf6a558d5349e1848",
+  "README.md": "8d54544b0b509ff354e69c08b9d04d1ae78af5caefab8af844f3b9815c0915b3",
   "assets/fievel-logo.png": "180810c4b0b63022999eb4481259f7fc67e5103901f0308ba29313e303daa2b7",
   "runtime/.agents/skills/ai-behavior-designer/SKILL.md": "0559a4c4785f4868916d43ed5d3634645685912595ee0c513c98fc1d6a5f85ca",
   "runtime/.agents/skills/content-audit/SKILL.md": "bc2b3306bdc4d28c4fab97be02604018ac58fa00c6a3517b4fabcde9ec3138b9",
@@ -10,7 +11,7 @@
   "runtime/.agents/skills/source-discovery/SKILL.md": "23006bd492258e5c1654c19c72f408237160b0693604f822247e224f5d0dc2be",
   "runtime/AGENTS.md": "a186938a2e450c0379ccdc7c2eac5f0529e8cf1ce93a427069ba3f24170140f1",
   "runtime/LICENSE": "8b0f501af0a0befb3d93c054c0bfd52af519c2d7bb8eb81bf6a558d5349e1848",
-  "runtime/VERSION": "e9dd8507f4bf0c6f42458e41aea833ad0bd3f6127272335eee9bf4d58541ed67",
+  "runtime/VERSION": "1f930dd1f133c1f97a94fe3acb8db34372cf4c01ffdb2b3ff4ca72f9494121e9",
   "runtime/docs/CONSUMER-EXPORT.md": "c0fa9272f7a807a9767e962abf5559c7d5c455c1d2a8c243dde38c34a1f434a1",
   "runtime/docs/HUMAN-REVIEW.md": "ef1ae70c4c30d14b42e1bb72bec0cd5045a9780f0bf209a443404dc8a5536bb0",
   "runtime/docs/SOURCE-PROVENANCE.md": "ed5f937e49766761f0766067d65299f3a4c2bf7ec47c9fb1929fa2261c980e14",
