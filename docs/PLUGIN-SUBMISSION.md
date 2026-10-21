@@ -75,12 +75,14 @@ skills. OpenAI's skill scan and review are not run.
 
 Review before submitting; you attest to these.
 
-- Collects or stores personal data: **No.** Fievel has no servers, accounts,
-  analytics or telemetry.
-- Sends data to undisclosed destinations: **No.** The bundled Python tools and
+- Reads or stores personal data: **Reads and stores.** Project files can hold names
+  the user enters (content owners, source owners, reviewers) and anything in
+  supplied sources. Everything stays in the user's folder; Fievel has no servers,
+  accounts, analytics or telemetry. The privacy policy says so.
+- Sends data to another service: **No.** The bundled Python tools and
   generated pages make no network requests. With the user's approval, setup
   installs `jsonschema` from the Python Package Index.
-- Data retention: **None by Fievel.** Project files stay in the user's chosen
+- Data retention: **Not retained.** Project files stay in the user's chosen
   folder; conversation handling belongs to the host agent.
-- Directed at minors: **No.** The audience is professional content designers.
+- Intended for users under 18: **No.** The audience is professional content designers.
 - Contact email: your choice.
