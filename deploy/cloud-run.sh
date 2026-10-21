@@ -15,6 +15,15 @@ echo "Deploying $SERVICE to project $PROJECT in $REGION"
 
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
 
+# Source deploys build with the project's default compute service account. New projects
+# (and organizations that disable automatic grants) give it no build permissions, so grant
+# the Cloud Run Builder role, scoped to this project only. Safe to repeat.
+NUMBER=$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="serviceAccount:${NUMBER}-compute@developer.gserviceaccount.com" \
+  --role=roles/run.builder --condition=None --quiet >/dev/null
+echo "Build service account has roles/run.builder"
+
 # Cost limits: one instance at most, 256 MiB, CPU only during requests, 30 s timeout,
 # scale to zero when idle. Public access because the directory calls it without sign-in;
 # the server stores and logs no content.
