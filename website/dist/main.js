@@ -30,6 +30,10 @@ document.querySelectorAll('[data-plugin]').forEach(link => {
  link.href = url; link.target = '_blank'; link.rel = 'noopener';
  link.textContent = 'Get the Fievel plugin'; delete link.dataset.startPath;
 });
+document.querySelectorAll('[data-plugin-icon]').forEach(link => {
+ const url = pluginListings[link.dataset.pluginIcon];
+ if (url) link.href = url;
+});
 function choosePath(name) {
  document.querySelectorAll('[data-path]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.path === name)));
  document.querySelectorAll('[data-path-panel]').forEach(panel => { panel.hidden = panel.dataset.pathPanel !== name; });
@@ -37,35 +41,65 @@ function choosePath(name) {
 document.querySelectorAll('[data-path]').forEach(button => button.addEventListener('click', () => choosePath(button.dataset.path)));
 document.querySelectorAll('[data-start-path]').forEach(link => link.addEventListener('click', () => choosePath(link.dataset.startPath)));
 choosePath('plugin');
+// Success shows on the button itself; the status line stays for screen readers and for manual-copy help.
+const copyTimers=new Map();
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
  const field=get(button.dataset.copy), status=get('copy-status');
  try {
   if(!navigator.clipboard?.writeText) throw Error('Clipboard unavailable');
   await navigator.clipboard.writeText(field.value);
+  status.classList.remove('is-visible');
   status.textContent=`${button.dataset.label||'Text'} copied.`;
- } catch {field.focus();field.select();status.textContent='Text selected. Use your device copy command to copy it.';}
+  button.textContent='Copied';button.classList.add('is-copied');
+  clearTimeout(copyTimers.get(button));
+  copyTimers.set(button,setTimeout(()=>{button.textContent='Copy';button.classList.remove('is-copied');},2000));
+ } catch {field.focus();field.select();status.classList.add('is-visible');status.textContent='Text selected. Use your device copy command to copy it.';}
 }));
 // A single owned timer makes pause and replay deterministic and cancellable.
 const messages=[...document.querySelectorAll('[data-message]')];
-const chat=get('chat-window'), typing=get('typing'), play=get('play');
+const chat=get('chat-window'), typing=get('typing'), userTyping=get('user-typing'), play=get('play');
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
 let timer=null, remaining=0, deadline=0, eventIndex=0, state='ready';
 const events=[
- {delay:0,visible:1,dots:false},
+ {delay:0,visible:1},
  {delay:2200,visible:1,dots:true},
- {delay:1200,visible:2,dots:false},
- {delay:3500,visible:3,dots:false},
- {delay:2500,visible:3,dots:true},
- {delay:1200,visible:4,dots:false},
- {delay:3500,visible:5,dots:false},
- {delay:2500,visible:5,dots:true},
- {delay:1200,visible:6,dots:false},
- {delay:4000,visible:6,dots:false,done:true}
+ {delay:1200,visible:2},
+ {delay:1800,visible:2,user:true},
+ {delay:1500,visible:3},
+ {delay:1500,visible:3,dots:true},
+ {delay:1400,visible:4,dots:true},
+ {delay:1500,visible:5},
+ {delay:1800,visible:5,user:true},
+ {delay:1500,visible:6},
+ {delay:1500,visible:6,dots:true},
+ {delay:1400,visible:7,dots:true},
+ {delay:1500,visible:8},
+ {delay:1200,visible:9},
+ {delay:2200,visible:9,pick:true},
+ {delay:1200,visible:9,dots:true,pick:true},
+ {delay:1400,visible:10,dots:true},
+ {delay:1500,visible:11},
+ {delay:1800,visible:11,user:true},
+ {delay:1800,visible:12},
+ {delay:1500,visible:12,dots:true},
+ {delay:1400,visible:13,dots:true},
+ {delay:1500,visible:14},
+ {delay:1500,visible:14,user:true},
+ {delay:1200,visible:15},
+ {delay:1500,visible:15,dots:true},
+ {delay:1400,visible:16,dots:true},
+ {delay:1500,visible:17},
+ {delay:3000,visible:17,done:true}
 ];
 function cancel(){if(timer!==null)clearTimeout(timer);timer=null;}
-function show(visible,dots){
+// The choice card in the example answers itself once the user's pick plays, or whenever it is shown past that point.
+const choiceCard=document.querySelector('.choice-card'), choiceIndex=messages.indexOf(choiceCard);
+function answerChoice(answered){choiceCard.classList.toggle('is-answered',answered);choiceCard.querySelector('[data-pick]').checked=answered;}
+function show(visible,dots,user,pick){
+ answerChoice(Boolean(pick)||visible>choiceIndex+1);
  messages.forEach((message,index)=>{const wasHidden=message.hidden;message.hidden=index>=visible;message.classList.toggle('entering',wasHidden&&!message.hidden&&state==='playing');});
  typing.hidden=!dots;
+ userTyping.hidden=!user;
  chat.scrollTop=chat.scrollHeight;
 }
 function controls(){
@@ -74,13 +108,13 @@ function controls(){
  play.dataset.state=motion.matches?'static':state;
  get('playback-state').dataset.state=play.dataset.state;
  typing.style.animationPlayState=state==='paused'?'paused':'running';
- typing.querySelectorAll('i').forEach(dot=>dot.style.animationPlayState=state==='paused'?'paused':'running');
+ [typing,userTyping].forEach(indicator=>indicator.querySelectorAll('*').forEach(part=>part.style.animationPlayState=state==='paused'?'paused':'running'));
  get('playback-state').textContent=motion.matches?'Static view for reduced motion':({ready:'Ready to play',playing:'Playing',paused:'Paused',ended:'Example complete'}[state]);
 }
 function schedule(delay){remaining=delay;deadline=performance.now()+delay;timer=setTimeout(advance,delay);}
 function advance(){
  timer=null;if(state!=='playing')return;
- const event=events[eventIndex];show(event.visible,event.dots);eventIndex++;
+ const event=events[eventIndex];show(event.visible,event.dots,event.user,event.pick);eventIndex++;
  if(event.done){state='ended';controls();return;}
  schedule(events[eventIndex].delay);
 }
@@ -97,7 +131,7 @@ play.addEventListener('click',()=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
 function applyMotion(){
  cancel();state='ready';eventIndex=0;
- if(motion.matches){show(6,false);chat.scrollTop=chat.scrollHeight;}
+ if(motion.matches){show(messages.length,false);chat.scrollTop=chat.scrollHeight;}
  else {show(2,false);chat.scrollTop=0;}
  controls();
 }
@@ -133,5 +167,50 @@ if('IntersectionObserver' in window){
  }),{threshold:.12});
  document.querySelectorAll('.demo,.setup-companion,.evaluation-flow,.agent-options,.path-options').forEach(element=>reveals.observe(element));
 }
-document.querySelectorAll('.setup-topics details').forEach(details=>details.addEventListener('toggle',()=>{if(details.open)entrance(details.querySelector('p'));}));
+// One topic open at a time: native exclusive accordion via name, with this fallback for older browsers.
+const agentMore=[...document.querySelectorAll('[data-agent] details')];
+agentMore.forEach(details=>details.addEventListener('toggle',()=>{
+ if(details.open)agentMore.forEach(other=>{if(other!==details&&other.open)other.open=false;});
+}));
+const setupTopics=[...document.querySelectorAll('.setup-topics details')];
+setupTopics.forEach(details=>details.addEventListener('toggle',()=>{
+ if(!details.open)return;
+ setupTopics.forEach(other=>{if(other!==details&&other.open)other.open=false;});
+ entrance(details.querySelector('p'));
+}));
 motion.addEventListener('change',()=>{if(motion.matches)decorativeAnimations.forEach(animation=>animation.cancel());});
+
+// Evaluation steps: select to explain, and light the connectors around a hovered or selected step.
+const evalText = {
+ rules: 'Each rule has its own tag, so you can always see which check tests which rule.',
+ scenarios: 'Scenarios are realistic situations, including unknowns, conflicting sources and requests the AI must decline. Each check inside one links to a rule.',
+ literal: 'Automatic checks look for required or forbidden words in saved responses. They catch known slips quickly, but they cannot judge meaning.',
+ human: 'People review meaning, tone, accuracy and permissions. Fievel prepares the review sheet and never fills in a judgment for you.',
+ improve: 'Results show which rules hold and which need work. Adjust a rule or the prompt, save new responses and check again.'
+};
+const evalSteps=[...document.querySelectorAll('[data-eval]')], evalLinks=[...document.querySelectorAll('.eval-connector[data-link]')];
+// Hidden copies of every step's text share the detail's grid cell, so it is always as tall as the longest one and selecting never moves the page.
+const evalDetail=get('eval-detail'), evalFrame=document.createElement('div');
+evalFrame.className='eval-detail-frame';evalDetail.before(evalFrame);evalFrame.append(evalDetail);
+evalSteps.forEach(step=>{
+ const sizer=document.createElement('div');sizer.className='eval-detail eval-sizer';sizer.setAttribute('aria-hidden','true');
+ const title=document.createElement('h3'),text=document.createElement('p');
+ title.textContent=step.querySelector('strong')?.textContent||step.textContent;text.textContent=evalText[step.dataset.eval];
+ sizer.append(title,text);evalFrame.append(sizer);
+});
+function lightEval(key){evalLinks.forEach(link=>link.classList.toggle('is-connected',Boolean(key)&&link.dataset.link.split(' ').includes(key)));}
+function selectedEval(){lightEval(document.querySelector('[data-eval][aria-pressed="true"]')?.dataset.eval);}
+evalSteps.forEach(step=>{
+ step.addEventListener('click',()=>{
+  evalSteps.forEach(item=>item.setAttribute('aria-pressed',String(item===step)));
+  get('eval-empty-logo').hidden=true;
+  get('eval-title').hidden=false;
+  get('eval-title').textContent=step.querySelector('strong')?.textContent||step.textContent;
+  get('eval-description').textContent=evalText[step.dataset.eval];
+  selectedEval();
+ });
+ step.addEventListener('pointerenter',()=>lightEval(step.dataset.eval));
+ step.addEventListener('pointerleave',selectedEval);
+ step.addEventListener('focus',()=>lightEval(step.dataset.eval));
+ step.addEventListener('blur',selectedEval);
+});
