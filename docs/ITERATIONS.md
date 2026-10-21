@@ -527,3 +527,25 @@ market scan. Existing tools overlap; differentiation remains a hypothesis.
 Reviewed I29 evidence and the unrun behavioral-trial preparation. No new tests,
 model calls, participant sessions, publication or plugin implementation performed.
 Next action: RP-01 claim-to-evidence ledger and prioritized gap audit.
+
+
+## I31 Local Codex plugin pilot
+
+2026-10-21. User authorized a local Codex plugin pilot and live model trials;
+CODEX-PLUGIN-PILOT.md supersedes the earlier plugin deferral. Added plugin-src/
+manifest and entry skill, build_plugin.py hashed self-contained bundle in
+plugins/fievel, local fievel-local marketplace and run_plugin_pilot.py. Suite has
+83 passing tests; eight adapters match. Codex 0.162.0-alpha.17.2 installed
+fievel@fievel-local 0.1.0. Recorded codex exec trials (evidence kept out of Git
+in .scratch/plugin-pilot): approved-execution found the plugin but its configured
+Python executable was missing, so nothing was created; codex-runtime, with a
+prepared venv on PATH, initialized Wayfarer, passed coverage validation, generated
+a viewer and saved the skip-lessons decision and next action, reporting all stages
+draft; documents-workspace initialized a system, then failed on a ChatGPT usage
+limit before validation or a final report. A resume trial was prepared against
+the codex-runtime workspace but has no execution record. Every run warned that
+icon_small/icon_large paths with '..' were ignored; the bundle defines no such
+fields, so the cause is unconfirmed. PLUGIN-READINESS.md records the acceptance
+ledger. Not proven: missing-Python recovery, resume, real sources, Jeremy's
+hands-on trial, desktop UI refresh. No publication or outreach. Next action:
+rerun the resume and Documents trials after the usage limit resets.
