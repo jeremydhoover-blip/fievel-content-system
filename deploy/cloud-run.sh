@@ -26,8 +26,9 @@ echo "Build service account has roles/run.builder"
 
 # Cost limits: one instance at most, 256 MiB, CPU only during requests, 30 s timeout,
 # scale to zero when idle. Public access because the directory calls it without sign-in;
-# the server stores and logs no content.
-gcloud run deploy "$SERVICE" --source . --region "$REGION" --allow-unauthenticated \
+# the server stores and logs no content. --no-invoker-iam-check makes it public without an
+# allUsers grant, which organization policies often forbid.
+gcloud run deploy "$SERVICE" --source . --region "$REGION" --no-invoker-iam-check \
   --memory 256Mi --cpu 1 --cpu-throttling --max-instances 1 --min-instances 0 \
   --concurrency 10 --timeout 30 --quiet
 
@@ -36,4 +37,4 @@ echo
 echo "Service URL: $URL"
 echo "MCP endpoint: $URL/mcp"
 echo "Health check:"
-curl -fsS "$URL/healthz" && echo
+curl -fsS "$URL/health" && echo

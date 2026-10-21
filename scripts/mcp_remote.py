@@ -93,7 +93,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send(200, token.encode('utf-8'), 'text/plain; charset=utf-8')
         elif path == '/mcp':
             self.send(405, headers=[('Allow', 'POST')])
-        elif path in ('/', '/healthz'):
+        elif path in ('/', '/health'):  # Cloud Run reserves paths ending in z, such as /healthz.
             self.send_json(200, {'name': 'fievel-remote', 'version': VERSION, 'mcp': '/mcp',
                                  'privacy': 'https://jeremydhoover-blip.github.io/fievel-content-system/privacy.html'})
         else:

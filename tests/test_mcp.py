@@ -150,6 +150,6 @@ class RemoteServerTests(unittest.TestCase):
         status, body, headers = self.request('GET', '/.well-known/challenge.txt')
         self.assertEqual((status, body), (200, 'token-123'))
         self.assertTrue(headers['Content-Type'].startswith('text/plain'))
-        status, body, headers = self.request('GET', '/healthz')
+        status, body, headers = self.request('GET', '/health')
         self.assertEqual(status, 200)
         self.assertEqual(headers['Cache-Control'], 'no-store')

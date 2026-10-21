@@ -38,7 +38,7 @@ $5 with alerts at 50, 90 and 100 percent), and consider the kill switch below.
    with the cost limits above, and prints the service URL and a health check.
    `.gcloudignore` uploads only what the image needs. Note the service URL it
    prints, such as `https://fievel-mcp-abc123-uc.a.run.app`.
-3. Check it: `curl https://<service-url>/healthz` should return the version.
+3. Check it: `curl https://<service-url>/health` should return the version.
 4. Domain verification: when OpenAI's portal shows a challenge path and token,
    serve them and re-check in the portal:
    ```sh
