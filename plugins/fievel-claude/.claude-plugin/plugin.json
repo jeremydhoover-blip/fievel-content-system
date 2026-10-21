@@ -1,0 +1,16 @@
+{
+  "name": "fievel",
+  "version": "0.1.0",
+  "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+  "license": "MIT",
+  "author": {
+    "name": "Jeremy Hoover"
+  },
+  "keywords": [
+    "content-design",
+    "content-system",
+    "ai-behavior",
+    "evaluation"
+  ],
+  "icon": "./assets/fievel-logo.png"
+}

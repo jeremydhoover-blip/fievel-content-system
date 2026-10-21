@@ -1,0 +1,15 @@
+{
+  "name": "fievel-content-system",
+  "owner": {
+    "name": "Jeremy Hoover"
+  },
+  "description": "Fievel local pilot plugins for Claude Code.",
+  "plugins": [
+    {
+      "name": "fievel",
+      "source": "./plugins/fievel-claude",
+      "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+      "category": "productivity"
+    }
+  ]
+}

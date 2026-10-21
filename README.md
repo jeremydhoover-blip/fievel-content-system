@@ -1,4 +1,5 @@
 > Local Codex plugin pilot: see [setup and first trial](docs/CODEX-PLUGIN-PILOT.md). This is an installed local pilot under evaluation, not a public plugin release.
+> A [Claude Code plugin bundle](docs/CLAUDE-PLUGIN-PILOT.md) is built from the same sources; it has not yet been installed or tried in Claude Code.
 
 # Fievel
 

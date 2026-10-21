@@ -8,6 +8,7 @@ Reviewed 2026-10-21. Distinguish file-format checks from host runtime evidence.
 | Current session after skill catalog refresh | Six Fievel skill names/descriptions/paths appear in the available-skills catalog | Invocation, output quality and fresh-session reproducibility still need observed runs |
 | Codex CLI / IDE | Official documentation checked; AGENTS.md and .agents skill paths supplied | Independent CLI/IDE activation and behavior test |
 | Claude Code | Canonical skills copied to .claude/skills; sync drift checked | Trust workspace, invoke /getting-started, finish/resume exercise |
+| Claude Code plugin | Bundle built in plugins/fievel-claude to the documented manifest/marketplace layout; relocated CLI and drift tests pass | `claude plugin validate`, install, fresh-session invocation and resume |
 | VS Code agent/Copilot | Copilot instruction adapter and .agents skills supplied per documentation | Check extension/version settings, skill selection and saved-progress behavior |
 | Python CLI | Windows/Python 3.12 exercised locally | CI matrix for Linux and Python 3.10 is configured, not yet executed remotely |
 

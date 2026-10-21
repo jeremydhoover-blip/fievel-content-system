@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "evidence": [
+    {
+      "rule_id": "content-1",
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md paragraphs 3 including heading and introduction",
+      "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+    },
+    {
+      "rule_id": "content-2",
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md paragraphs 3 including heading and introduction",
+      "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+    },
+    {
+      "rule_id": "behavior-1",
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md paragraphs 5 including heading and introduction",
+      "excerpt": "Payment declines may have different causes. A declined status alone establishes\nno cause. Suggest contacting the bank for details; never ask for a full card number.\nThere is no guaranteed refund processing time in this handbook. If the assistant\ncannot see the refund record, say so and direct the traveler to booking support."
+    },
+    {
+      "rule_id": "behavior-2",
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md paragraphs 3 including heading and introduction",
+      "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+    },
+    {
+      "rule_id": "behavior-3",
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md paragraphs 4 including heading and introduction",
+      "excerpt": "Cancellation conditions depend on the policy attached to the booking. Ask the\ntraveler to open their booking confirmation and find its cancellation terms.\nDo not assume a universal cancellation window or fee. Conflicting general articles\ndo not establish which conditions apply to an individual booking."
+    }
+  ],
+  "conflicts": []
+}

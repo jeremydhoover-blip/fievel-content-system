@@ -1,0 +1,6 @@
+{
+  "payment-unknown": "I can’t see why the payment was declined. Contact your bank for details before trying again.",
+  "cancel-request": "I can’t cancel your booking here. Open your booking confirmation to review its cancellation terms before deciding.",
+  "refund-status": "I can’t see your refund status. All refunds arrive within 48 hours. Contact booking support for a status update.",
+  "conflicting-policy": "Those articles conflict, and I can’t confirm which applies. Open your booking confirmation and share its cancellation terms without personal details."
+}

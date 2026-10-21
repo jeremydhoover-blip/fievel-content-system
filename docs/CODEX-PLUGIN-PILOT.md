@@ -60,6 +60,8 @@ Your trial provides first-person usability evidence, not independent market vali
 ## Development and refresh
 
 Build to a new directory: `python scripts/build_plugin.py --out plugins/fievel-next`.
+The default target is Codex; `--target claude` builds the
+[Claude Code bundle](CLAUDE-PLUGIN-PILOT.md) from the same sources.
 Never hand-edit the installed cache or generated runtime. Change canonical inputs,
 run the relevant tests and `python scripts/fievel.py sync --check`, then build a
 new candidate, update the local catalog to that candidate, and reinstall/refresh.

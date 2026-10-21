@@ -549,3 +549,20 @@ fields, so the cause is unconfirmed. PLUGIN-READINESS.md records the acceptance
 ledger. Not proven: missing-Python recovery, resume, real sources, Jeremy's
 hands-on trial, desktop UI refresh. No publication or outreach. Next action:
 rerun the resume and Documents trials after the usage limit resets.
+
+
+## I32 Claude Code plugin bundle
+
+2026-10-21. User requested a Claude Code plugin from the same sources. Checked
+the current Claude Code manifest, marketplace and skill documentation. Added
+build_plugin.py --target claude (Codex remains default): derived
+.claude-plugin/plugin.json, identical skill and runtime bytes, logo as icon.
+Built plugins/fievel-claude and a root .claude-plugin/marketplace.json
+(fievel-content-system). Four new tests cover target layouts, a relocated Claude
+bundle running init and strict validation, committed-bundle drift for both hosts
+and catalog paths; a deliberate bundle edit made the drift test fail. Full suite
+has 87 passing tests; eight adapters match. The existing Codex bundle still
+matches a fresh build. No claude CLI was available, so claude plugin validate,
+installation and any Claude session behavior are unrun. Evidence: the tests and
+CLAUDE-PLUGIN-PILOT.md. Next action: validate and install in Claude Code, then
+run the shared trial tasks.
