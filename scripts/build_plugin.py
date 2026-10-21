@@ -92,7 +92,8 @@ def build(output, root=ROOT, target='codex'):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
     manifest = {name: hashlib.sha256(content).hexdigest() for name, content in sorted(files.items())}
-    (output / 'bundle-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+    # Bytes, not text mode: Windows would otherwise write CRLF.
+    (output / 'bundle-manifest.json').write_bytes((json.dumps(manifest, indent=2) + '\n').encode('utf-8'))
     return manifest
 
 
