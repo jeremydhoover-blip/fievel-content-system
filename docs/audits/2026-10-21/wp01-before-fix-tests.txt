@@ -1,0 +1,26 @@
+test_partial_draft_cli_modes (test_fievel.WorkflowTests.test_partial_draft_cli_modes) ... FAIL
+test_partial_draft_to_execution_journey (test_fievel.WorkflowTests.test_partial_draft_to_execution_journey) ... ERROR
+
+======================================================================
+ERROR: test_partial_draft_to_execution_journey (test_fievel.WorkflowTests.test_partial_draft_to_execution_journey)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\tests\test_fievel.py", line 109, in test_partial_draft_to_execution_journey
+    data = f.validate(folder)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\scripts\fievel.py", line 64, in validate
+    raise ValueError('Requirements without quality checks: ' + ', '.join(sorted(missing)))
+ValueError: Requirements without quality checks: library-next-step
+
+======================================================================
+FAIL: test_partial_draft_cli_modes (test_fievel.WorkflowTests.test_partial_draft_cli_modes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\tests\test_fievel.py", line 144, in test_partial_draft_cli_modes
+    self.assertEqual(f.main(['validate',str(self.folder)]),0)
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.124s
+
+FAILED (failures=1, errors=1)

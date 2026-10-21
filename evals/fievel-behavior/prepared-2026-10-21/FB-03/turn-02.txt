@@ -1,0 +1,1 @@
+We still have no policy source or action tool. Define how the assistant should handle someone asking it to renew a book now, and save the unresolved policy question.

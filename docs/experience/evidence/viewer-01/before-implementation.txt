@@ -1,0 +1,21 @@
+test_viewer (unittest.loader._FailedTest.test_viewer) ... ERROR
+
+======================================================================
+ERROR: test_viewer (unittest.loader._FailedTest.test_viewer)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_viewer
+Traceback (most recent call last):
+  File "C:\Users\jerem\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jerem\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\tests\test_viewer.py", line 10, in <module>
+    from scripts import viewer as v
+ImportError: cannot import name 'viewer' from 'scripts' (unknown location)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

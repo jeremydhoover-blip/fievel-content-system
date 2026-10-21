@@ -1,0 +1,18 @@
+{
+  "path": "beginner",
+  "explanations": "guided",
+  "stages": {
+    "1": "pending",
+    "2": "pending",
+    "3": "pending",
+    "4": "pending",
+    "5": "pending",
+    "6": "pending",
+    "7": "pending"
+  },
+  "decisions": [],
+  "open_questions": [
+    "What product and audience are we designing for?"
+  ],
+  "next_action": "Describe your product and one task its users need to complete."
+}

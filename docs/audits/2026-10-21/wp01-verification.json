@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-21",
+  "scope": "deterministic local verification only",
+  "checks": [
+    {
+      "check": "regression",
+      "exit_code": 0,
+      "evidence": "wp01-final-tests.txt"
+    },
+    {
+      "check": "post-fix-probes",
+      "exit_code": 0,
+      "evidence": "wp01-after-fix-probes.json"
+    },
+    {
+      "check": "adapter-sync",
+      "exit_code": 0,
+      "evidence": "wp01-adapters.txt"
+    },
+    {
+      "check": "historical-literal-pass-semantics",
+      "unchanged": true
+    },
+    {
+      "check": "historical-literal-fail-semantics",
+      "unchanged": true
+    },
+    {
+      "check": "14-baseline-source-copies",
+      "match_original_manifest": true
+    },
+    {
+      "check": "local-markdown-links-and-json-syntax",
+      "broken_links": [],
+      "scope": "project files excluding local dependencies, user project and scratch"
+    }
+  ]
+}

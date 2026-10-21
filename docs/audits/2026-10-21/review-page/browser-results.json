@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "input errors",
+    "invalid quote blocked",
+    "synthetic download roundtrip passes CLI",
+    "immutable hashes preserved",
+    "keyboard labels",
+    "390px no overflow",
+    "no-JS readable disabled form"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "syntheticJudgmentsOnly": true
+}

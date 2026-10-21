@@ -1,0 +1,73 @@
+{
+  "kind": "design-study-browser-check",
+  "scope": "Two static fictional UI directions; not a live file viewer or user study",
+  "errors": [],
+  "layouts": [
+    {
+      "width": 1024,
+      "variant": "Overview-led",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "variant": "Connections-led",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "variant": "Overview-led",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "variant": "Connections-led",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "variant": "Overview-led",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "variant": "Connections-led",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "variant": "Overview-led",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "variant": "Connections-led",
+      "overflow": false
+    }
+  ],
+  "interactions": [
+    "overview to connections",
+    "rule selection",
+    "learning view",
+    "source conflict selection",
+    "native variant carousel"
+  ],
+  "limitations": [
+    "No independent accessibility audit",
+    "No learner testing",
+    "No file loading or editing"
+  ],
+  "reviewed_on": "2026-10-21",
+  "browser": "Installed Microsoft Edge, headless; exact version not captured",
+  "prototype": "fievel-experience-directions.html (conversation design artifact)",
+  "prototype_sha256": "5e811e94e841b0ed1795687dea4ad6e7bab81767d887a0f5a8b8da1fe4f5d065",
+  "setup_notes": [
+    "Default Playwright browser lookup failed in sandbox",
+    "Installed Edge could not create its temporary profile in sandbox",
+    "Headless check succeeded outside sandbox using a separate temporary browser profile"
+  ],
+  "screenshots": [
+    "overview-wide.png",
+    "connections-narrow.png",
+    "connections-dark.png"
+  ]
+}

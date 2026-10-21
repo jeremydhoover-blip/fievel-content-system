@@ -1,0 +1,8 @@
+{
+  "scripts/fievel.py": "a4953189cbbea58e63233ebffd6c0e47d13b29e042b162d84b7fbe36914dce00",
+  "scripts/review_evidence.py": "d9c49041a42d8ec6650335328889138885d2d97c6f0a39978e20c5cef161ad64",
+  "tests/test_review_evidence.py": "77b3d78ca6c423ad1a7c377f29c0be022a38f46203486e1ac053a91a16ee15bf",
+  "examples/review-evidence-config.json": "dcddd9dee7b367c433d004285e82ea5528c3736cb9dc2f14c01fddab5e8dc64a",
+  "docs/decisions/ADR-003-human-review-evidence.md": "033173d71c2fcd9d9fbaffbd5ec7e19bfcf89d39cd56a26e7de635c6e80c3fb6",
+  "docs/HUMAN-REVIEW.md": "2894d0c83476a8560f1cdcfe14be93c739589763eabacb0b92362d1681a8c7b8"
+}

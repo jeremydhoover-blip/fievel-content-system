@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "files": {
+    ".claude/skills/ai-behavior-designer/SKILL.md": "5d59a90f9336047262acae324f3753792e69b12092572cd38d358f8c5bea0c4c",
+    ".claude/skills/content-audit/SKILL.md": "bc2b3306bdc4d28c4fab97be02604018ac58fa00c6a3517b4fabcde9ec3138b9",
+    ".claude/skills/content-system-builder/SKILL.md": "fc176a8563e5472dfa611b32b577e405c45c9b8da0280d1a45de385e7ed33582",
+    ".claude/skills/evaluation-designer/SKILL.md": "d53ac725d8c8bf348d07ac1e088257d39db6aff320d844c03938b22859c560b0",
+    ".claude/skills/getting-started/SKILL.md": "6217bede56923a5e8e398bbcae856a7209cd4a7e066568c851ad19f31ff848b4",
+    ".claude/skills/source-discovery/SKILL.md": "23006bd492258e5c1654c19c72f408237160b0693604f822247e224f5d0dc2be",
+    "CLAUDE.md": "5c90cad03435a77ada017d5b66fa5ad713e32b0301da1c5a674a279735daa83f",
+    ".github/copilot-instructions.md": "5c90cad03435a77ada017d5b66fa5ad713e32b0301da1c5a674a279735daa83f"
+  }
+}

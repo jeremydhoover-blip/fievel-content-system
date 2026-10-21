@@ -1,0 +1,14 @@
+[
+  {
+    "id": "wayfarer-handbook",
+    "title": "Wayfarer fictional support handbook",
+    "location": "handbook.md",
+    "purpose": "Ground the booking exercise; never use as real company policy.",
+    "owner": "Fictional Wayfarer content team",
+    "authority": "fictional",
+    "reviewed_on": "2026-10-21",
+    "permissions": "public",
+    "permitted_use": "Practice and adaptation; not real travel advice",
+    "ingested": true
+  }
+]

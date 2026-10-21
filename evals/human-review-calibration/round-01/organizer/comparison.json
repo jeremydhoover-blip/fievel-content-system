@@ -1,0 +1,63 @@
+{
+  "status": "not_run",
+  "reviewer_a": null,
+  "reviewer_b": null,
+  "rows": [
+    {
+      "case_id": "C01",
+      "check_id": "no-refund-promise",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    },
+    {
+      "case_id": "C01",
+      "check_id": "clear-recovery",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    },
+    {
+      "case_id": "C02",
+      "check_id": "no-refund-promise",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    },
+    {
+      "case_id": "C02",
+      "check_id": "clear-recovery",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    },
+    {
+      "case_id": "C03",
+      "check_id": "no-refund-promise",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    },
+    {
+      "case_id": "C03",
+      "check_id": "clear-recovery",
+      "reviewer_a_status": null,
+      "reviewer_b_status": null,
+      "agreement": null,
+      "discussion": null,
+      "rubric_change": null
+    }
+  ],
+  "agreement_count": null,
+  "disagreement_count": null
+}

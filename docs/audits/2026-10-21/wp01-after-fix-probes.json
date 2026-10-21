@@ -1,0 +1,40 @@
+{
+  "scope": "isolated executable probes, not learner or live-agent tests",
+  "observations": [
+    {
+      "finding": "F-01",
+      "probe": "Validate a stage-2 draft with one rule and no stage-5 checks",
+      "observation": "accepted"
+    },
+    {
+      "finding": "F-03",
+      "probe": "Can a saved review reproduce scenario context and rubric without the current package?",
+      "observation": {
+        "has_scenarios": false,
+        "has_package_snapshot": false,
+        "has_per_check_rubric": false
+      }
+    },
+    {
+      "finding": "F-04",
+      "probe": "Run a human-only definition against one supplied response",
+      "observation": {
+        "kind": "deterministic_execution",
+        "summary": {
+          "pass": 0,
+          "fail": 0,
+          "not_run": 9
+        }
+      }
+    },
+    {
+      "finding": "F-05",
+      "probe": "Check adapters with an extra stale Claude skill",
+      "observation": {
+        "check_passed": true,
+        "expected_adapters": 8,
+        "extra_skill_present": true
+      }
+    }
+  ]
+}

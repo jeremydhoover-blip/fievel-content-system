@@ -1,0 +1,152 @@
+{
+  "example_init": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "init",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--example"
+    ],
+    "exit_code": 0,
+    "stdout": "Created draft: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example\n",
+    "stderr": ""
+  },
+  "draft_init": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "init",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\draft"
+    ],
+    "exit_code": 0,
+    "stdout": "Created draft: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\draft\n",
+    "stderr": ""
+  },
+  "draft_validate": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "validate",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\draft"
+    ],
+    "exit_code": 0,
+    "stdout": "Structure and requirement links are valid. This is not content approval.\n",
+    "stderr": ""
+  },
+  "example_validate": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "validate",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--require-coverage"
+    ],
+    "exit_code": 0,
+    "stdout": "Structure and requirement links are valid. This is not content approval.\n",
+    "stderr": ""
+  },
+  "status": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "status",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example"
+    ],
+    "exit_code": 0,
+    "stdout": "Path: beginner; explanations: guided\n1. Understand your product: drafted\n2. Understand your content: drafted\n3. Identify your sources: drafted\n4. Design AI behavior: drafted\n5. Define quality: drafted\n6. Try and improve: drafted\n7. Maintain your system: drafted\nNext: Run the saved-response checks, review their limits, and judge the human review questions.\n",
+    "stderr": ""
+  },
+  "literal_pass_fixture": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "check",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--responses",
+      "examples/responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\literal.json"
+    ],
+    "exit_code": 0,
+    "stdout": "Saved deterministic_execution: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\literal.json\n{\"pass\": 3, \"fail\": 0, \"not_run\": 6}\n",
+    "stderr": ""
+  },
+  "review": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "review",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--responses",
+      "examples/responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\review.json"
+    ],
+    "exit_code": 0,
+    "stdout": "Saved human_review: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\review.json\n",
+    "stderr": ""
+  },
+  "viewer": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "view",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--report",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\literal.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\view.html"
+    ],
+    "exit_code": 0,
+    "stdout": "Saved read-only snapshot: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\view.html\nRegenerate to a new filename after edits; browser reload does not reread the project.\n",
+    "stderr": ""
+  },
+  "literal_summary": {
+    "pass": 3,
+    "fail": 0,
+    "not_run": 6
+  },
+  "review_judgment_states": [
+    "pending"
+  ],
+  "review_fields": [
+    "kind",
+    "system_sha256",
+    "responses_sha256",
+    "reviewer",
+    "reviewed_at",
+    "responses",
+    "judgments"
+  ],
+  "overwrite_refused": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "check",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--responses",
+      "examples/responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\literal.json"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Fievel: [Errno 17] File exists: 'C:\\\\Users\\\\jerem\\\\Documents\\\\ChatGPT\\\\Fievel Content System\\\\.scratch\\\\readiness-iir451o7\\\\literal.json'\n"
+  },
+  "all_human": {
+    "command": [
+      "python",
+      "scripts/fievel.py",
+      "check",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\example",
+      "--responses",
+      "examples/responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\readiness-iir451o7\\all-human.json"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Fievel: evaluation/scenarios/0/checks/0/value: None is not of type 'string'\nevaluation/scenarios/0/checks/1/value: None is not of type 'string'\nevaluation/scenarios/1/checks/0/value: None is not of type 'string'\nevaluation/scenarios/1/checks/1/value: None is not of type 'string'\nevaluation/scenarios/1/checks/2/value: None is not of type 'string'\nevaluation/scenarios/1/checks/3/value: None is not of type 'string'\nevaluation/scenarios/2/checks/0/value: None is not of type 'string'\nevaluation/scenarios/2/checks/1/value: None is not of type 'string'\nevaluation/scenarios/3/checks/0/value: None is not of type 'string'\n"
+  },
+  "temporary_outputs_removed_after_probe": true
+}

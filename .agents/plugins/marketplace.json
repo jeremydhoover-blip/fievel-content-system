@@ -1,0 +1,20 @@
+{
+  "name": "fievel-local",
+  "interface": {
+    "displayName": "Fievel local pilot"
+  },
+  "plugins": [
+    {
+      "name": "fievel",
+      "source": {
+        "source": "local",
+        "path": "./plugins/fievel"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

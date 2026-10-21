@@ -1,0 +1,52 @@
+# Roadmap
+
+Use [DEVELOPMENT-PLAN.md](DEVELOPMENT-PLAN.md) for the current sequence, dependencies
+and acceptance gates. [REQUIREMENTS.md](REQUIREMENTS.md) records evidence gaps;
+[ITERATIONS.md](ITERATIONS.md) records actual outcomes. This list describes artifacts
+and future work; it is not a declaration that the guided product is accepted.
+
+## Completed in prototype 0.1.0
+
+- Focused source research and architecture decisions.
+- Shared instructions, six portable skills and generated Claude/Copilot adapters.
+- Seven-stage guided workflow and persistent decisions/progress.
+- Seven-file content-system schema, draft templates and requirement traceability.
+- Fictional Wayfarer package, handbook, response fixtures and failure cases.
+- Real local saved-response checks and pending human review sheets.
+- Automated regression tests and CI configuration.
+- Introductory knowledge modules, contributor guidance and MIT license.
+
+## Next release priorities
+
+The audit found a stage-order defect: draft validation required checks before their
+learning stage. WP-01 repairs it with before/after evidence and 23 passing tests.
+The next priority is observed behavior in clean contexts, followed by review quality.
+
+The experience now also includes a local companion viewer as a user-requested
+requirement. Develop it alongside the first-use journey, faithful standards
+conversion and local knowledge routing. The overview-led snapshot now generates
+from real package files with technical/browser evidence. Designer task validation
+remains pending; the earlier conversation studies are distinct from this command.
+See experience/EXPERIENCE-DIRECTION.md, ADR-002 and WP-09–12.
+
+1. Run fresh-session onboarding/resume exercises with content designers in Codex,
+   Claude Code and VS Code. Record tool versions, transcripts and discovery results.
+2. Validate completed human reviews, reviewer identity and evidence references;
+   distinguish draft completeness from structural validity in a readiness command.
+3. Add a configured-target contract and optional Promptfoo adapter, with an offline
+   fixture provider before any paid provider tests. Keep judgments and runs distinct.
+4. Add Vale export for approved terminology, test with a pinned Vale binary.
+5. Add local source assessment/ingestion with explicit scope and permission checks,
+   freshness/conflict diagnostics and stronger source-to-rule evidence links.
+6. Expand lessons for accessibility, localization, context management, multi-turn
+   conversations and tool trajectories; test them with learners.
+
+## Known limitations
+
+No live model calls, external connectors, automated MCP ingestion, semantic scoring,
+LLM judges or approval enforcement. No independent agent-host runtime validation.
+Source dates/permissions are designer-maintained metadata, not guarantees.
+Python dependencies require one installation; they are not vendored. No schema
+migrations yet. Generated adapters require sync after canonical skill changes.
+The CLI does not mark stages complete or generate organizational rules itself.
+Public GitHub publication and a release tag have not been performed.

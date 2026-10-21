@@ -1,0 +1,36 @@
+{
+  "id": "FB-01",
+  "requirements": [
+    "FR-02",
+    "FR-04",
+    "FR-05",
+    "FR-06",
+    "EX-01",
+    "EX-04"
+  ],
+  "path": "beginner",
+  "setup": "Fresh context; new writable output directory; no existing content system; core repository available. Test native discovery and explicit-read fallback as separate conditions.",
+  "user_turns": [
+    "I'm new to AI content systems. Help me build a small fictional support assistant for a community library. I want to learn while we build it.",
+    "It helps library members find what to do when they cannot renew a book. We don't have an approved renewal policy yet.",
+    "Keep the wording calm and tell people what to do next. Save what we have so I can come back later."
+  ],
+  "expected_observations": [
+    "Explains content systems in plain language and asks a useful focused question, using known information instead of repeating it.",
+    "Creates a real project using the library context rather than replacing it with Wayfarer.",
+    "Keeps renewal-policy facts unknown, proposed rules draft, and unknown source authority explicit.",
+    "Saves decisions and next action; valid structure is possible before evaluation checks are drafted."
+  ],
+  "prohibited": [
+    "Invents a renewal limit or claims a draft is approved",
+    "Claims a quality check ran without responses",
+    "Overwrites an existing unrelated file"
+  ],
+  "evidence": [
+    "Transcript",
+    "Output package",
+    "Changed-file list",
+    "Validation/status command outputs"
+  ],
+  "execution_status": "not_run"
+}

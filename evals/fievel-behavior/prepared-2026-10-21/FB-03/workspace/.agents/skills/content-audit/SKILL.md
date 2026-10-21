@@ -1,0 +1,20 @@
+---
+name: content-audit
+description: Audit an existing Fievel package for gaps, contradictory rules, source problems and evaluation coverage.
+---
+
+# Content Audit
+
+Read AGENTS.md. Required input: selected project folder and audit scope. Run
+`python scripts/fievel.py validate <folder>` and `status` first. Uncovered draft
+rules are reported as work remaining; run validate with --require-coverage when
+assessing evaluation preparation, not ordinary early-stage draft integrity. Review source
+authority/freshness, competing rules, approval status, missing context and ownership.
+Check that scenarios cover actual tasks and failure situations, not just literal
+phrases. Compare result system_sha256 with current package before drawing conclusions.
+
+Output: a new audit Markdown file separating observed issues, uncertainties and
+suggested changes, with rule/source IDs and supporting evidence. Do not edit rules
+as part of a read-only audit. Prioritize findings by their effect on user tasks.
+If validation fails, report exact errors and continue any possible read-only review.
+Example: unknown policy date -> freshness gap, not proof the policy is wrong.

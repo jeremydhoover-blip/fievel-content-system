@@ -1,0 +1,282 @@
+[
+  {
+    "label": "runtime",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "-c",
+      "import sys,site; print(sys.version); print(sys.prefix); print(site.ENABLE_USER_SITE)"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]\nC:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\nFalse\n",
+    "stderr": ""
+  },
+  {
+    "label": "missing_dependency",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "scripts/fievel.py",
+      "validate",
+      "templates/content-system"
+    ],
+    "exit_code": 1,
+    "expected_exit": 1,
+    "stdout": "",
+    "stderr": "Install the validator first: python -m pip install --target .deps -r requirements.txt\n"
+  },
+  {
+    "label": "offline_install",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--no-cache-dir",
+      "--target",
+      ".deps",
+      "-r",
+      "requirements.txt"
+    ],
+    "exit_code": 1,
+    "expected_exit": null,
+    "stdout": "",
+    "stderr": "ERROR: Could not find a version that satisfies the requirement jsonschema==4.26.0 (from versions: none)\nERROR: No matching distribution found for jsonschema==4.26.0\n"
+  },
+  {
+    "label": "dependency_versions",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "-c",
+      "import sys,importlib.metadata as m; sys.path.insert(0,'.deps'); print({n:m.version(n) for n in ['jsonschema','attrs','jsonschema-specifications','referencing','rpds-py','typing-extensions']})"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "{'jsonschema': '4.26.0', 'attrs': '26.1.0', 'jsonschema-specifications': '2025.9.1', 'referencing': '0.37.0', 'rpds-py': '2026.9.1', 'typing-extensions': '4.16.0'}\n",
+    "stderr": ""
+  },
+  {
+    "label": "initialize",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "init",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--example"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Created draft: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\n",
+    "stderr": ""
+  },
+  {
+    "label": "validate",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "validate",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--require-coverage"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Structure and requirement links are valid. This is not content approval.\n",
+    "stderr": ""
+  },
+  {
+    "label": "status",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "status",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Path: beginner; explanations: guided\n1. Understand your product: drafted\n2. Understand your content: drafted\n3. Identify your sources: drafted\n4. Design AI behavior: drafted\n5. Define quality: drafted\n6. Try and improve: drafted\n7. Maintain your system: drafted\nNext: Run the saved-response checks, review their limits, and judge the human review questions.\n",
+    "stderr": ""
+  },
+  {
+    "label": "check",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "check",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--responses",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\examples\\responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\check.json"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Saved deterministic_execution: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\check.json\n{\"pass\": 3, \"fail\": 0, \"not_run\": 6}\nExecuted 3 of 9 defined checks; 0 checks missing saved responses; 6 checks awaiting human review.\nThis is not an overall quality verdict. Exit code 0 means no literal failures were found.\n",
+    "stderr": ""
+  },
+  {
+    "label": "pending_review",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "review",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--responses",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\examples\\responses-good.json",
+      "--evidence-config",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\examples\\review-evidence-config.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\review.json"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Saved human_review_evidence: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\review.json\n",
+    "stderr": ""
+  },
+  {
+    "label": "validate_pending",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "validate-review",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\review.json"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Review record valid. This is not content approval or an overall quality verdict.\n{\"pending\": 6, \"not_run\": 0, \"pass\": 0, \"fail\": 0, \"borderline\": 0, \"insufficient_evidence\": 0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "reject_incomplete",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "validate-review",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\review.json",
+      "--require-complete"
+    ],
+    "exit_code": 2,
+    "expected_exit": 2,
+    "stdout": "",
+    "stderr": "Fievel: Review incomplete: every human check needs a pass or fail decision\n"
+  },
+  {
+    "label": "source_audit",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "sources-audit",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--as-of",
+      "2026-10-21",
+      "--provenance",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\examples\\source-provenance.json",
+      "--max-age-days",
+      "365",
+      "--strict"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "{\n  \"kind\": \"source_provenance_audit\",\n  \"version\": \"1.0\",\n  \"as_of\": \"2026-10-21\",\n  \"max_age_days\": 365,\n  \"system_sha256\": \"fc08f10113548df2db79f9c208e4e4f8b56defa32283e4f6a6122c1efd956f07\",\n  \"provenance_sha256\": \"c24e40562370e7ebf4e6732db345e6dcc1a93cb046df9a852ae2cd4ecdeb805c\",\n  \"counts\": {\n    \"error\": 0,\n    \"warning\": 0\n  },\n  \"findings\": [],\n  \"source_locations_checked\": false,\n  \"declared_conflicts\": 0,\n  \"limitations\": [\n    \"Source locations and excerpt accuracy were not checked.\",\n    \"Authority, permission and conflict decisions are declared, not authenticated.\",\n    \"No semantic conflict detection or content approval was performed.\"\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "label": "consumer_export",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "export-consumer",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--consumer",
+      "Offline fictional fixture",
+      "--as-of",
+      "2026-10-21",
+      "--include-drafts",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\consumer.json"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Saved consumer review artifact: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\consumer.json\nDraft artifact only; no consumer installed, run or evaluated.\n",
+    "stderr": ""
+  },
+  {
+    "label": "viewer",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "view",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--report",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\check.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\overview.html"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "Saved read-only snapshot: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\overview.html\nRegenerate to a new filename after edits; browser reload does not reread the project.\n",
+    "stderr": ""
+  },
+  {
+    "label": "overwrite_refusal",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "check",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system",
+      "--responses",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\examples\\responses-good.json",
+      "--out",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\my-content-system\\results\\check.json"
+    ],
+    "exit_code": 2,
+    "expected_exit": 2,
+    "stdout": "",
+    "stderr": "Fievel: [Errno 17] File exists: 'C:\\\\Users\\\\jerem\\\\Documents\\\\ChatGPT\\\\Fievel Content System\\\\.scratch\\\\offline-setup-huic3nih\\\\workspace\\\\my-content-system\\\\results\\\\check.json'\n"
+  },
+  {
+    "label": "adapter_integrity",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace\\scripts\\fievel.py",
+      "sync",
+      "--check"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "8 generated adapters checked\n",
+    "stderr": ""
+  },
+  {
+    "label": "full_tests",
+    "command": [
+      "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv\\Scripts\\python.exe",
+      "-I",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "stdout": "",
+    "stderr": "test_conflicting_unowned_copy_blocks_all_writes (test_adapters.AdapterOwnershipTests.test_conflicting_unowned_copy_blocks_all_writes) ... ok\ntest_identical_legacy_copy_adopted_and_missing_manifest_detected (test_adapters.AdapterOwnershipTests.test_identical_legacy_copy_adopted_and_missing_manifest_detected) ... ok\ntest_initial_sync_and_source_update (test_adapters.AdapterOwnershipTests.test_initial_sync_and_source_update) ... ok\ntest_malicious_or_unsupported_manifest_rejected (test_adapters.AdapterOwnershipTests.test_malicious_or_unsupported_manifest_rejected) ... ok\ntest_missing_owned_copy_is_restored (test_adapters.AdapterOwnershipTests.test_missing_owned_copy_is_restored) ... ok\ntest_rename_retains_old_copy_until_manual_resolution (test_adapters.AdapterOwnershipTests.test_rename_retains_old_copy_until_manual_resolution) ... ok\ntest_retired_skill_blocks_check_and_sync_without_writes (test_adapters.AdapterOwnershipTests.test_retired_skill_blocks_check_and_sync_without_writes) ... ok\ntest_unrelated_and_modified_files_preserved (test_adapters.AdapterOwnershipTests.test_unrelated_and_modified_files_preserved) ... ok\ntest_cli_refuses_overwrite_and_null_config (test_consumer.ConsumerExportTests.test_cli_refuses_overwrite_and_null_config) ... ok\ntest_declared_approved_selection_excludes_draft_text (test_consumer.ConsumerExportTests.test_declared_approved_selection_excludes_draft_text) ... ok\ntest_default_refuses_all_drafts_and_empty_consumer (test_consumer.ConsumerExportTests.test_default_refuses_all_drafts_and_empty_consumer) ... ok\ntest_evidence_injection_stays_data_and_missing_evidence_stays_visible (test_consumer.ConsumerExportTests.test_evidence_injection_stays_data_and_missing_evidence_stays_visible) ... ok\ntest_explicit_draft_export_preserves_exact_rules_and_boundaries (test_consumer.ConsumerExportTests.test_explicit_draft_export_preserves_exact_rules_and_boundaries) ... ok\ntest_provenance_errors_block_and_conflicts_preserved (test_consumer.ConsumerExportTests.test_provenance_errors_block_and_conflicts_preserved) ... ok\ntest_adapters_and_skill_metadata (test_fievel.WorkflowTests.test_adapters_and_skill_metadata) ... ok\ntest_authored_literal_pass_fixture_does_not_pass_human_checks (test_fievel.WorkflowTests.test_authored_literal_pass_fixture_does_not_pass_human_checks) ... ok\ntest_bad_fixture_fails (test_fievel.WorkflowTests.test_bad_fixture_fails) ... ok\ntest_changed_system_changes_evidence_hash (test_fievel.WorkflowTests.test_changed_system_changes_evidence_hash) ... ok\ntest_cli_all_human_explicitly_reports_zero_execution (test_fievel.WorkflowTests.test_cli_all_human_explicitly_reports_zero_execution) ... ok\ntest_cli_end_to_end_from_other_directory (test_fievel.WorkflowTests.test_cli_end_to_end_from_other_directory) ... ok\ntest_cli_execution_coverage_distinguishes_not_run_reasons (test_fievel.WorkflowTests.test_cli_execution_coverage_distinguishes_not_run_reasons) ... ok\ntest_duplicate_check_ids_rejected (test_fievel.WorkflowTests.test_duplicate_check_ids_rejected) ... ok\ntest_duplicate_ids_rejected (test_fievel.WorkflowTests.test_duplicate_ids_rejected) ... ok\ntest_duplicate_scenarios_rejected (test_fievel.WorkflowTests.test_duplicate_scenarios_rejected) ... ok\ntest_empty_literal_rejected (test_fievel.WorkflowTests.test_empty_literal_rejected) ... ok\ntest_human_review_is_pending_and_identifies_responses (test_fievel.WorkflowTests.test_human_review_is_pending_and_identifies_responses) ... ok\ntest_initialization_preserves_existing_work (test_fievel.WorkflowTests.test_initialization_preserves_existing_work) ... ok\ntest_invalid_response_targets_rejected (test_fievel.WorkflowTests.test_invalid_response_targets_rejected) ... ok\ntest_invalid_shape_rejected (test_fievel.WorkflowTests.test_invalid_shape_rejected) ... ok\ntest_missing_responses_not_run (test_fievel.WorkflowTests.test_missing_responses_not_run) ... ok\ntest_partial_draft_cli_modes (test_fievel.WorkflowTests.test_partial_draft_cli_modes) ... ok\ntest_partial_draft_to_execution_journey (test_fievel.WorkflowTests.test_partial_draft_to_execution_journey) ... ok\ntest_reports_never_overwrite (test_fievel.WorkflowTests.test_reports_never_overwrite) ... ok\ntest_schema_and_bundled_packages (test_fievel.WorkflowTests.test_schema_and_bundled_packages) ... ok\ntest_template_starts_pending (test_fievel.WorkflowTests.test_template_starts_pending) ... ok\ntest_uncovered_requirement_rejected (test_fievel.WorkflowTests.test_uncovered_requirement_rejected) ... ok\ntest_unknown_fields_rejected (test_fievel.WorkflowTests.test_unknown_fields_rejected) ... ok\ntest_unknown_requirement_rejected (test_fievel.WorkflowTests.test_unknown_requirement_rejected) ... ok\ntest_unknown_source_rejected (test_fievel.WorkflowTests.test_unknown_source_rejected) ... ok\ntest_ambiguous_and_nonstandard_json_rejected_with_path (test_input_hardening.InputHardeningTests.test_ambiguous_and_nonstandard_json_rejected_with_path) ... ok\ntest_cli_rejects_deep_json_without_traceback_or_output (test_input_hardening.InputHardeningTests.test_cli_rejects_deep_json_without_traceback_or_output) ... ok\ntest_encoding_and_truncation_errors_identify_file (test_input_hardening.InputHardeningTests.test_encoding_and_truncation_errors_identify_file) ... ok\ntest_explicit_null_config_is_not_treated_as_omitted (test_input_hardening.InputHardeningTests.test_explicit_null_config_is_not_treated_as_omitted) ... ok\ntest_serialization_failure_leaves_no_output_or_parent (test_input_hardening.InputHardeningTests.test_serialization_failure_leaves_no_output_or_parent) ... ok\ntest_valid_bom_unicode_and_false_values_preserved (test_input_hardening.InputHardeningTests.test_valid_bom_unicode_and_false_values_preserved) ... ok\ntest_viewer_reports_duplicate_json_as_diagnostic (test_input_hardening.InputHardeningTests.test_viewer_reports_duplicate_json_as_diagnostic) ... ok\ntest_declared_conflict_open_and_incomplete_resolution (test_provenance.ProvenanceTests.test_declared_conflict_open_and_incomplete_resolution) ... ok\ntest_invalid_future_and_old_dates (test_provenance.ProvenanceTests.test_invalid_future_and_old_dates) ... ok\ntest_invalid_inputs_and_blank_locator (test_provenance.ProvenanceTests.test_invalid_inputs_and_blank_locator) ... ok\ntest_no_invented_freshness_policy (test_provenance.ProvenanceTests.test_no_invented_freshness_policy) ... ok\ntest_read_only_cli_strict_and_overwrite (test_provenance.ProvenanceTests.test_read_only_cli_strict_and_overwrite) ... ok\ntest_supplied_evidence_is_not_approval_or_original_verification (test_provenance.ProvenanceTests.test_supplied_evidence_is_not_approval_or_original_verification) ... ok\ntest_unknown_metadata_and_missing_evidence_are_warnings (test_provenance.ProvenanceTests.test_unknown_metadata_and_missing_evidence_are_warnings) ... ok\ntest_unknown_undeclared_and_duplicate_evidence (test_provenance.ProvenanceTests.test_unknown_undeclared_and_duplicate_evidence) ... ok\ntest_untrusted_locations_are_not_opened (test_provenance.ProvenanceTests.test_untrusted_locations_are_not_opened) ... ok\ntest_all_snapshot_hashes_checked (test_review_evidence.EvidenceReviewTests.test_all_snapshot_hashes_checked) ... ok\ntest_borderline_and_insufficient_evidence_stay_unresolved (test_review_evidence.EvidenceReviewTests.test_borderline_and_insufficient_evidence_stay_unresolved) ... ok\ntest_cli_and_no_overwrite (test_review_evidence.EvidenceReviewTests.test_cli_and_no_overwrite) ... ok\ntest_cli_entry_from_another_directory (test_review_evidence.EvidenceReviewTests.test_cli_entry_from_another_directory) ... ok\ntest_complete_can_contain_fail_and_needs_no_current_files (test_review_evidence.EvidenceReviewTests.test_complete_can_contain_fail_and_needs_no_current_files) ... ok\ntest_configuration_rejects_missing_duplicate_and_unknown_links (test_review_evidence.EvidenceReviewTests.test_configuration_rejects_missing_duplicate_and_unknown_links) ... ok\ntest_decisions_require_human_metadata_rationale_and_actual_quote (test_review_evidence.EvidenceReviewTests.test_decisions_require_human_metadata_rationale_and_actual_quote) ... ok\ntest_exact_membership_and_shape (test_review_evidence.EvidenceReviewTests.test_exact_membership_and_shape) ... ok\ntest_missing_responses_never_become_judgments (test_review_evidence.EvidenceReviewTests.test_missing_responses_never_become_judgments) ... ok\ntest_missing_source_or_origin_blocks_completed_decisions (test_review_evidence.EvidenceReviewTests.test_missing_source_or_origin_blocks_completed_decisions) ... ok\ntest_pending_self_contained_and_legacy_unchanged (test_review_evidence.EvidenceReviewTests.test_pending_self_contained_and_legacy_unchanged) ... ok\ntest_ambiguous_sources_and_rules_not_silently_resolved (test_viewer.ViewerTests.test_ambiguous_sources_and_rules_not_silently_resolved) ... ok\ntest_broken_source_and_requirement_links_are_diagnostic (test_viewer.ViewerTests.test_broken_source_and_requirement_links_are_diagnostic) ... ok\ntest_cli_runs_from_another_directory (test_viewer.ViewerTests.test_cli_runs_from_another_directory) ... ok\ntest_empty_and_uncovered_drafts_remain_visible (test_viewer.ViewerTests.test_empty_and_uncovered_drafts_remain_visible) ... ok\ntest_export_preserves_inputs_and_refuses_existing_output (test_viewer.ViewerTests.test_export_preserves_inputs_and_refuses_existing_output) ... ok\ntest_html_and_script_strings_are_inert_data (test_viewer.ViewerTests.test_html_and_script_strings_are_inert_data) ... ok\ntest_missing_malformed_and_schema_invalid_files (test_viewer.ViewerTests.test_missing_malformed_and_schema_invalid_files) ... ok\ntest_real_package_relationships_and_no_implicit_results (test_viewer.ViewerTests.test_real_package_relationships_and_no_implicit_results) ... ok\ntest_report_reproduced_but_never_infers_human_passes (test_viewer.ViewerTests.test_report_reproduced_but_never_infers_human_passes) ... ok\ntest_saved_responses_and_execution_timestamp_are_checked (test_viewer.ViewerTests.test_saved_responses_and_execution_timestamp_are_checked) ... ok\ntest_stale_or_altered_report_totals_are_not_displayed (test_viewer.ViewerTests.test_stale_or_altered_report_totals_are_not_displayed) ... ok\ntest_unsupported_or_unreadable_report (test_viewer.ViewerTests.test_unsupported_or_unreadable_report) ... ok\n\n----------------------------------------------------------------------\nRan 78 tests in 7.858s\n\nOK\n"
+  }
+]

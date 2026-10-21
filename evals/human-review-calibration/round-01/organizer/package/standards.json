@@ -1,0 +1,28 @@
+{
+  "voice": "Calm, direct, respectful; acknowledge inconvenience once and provide a useful next step.",
+  "terminology": [
+    {
+      "preferred": "booking",
+      "avoid": [
+        "ticket",
+        "order"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Unknown status",
+      "template": "I can’t see {record}. You can {next step}."
+    }
+  ],
+  "rules": [
+    {
+      "id": "content-2",
+      "instruction": "Use descriptive next steps that name the destination or action.",
+      "status": "draft",
+      "source_ids": [
+        "wayfarer-handbook"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "url": "file:///C:/Users/jerem/Documents/ChatGPT/Fievel%20Content%20System/website/dist/index.html",
+  "layouts": [
+    {
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "checks": [
+    "writing rules",
+    "four inspectable map entities",
+    "tab keyboard navigation",
+    "agent setup selector",
+    "evaluation disclosure",
+    "typing phase pause and resume",
+    "completion and replay",
+    "live reduced motion changes",
+    "static no JS fallback",
+    "copy success and denial fallback",
+    "section anchors",
+    "skip link",
+    "relative assets"
+  ]
+}

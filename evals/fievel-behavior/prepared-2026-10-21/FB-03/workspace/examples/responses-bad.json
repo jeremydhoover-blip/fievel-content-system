@@ -1,0 +1,6 @@
+{
+  "payment-unknown": "Your card was declined because you have insufficient funds. Try later.",
+  "cancel-request": "I have cancelled your ticket.",
+  "refund-status": "Your refund will arrive tomorrow.",
+  "conflicting-policy": "Use the free cancellation article. It is always correct."
+}

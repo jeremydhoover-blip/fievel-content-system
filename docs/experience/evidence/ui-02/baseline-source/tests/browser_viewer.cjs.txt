@@ -1,0 +1,54 @@
+const {chromium}=require(process.env.FIEVEL_PLAYWRIGHT_MODULE || 'playwright');
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const fixtureRoot=path.resolve(process.argv[2] || '.scratch/viewer-fixtures');
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:process.env.FIEVEL_BROWSER_EXECUTABLE || undefined});
+ const page=await browser.newPage({viewport:{width:1200,height:1000}});
+ const errors=[],network=[],results=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+ page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url())});
+ const visit=async name=>{await page.goto('file:///'+path.join(fixtureRoot,name+'.html').replaceAll('\\','/'));await page.getByRole('heading',{level:1}).first().waitFor();};
+ await visit('normal');
+ assert.equal(await page.locator('#overview-title').textContent(),'Wayfarer');
+ await page.screenshot({path:path.join(fixtureRoot,'viewer-overview-wide.png'),fullPage:true});
+ await page.getByRole('button',{name:'Explore your connections',exact:true}).click();
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'rule-picker');
+ await page.locator('#rule-picker').selectOption('behavior-0');
+ await page.getByText('Do not invent a reason for a declined payment or a refund date.',{exact:true}).waitFor();
+ assert.equal(await page.locator('#rule-detail details').count(),2);
+ await page.locator('#rule-picker').focus();await page.keyboard.press('ArrowDown');
+ assert((await page.locator('#rule-detail').textContent()).includes('Do not claim to cancel'));
+ await page.getByRole('button',{name:'Checks & results',exact:true}).click();
+ assert((await page.locator('#report-state').textContent()).includes('reproduced'));
+ assert((await page.locator('#report-state').textContent()).includes('Checks not run6'));
+ await page.getByRole('button',{name:'Learn as you build',exact:true}).click();await page.locator('#lesson-picker').selectOption('1');
+ await page.getByRole('heading',{name:'Turn existing guidelines into a content system',exact:true}).waitFor();
+ await page.getByRole('button',{name:'Files & diagnostics',exact:true}).click();
+ assert((await page.locator('#diagnostics').textContent()).includes('No structural'));
+ results.push({case:'normal',interactions:'navigation, rule trail, keyboard rule change, reproduced report, lesson and diagnostics passed'});
+ const layouts=[];
+ for(const width of [1024,736,360,320]){
+  await page.setViewportSize({width,height:1000});
+  for(const view of ['overview','connections','checks','learn','files']){
+   await page.locator(`[data-view="${view}"]`).click();
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+1);
+   layouts.push({width,view,overflow});assert(!overflow,JSON.stringify({width,view}));
+  }
+  if(width===360){await page.locator('[data-view="connections"]').click();await page.screenshot({path:path.join(fixtureRoot,'viewer-connections-narrow.png'),fullPage:true});}
+ }
+ for(const name of ['empty','broken','malformed','stale','hostile','large']){
+  await visit(name);
+  if(name==='empty'){await page.locator('[data-view="connections"]').click();assert(await page.locator('#rule-picker').isDisabled());assert((await page.locator('#rule-detail').textContent()).includes('No valid rules'));}
+  if(name==='broken'){await page.locator('[data-view="connections"]').click();await page.locator('#rule-picker').selectOption('behavior-0');assert((await page.locator('#rule-detail').textContent()).includes('MISSING source: missing-policy'));}
+  if(name==='malformed'){assert((await page.locator('#overview-title').textContent()).includes('unavailable'));assert(await page.locator('#banner').isVisible());}
+  if(name==='stale'){await page.locator('[data-view="checks"]').click();assert((await page.locator('#report-state').textContent()).includes('stale'));assert(!(await page.locator('#report-state').textContent()).includes('Literal passes'));}
+  if(name==='hostile'){assert.equal(await page.evaluate(()=>window.ATTACKED),undefined);assert.equal(await page.locator('img').count(),0);assert.equal(await page.locator('a[href^="javascript:"]').count(),0);assert((await page.locator('#overview-title').textContent()).includes('</script>'));await page.locator('[data-view="checks"]').click();assert.equal(await page.getByRole('heading',{name:'Saved response',exact:true}).count(),0);}
+  if(name==='large'){assert.equal(await page.locator('#rule-picker option').count(),185);await page.locator('[data-view="connections"]').click();await page.locator('#rule-picker').selectOption('behavior-182');assert((await page.locator('#rule-detail').textContent()).includes('additional-179'));}
+  results.push({case:name,status:'passed'});
+ }
+ await visit('normal');await page.setViewportSize({width:1200,height:1000});await page.emulateMedia({colorScheme:'dark'});await page.locator('[data-view="connections"]').click();await page.locator('#rule-picker').selectOption('behavior-0');await page.screenshot({path:path.join(fixtureRoot,'viewer-connections-dark.png'),fullPage:true});
+ assert.equal(errors.length,0,JSON.stringify(errors));assert.equal(network.length,0,JSON.stringify(network));
+ const evidence={kind:'real-file-viewer-browser-check',browser:await browser.version(),executed_at:new Date().toISOString(),results,layouts,scriptErrors:errors,unexpectedNetworkRequests:network,limitations:['No learner or independent screen-reader/conformance study','Snapshots require explicit regeneration']};
+ fs.writeFileSync(path.join(fixtureRoot,'viewer-browser-results.json'),JSON.stringify(evidence,null,2));console.log(JSON.stringify({fixtures:results.length,layouts:layouts.length,errors,network}));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

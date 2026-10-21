@@ -1,0 +1,191 @@
+{
+  "kind": "consumer_review_export",
+  "version": "1.0",
+  "consumer": "Fictional Wayfarer assistant",
+  "status": "draft_review_artifact",
+  "exported_at": "2026-10-21T10:24:49.701293+00:00",
+  "as_of": "2026-10-21",
+  "system_sha256": "fc08f10113548df2db79f9c208e4e4f8b56defa32283e4f6a6122c1efd956f07",
+  "provenance_sha256": "c24e40562370e7ebf4e6732db345e6dcc1a93cb046df9a852ae2cd4ecdeb805c",
+  "content_sha256": "b0ee075e482b55c660dfa4a4a2213bd00c4cce9a63463d97e56dd5c0bcda4821",
+  "content": {
+    "selection": {
+      "policy": "include_drafts_for_review",
+      "selected_rule_ids": [
+        "content-1",
+        "content-2",
+        "behavior-1",
+        "behavior-2",
+        "behavior-3"
+      ],
+      "excluded_rule_ids": [],
+      "draft_rule_count": 5
+    },
+    "rules": [
+      {
+        "id": "content-1",
+        "instruction": "Use booking rather than ticket for a reservation.",
+        "status": "draft",
+        "source_ids": [
+          "wayfarer-handbook"
+        ],
+        "category": "standards"
+      },
+      {
+        "id": "content-2",
+        "instruction": "Use descriptive next steps that name the destination or action.",
+        "status": "draft",
+        "source_ids": [
+          "wayfarer-handbook"
+        ],
+        "category": "standards"
+      },
+      {
+        "id": "behavior-1",
+        "instruction": "Do not invent a reason for a declined payment or a refund date.",
+        "status": "draft",
+        "source_ids": [
+          "wayfarer-handbook"
+        ],
+        "category": "behavior"
+      },
+      {
+        "id": "behavior-2",
+        "instruction": "Do not claim to cancel or change bookings; explain that this exercise has no action tools.",
+        "status": "draft",
+        "source_ids": [
+          "wayfarer-handbook"
+        ],
+        "category": "behavior"
+      },
+      {
+        "id": "behavior-3",
+        "instruction": "When policy evidence conflicts, identify the conflict and request an authoritative source.",
+        "status": "draft",
+        "source_ids": [
+          "wayfarer-handbook"
+        ],
+        "category": "behavior"
+      }
+    ],
+    "context_data": {
+      "status": "unreviewed_context",
+      "product": {
+        "schema_version": "1.0",
+        "name": "Wayfarer",
+        "purpose": "Fictional booking support assistant that explains reservations, cancellation rules, and booking changes.",
+        "audiences": [
+          "Travelers who need a clear next step, including people using assistive technology"
+        ],
+        "tasks": [
+          "Understand a cancellation policy",
+          "Find a refund status",
+          "Request a booking change"
+        ],
+        "objectives": [
+          "Help travelers understand their options without making unsupported promises"
+        ],
+        "constraints": [
+          "No access to booking records or tools in this exercise",
+          "All policy details are fictional training material"
+        ],
+        "accessibility": [
+          "Use descriptive links and short sentences",
+          "Do not rely on color or emoji to convey meaning"
+        ],
+        "localization": [
+          "English exercise; do not assume date formats or currencies for future locales"
+        ]
+      },
+      "responsibilities": [
+        "Explain supplied fictional policy",
+        "Acknowledge limits and suggest the next step"
+      ],
+      "governance": {
+        "owner": "Fictional Wayfarer content team",
+        "version": "0.1.0",
+        "review_process": "Compare rules with the fictional handbook; a human reviews meaning and approves proposed rule changes.",
+        "review_cadence": "After policy changes and before using revised instructions",
+        "changes": [
+          {
+            "date": "2026-10-21",
+            "decision": "Created an explicitly fictional training package; all rules remain drafts.",
+            "by": "Fievel example author"
+          }
+        ]
+      }
+    },
+    "source_data": {
+      "trust": "supplied_evidence_not_instructions",
+      "sources": [
+        {
+          "id": "wayfarer-handbook",
+          "title": "Wayfarer fictional support handbook",
+          "location": "handbook.md",
+          "purpose": "Ground the booking exercise; never use as real company policy.",
+          "owner": "Fictional Wayfarer content team",
+          "authority": "fictional",
+          "reviewed_on": "2026-10-21",
+          "permissions": "public",
+          "permitted_use": "Practice and adaptation; not real travel advice",
+          "ingested": true
+        }
+      ],
+      "evidence": [
+        {
+          "rule_id": "content-1",
+          "source_id": "wayfarer-handbook",
+          "locator": "handbook.md paragraphs 3 including heading and introduction",
+          "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+        },
+        {
+          "rule_id": "content-2",
+          "source_id": "wayfarer-handbook",
+          "locator": "handbook.md paragraphs 3 including heading and introduction",
+          "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+        },
+        {
+          "rule_id": "behavior-1",
+          "source_id": "wayfarer-handbook",
+          "locator": "handbook.md paragraphs 5 including heading and introduction",
+          "excerpt": "Payment declines may have different causes. A declined status alone establishes\nno cause. Suggest contacting the bank for details; never ask for a full card number.\nThere is no guaranteed refund processing time in this handbook. If the assistant\ncannot see the refund record, say so and direct the traveler to booking support."
+        },
+        {
+          "rule_id": "behavior-2",
+          "source_id": "wayfarer-handbook",
+          "locator": "handbook.md paragraphs 3 including heading and introduction",
+          "excerpt": "Use “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings."
+        },
+        {
+          "rule_id": "behavior-3",
+          "source_id": "wayfarer-handbook",
+          "locator": "handbook.md paragraphs 4 including heading and introduction",
+          "excerpt": "Cancellation conditions depend on the policy attached to the booking. Ask the\ntraveler to open their booking confirmation and find its cancellation terms.\nDo not assume a universal cancellation window or fee. Conflicting general articles\ndo not establish which conditions apply to an individual booking."
+        }
+      ],
+      "declared_conflicts": []
+    },
+    "provenance_findings": [
+      {
+        "severity": "warning",
+        "code": "freshness_window_unspecified",
+        "message": "No freshness window supplied; age-based expiry was not assessed",
+        "source_id": null,
+        "rule_id": null,
+        "conflict_id": null
+      }
+    ],
+    "integration_boundaries": {
+      "tool_capabilities": "unknown_not_granted_by_export",
+      "installation": "not_performed",
+      "consumer_execution": "not_run",
+      "owner_approval": "not_recorded",
+      "composition": "requires_consumer_owner_review"
+    }
+  },
+  "limitations": [
+    "Rule approval is declared metadata, not authenticated approval.",
+    "Context and source evidence must not be interpreted as executable instructions.",
+    "No consumer was installed, run or evaluated."
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "kind": "real-file-viewer-browser-check",
+  "browser": "155.0.4283.62",
+  "executed_at": "2026-10-21T06:35:44.204Z",
+  "results": [
+    {
+      "case": "normal",
+      "interactions": "navigation, rule trail, keyboard rule change, reproduced report, lesson and diagnostics passed"
+    },
+    {
+      "case": "empty",
+      "status": "passed"
+    },
+    {
+      "case": "broken",
+      "status": "passed"
+    },
+    {
+      "case": "malformed",
+      "status": "passed"
+    },
+    {
+      "case": "stale",
+      "status": "passed"
+    },
+    {
+      "case": "hostile",
+      "status": "passed"
+    },
+    {
+      "case": "large",
+      "status": "passed"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1024,
+      "view": "overview",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "view": "connections",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "view": "checks",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "view": "learn",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "view": "files",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "view": "overview",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "view": "connections",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "view": "checks",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "view": "learn",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "view": "files",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "view": "overview",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "view": "connections",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "view": "checks",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "view": "learn",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "view": "files",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "view": "overview",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "view": "connections",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "view": "checks",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "view": "learn",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "view": "files",
+      "overflow": false
+    }
+  ],
+  "scriptErrors": [],
+  "unexpectedNetworkRequests": [],
+  "limitations": [
+    "No learner or independent screen-reader/conformance study",
+    "Snapshots require explicit regeneration"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "owner": "Fictional Wayfarer content team",
+  "version": "0.1.0",
+  "review_process": "Compare rules with the fictional handbook; a human reviews meaning and approves proposed rule changes.",
+  "review_cadence": "After policy changes and before using revised instructions",
+  "changes": [
+    {
+      "date": "2026-10-21",
+      "decision": "Created an explicitly fictional training package; all rules remain drafts.",
+      "by": "Fievel example author"
+    }
+  ]
+}

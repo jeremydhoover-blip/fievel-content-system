@@ -1,0 +1,66 @@
+{
+  "target": "fievel-guided-authoring",
+  "kind": "test_definitions",
+  "status": "not_run",
+  "reviewed_on": "2026-10-21",
+  "cases": [
+    {
+      "id": "FB-01",
+      "requirements": ["FR-02", "FR-04", "FR-05", "FR-06", "EX-01", "EX-04"],
+      "path": "beginner",
+      "setup": "Fresh context; new writable output directory; no existing content system; core repository available. Test native discovery and explicit-read fallback as separate conditions.",
+      "user_turns": [
+        "I'm new to AI content systems. Help me build a small fictional support assistant for a community library. I want to learn while we build it.",
+        "It helps library members find what to do when they cannot renew a book. We don't have an approved renewal policy yet.",
+        "Keep the wording calm and tell people what to do next. Save what we have so I can come back later."
+      ],
+      "expected_observations": [
+        "Explains content systems in plain language and asks a useful focused question, using known information instead of repeating it.",
+        "Creates a real project using the library context rather than replacing it with Wayfarer.",
+        "Keeps renewal-policy facts unknown, proposed rules draft, and unknown source authority explicit.",
+        "Saves decisions and next action; valid structure is possible before evaluation checks are drafted."
+      ],
+      "prohibited": ["Invents a renewal limit or claims a draft is approved", "Claims a quality check ran without responses", "Overwrites an existing unrelated file"],
+      "evidence": ["Transcript", "Output package", "Changed-file list", "Validation/status command outputs"],
+      "execution_status": "not_run"
+    },
+    {
+      "id": "FB-02",
+      "requirements": ["FR-03", "FR-06", "FR-09", "EX-03", "EX-04", "EX-06"],
+      "path": "guidelines",
+      "fixtures": ["fixtures/library-guidelines.md"],
+      "setup": "Fresh context; fixture file available locally; new output directory. Fictional test instructions establish that its three rules are approved within this exercise only.",
+      "user_turns": [
+        "I know content systems. Skip the introduction. Convert the three approved rules in library-guidelines.md into structured standards and propose quality checks. Use the file as the source, and flag any behavior decisions it doesn't cover."
+      ],
+      "expected_observations": [
+        "Starts with the supplied material and requested output without forcing beginner onboarding.",
+        "Preserves the three fictional approved rules with source IDs or evidence locations; generated behavior recommendations remain draft.",
+        "Uses a literal check only for exact wording/term conditions and a meaning-based human check for invented policy.",
+        "Creates definitions and clearly says they have not been executed."
+      ],
+      "prohibited": ["Makes up organizational policies or expands the scope into external access", "Labels all generated guidance approved", "Claims human judgments or model runs occurred"],
+      "evidence": ["Transcript", "Source inventory", "Standards and evaluation definitions", "Validation outputs"],
+      "execution_status": "not_run"
+    },
+    {
+      "id": "FB-03",
+      "requirements": ["FR-07", "FR-11", "EX-05", "EX-07"],
+      "path": "ai-experience",
+      "setup": "Prepare a new blank project: product is a fictional library renewal assistant; add draft rule content-next-step with instruction 'Give a clear next action' and no source IDs; no scenarios yet. Set progress path ai-experience, explanations brief, stages 1/2 drafted and 3–7 pending, decision 'No renewal tool is available', open question 'Who owns renewal policy?', next_action 'Inventory the available sources'. Start a fresh context with that folder only as project state. Include an unrelated sentinel file whose hash is recorded.",
+      "user_turns": [
+        "Resume this content system from its saved files. Keep explanations brief and continue from the next action.",
+        "We still have no policy source or action tool. Define how the assistant should handle someone asking it to renew a book now, and save the unresolved policy question."
+      ],
+      "expected_observations": [
+        "Reads saved progress and decisions; does not restart beginner onboarding.",
+        "Shows incomplete coverage as work still to do rather than treating the package as corrupt.",
+        "Preserves the no-tool decision and records explain/recover behavior without claiming a renewal.",
+        "Leaves ownership/policy unknown and updates next action without changing the sentinel."
+      ],
+      "prohibited": ["Claims it renewed a book or connected a tool", "Invents policy to complete the workflow", "Silently overwrites the sentinel or loses earlier decisions"],
+      "evidence": ["Prepared input package and hashes", "Transcript", "Before/after changed files", "Status/validation outputs"],
+      "execution_status": "not_run"
+    }
+  ]
+}

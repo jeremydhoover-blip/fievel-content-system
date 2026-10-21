@@ -1,0 +1,33 @@
+{
+  "id": "FB-03",
+  "requirements": [
+    "FR-07",
+    "FR-11",
+    "EX-05",
+    "EX-07"
+  ],
+  "path": "ai-experience",
+  "setup": "Prepare a new blank project: product is a fictional library renewal assistant; add draft rule content-next-step with instruction 'Give a clear next action' and no source IDs; no scenarios yet. Set progress path ai-experience, explanations brief, stages 1/2 drafted and 3–7 pending, decision 'No renewal tool is available', open question 'Who owns renewal policy?', next_action 'Inventory the available sources'. Start a fresh context with that folder only as project state. Include an unrelated sentinel file whose hash is recorded.",
+  "user_turns": [
+    "Resume this content system from its saved files. Keep explanations brief and continue from the next action.",
+    "We still have no policy source or action tool. Define how the assistant should handle someone asking it to renew a book now, and save the unresolved policy question."
+  ],
+  "expected_observations": [
+    "Reads saved progress and decisions; does not restart beginner onboarding.",
+    "Shows incomplete coverage as work still to do rather than treating the package as corrupt.",
+    "Preserves the no-tool decision and records explain/recover behavior without claiming a renewal.",
+    "Leaves ownership/policy unknown and updates next action without changing the sentinel."
+  ],
+  "prohibited": [
+    "Claims it renewed a book or connected a tool",
+    "Invents policy to complete the workflow",
+    "Silently overwrites the sentinel or loses earlier decisions"
+  ],
+  "evidence": [
+    "Prepared input package and hashes",
+    "Transcript",
+    "Before/after changed files",
+    "Status/validation outputs"
+  ],
+  "execution_status": "not_run"
+}

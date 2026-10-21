@@ -1,0 +1,46 @@
+test_adapters_and_skill_metadata (test_fievel.WorkflowTests.test_adapters_and_skill_metadata) ... ok
+test_authored_literal_pass_fixture_does_not_pass_human_checks (test_fievel.WorkflowTests.test_authored_literal_pass_fixture_does_not_pass_human_checks) ... ok
+test_bad_fixture_fails (test_fievel.WorkflowTests.test_bad_fixture_fails) ... ok
+test_changed_system_changes_evidence_hash (test_fievel.WorkflowTests.test_changed_system_changes_evidence_hash) ... ok
+test_cli_all_human_explicitly_reports_zero_execution (test_fievel.WorkflowTests.test_cli_all_human_explicitly_reports_zero_execution) ... FAIL
+test_cli_end_to_end_from_other_directory (test_fievel.WorkflowTests.test_cli_end_to_end_from_other_directory) ... ok
+test_cli_execution_coverage_distinguishes_not_run_reasons (test_fievel.WorkflowTests.test_cli_execution_coverage_distinguishes_not_run_reasons) ... FAIL
+test_duplicate_check_ids_rejected (test_fievel.WorkflowTests.test_duplicate_check_ids_rejected) ... ok
+test_duplicate_ids_rejected (test_fievel.WorkflowTests.test_duplicate_ids_rejected) ... ok
+test_duplicate_scenarios_rejected (test_fievel.WorkflowTests.test_duplicate_scenarios_rejected) ... ok
+test_empty_literal_rejected (test_fievel.WorkflowTests.test_empty_literal_rejected) ... ok
+test_human_review_is_pending_and_identifies_responses (test_fievel.WorkflowTests.test_human_review_is_pending_and_identifies_responses) ... ok
+test_initialization_preserves_existing_work (test_fievel.WorkflowTests.test_initialization_preserves_existing_work) ... ok
+test_invalid_response_targets_rejected (test_fievel.WorkflowTests.test_invalid_response_targets_rejected) ... ok
+test_invalid_shape_rejected (test_fievel.WorkflowTests.test_invalid_shape_rejected) ... ok
+test_missing_responses_not_run (test_fievel.WorkflowTests.test_missing_responses_not_run) ... ok
+test_partial_draft_cli_modes (test_fievel.WorkflowTests.test_partial_draft_cli_modes) ... ok
+test_partial_draft_to_execution_journey (test_fievel.WorkflowTests.test_partial_draft_to_execution_journey) ... ok
+test_reports_never_overwrite (test_fievel.WorkflowTests.test_reports_never_overwrite) ... ok
+test_schema_and_bundled_packages (test_fievel.WorkflowTests.test_schema_and_bundled_packages) ... ok
+test_template_starts_pending (test_fievel.WorkflowTests.test_template_starts_pending) ... ok
+test_uncovered_requirement_rejected (test_fievel.WorkflowTests.test_uncovered_requirement_rejected) ... ok
+test_unknown_fields_rejected (test_fievel.WorkflowTests.test_unknown_fields_rejected) ... ok
+test_unknown_requirement_rejected (test_fievel.WorkflowTests.test_unknown_requirement_rejected) ... ok
+test_unknown_source_rejected (test_fievel.WorkflowTests.test_unknown_source_rejected) ... ok
+
+======================================================================
+FAIL: test_cli_all_human_explicitly_reports_zero_execution (test_fievel.WorkflowTests.test_cli_all_human_explicitly_reports_zero_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\tests\test_fievel.py", line 242, in test_cli_all_human_explicitly_reports_zero_execution
+    self.assertIn('Executed 0 of 9 defined checks', output.getvalue())
+AssertionError: 'Executed 0 of 9 defined checks' not found in 'Saved deterministic_execution: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\tmpnn0y3pvx\\all-human.json\n{"pass": 0, "fail": 0, "not_run": 9}\n'
+
+======================================================================
+FAIL: test_cli_execution_coverage_distinguishes_not_run_reasons (test_fievel.WorkflowTests.test_cli_execution_coverage_distinguishes_not_run_reasons)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\jerem\Documents\ChatGPT\Fievel Content System\tests\test_fievel.py", line 225, in test_cli_execution_coverage_distinguishes_not_run_reasons
+    self.assertIn(f'{missing} checks missing saved responses', output.getvalue())
+AssertionError: '7 checks missing saved responses' not found in 'Saved deterministic_execution: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\tmpzzwag2pl\\partial-run.json\n{"pass": 1, "fail": 0, "not_run": 8}\n'
+
+----------------------------------------------------------------------
+Ran 25 tests in 3.217s
+
+FAILED (failures=2)

@@ -1,0 +1,28 @@
+{
+  "case_id": "FB-03",
+  "status": "not_run",
+  "condition": "candidate-explicit-read",
+  "host": null,
+  "host_version": null,
+  "model": null,
+  "assessor": null,
+  "turns": [
+    {
+      "file": "turn-01.txt",
+      "canonical_user_turn": "Resume this content system from its saved files. Keep explanations brief and continue from the next action.",
+      "executed": false
+    },
+    {
+      "file": "turn-02.txt",
+      "canonical_user_turn": "We still have no policy source or action tool. Define how the assistant should handle someone asking it to renew a book now, and save the unresolved policy question.",
+      "executed": false
+    }
+  ],
+  "native_discovery_tested": false,
+  "baseline_comparison_run": false,
+  "limitations": [
+    "Prepared inputs only; no model calls authorized",
+    "No learner or human judgment evidence",
+    "One prepared candidate per case; no repeated trials"
+  ]
+}

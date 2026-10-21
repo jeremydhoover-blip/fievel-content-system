@@ -1,0 +1,37 @@
+{
+  "url": "http://127.0.0.1:8767/fievel-content-system/",
+  "layouts": [
+    {
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "checks": [
+    "correct repository URLs",
+    "section anchors",
+    "illustrative demo labeling",
+    "copy success and denial fallback",
+    "keyboard skip link",
+    "responsive reflow",
+    "reduced motion",
+    "relative asset loading"
+  ]
+}

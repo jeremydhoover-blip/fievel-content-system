@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="@@CSP@@">
+<title>@@TITLE@@ · Fievel</title>
+<style>@@CSS@@</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><span class="wordmark">fievel</span><span id="project-name"></span><span class="snapshot-label">Read-only snapshot</span></header>
+<div class="layout">
+<nav aria-label="Content system views" id="navigation">
+<button type="button" data-view="overview" aria-pressed="true">Overview</button>
+<button type="button" data-view="connections" aria-pressed="false">Connections</button>
+<button type="button" data-view="checks" aria-pressed="false">Checks &amp; results</button>
+<button type="button" data-view="learn" aria-pressed="false">Learn as you build</button>
+<button type="button" data-view="files" aria-pressed="false">Files &amp; diagnostics</button>
+</nav>
+<main id="main">
+<div id="banner"></div>
+<section data-panel="overview" aria-labelledby="overview-title"><p class="eyebrow">Your content system</p><h1 id="overview-title"></h1><p id="purpose"></p><div id="next-action" class="next"></div><div class="columns"><section><h2>Product &amp; audience</h2><div id="context"></div><h2>What you've defined</h2><div id="inventory"></div></section><section><h2>Decisions &amp; open questions</h2><div id="decisions"></div><h2>Recorded progress</h2><div id="progress"></div></section></div></section>
+<section data-panel="connections" aria-labelledby="connections-title" hidden><p class="eyebrow">Declared relationships</p><h1 id="connections-title">Follow a rule through your system</h1><p>Source links are recorded claims to inspect. Defined checks do not establish compliance.</p><label for="rule-picker">Choose a content or behavior rule</label><select id="rule-picker"></select><div id="rule-detail" aria-live="polite"></div></section>
+<section data-panel="checks" aria-labelledby="checks-title" hidden><h1 id="checks-title">Checks &amp; results</h1><div id="report-state"></div><div id="check-list"></div></section>
+<section data-panel="learn" aria-labelledby="learn-title" hidden><p class="eyebrow">Bundled guidance</p><h1 id="learn-title">Learn the part you're working on</h1><p>Original draft lessons included in this snapshot. They explain the method; they do not establish your organization's policy.</p><label for="lesson-picker">Choose a lesson</label><select id="lesson-picker"></select><article id="lesson"></article></section>
+<section data-panel="files" aria-labelledby="files-title" hidden><h1 id="files-title">Files &amp; diagnostics</h1><div id="diagnostics"></div><div id="file-list"></div><details><summary>Snapshot identity</summary><pre id="identity"></pre></details></section>
+<footer><p id="snapshot-date"></p><p>Reloading this page does not reread your project. To see edits, run <code>python scripts/fievel.py view &lt;folder&gt; --out &lt;new.html&gt;</code> again with a new filename. No files are edited or uploaded. Sharing this HTML shares its embedded project, lesson and selected response data.</p></footer>
+</main>
+</div>
+<noscript>This local viewer requires JavaScript for navigation. Your original JSON files remain available in the content-system folder.</noscript>
+<script id="snapshot-data" type="application/json">@@DATA@@</script>
+<script>@@SCRIPT@@</script>
+</body>
+</html>

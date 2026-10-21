@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-21",
+  "scope": "Static documentation/knowledge routing integrity and unchanged core software tests; not agent/learner validation",
+  "core_test_count": 23,
+  "core_test_exit": 0,
+  "adapter_exit": 0,
+  "broken_local_links": [],
+  "knowledge_modules_routed": [
+    "content-design/content-systems.md",
+    "ai-fundamentals/context.md",
+    "ai-experience-design/behavior.md",
+    "evaluations/checking-quality.md",
+    "content-design/using-existing-guidelines.md",
+    "content-design/system-relationships.md",
+    "ai-fundamentals/instructions-and-skills.md"
+  ],
+  "registry_ids_unique": true
+}

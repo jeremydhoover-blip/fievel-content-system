@@ -1,0 +1,3 @@
+Read AGENTS.md and follow its relevant Fievel workflow.
+
+I'm new to AI content systems. Help me build a small fictional support assistant for a community library. I want to learn while we build it.

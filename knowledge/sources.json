@@ -1,0 +1,107 @@
+[
+  {
+    "id": "fievel-principles",
+    "category": "core-principles",
+    "location": "../AGENTS.md",
+    "reviewed_on": "2026-10-21",
+    "status": "project-authored"
+  },
+  {
+    "id": "design-patterns",
+    "category": "external-reference",
+    "location": "https://design-system.service.gov.uk/",
+    "reviewed_on": "2026-10-21",
+    "status": "reference-only"
+  },
+  {
+    "id": "agent-skills",
+    "category": "version-sensitive",
+    "location": "https://agentskills.io/specification",
+    "reviewed_on": "2026-10-21",
+    "status": "verified-documentation"
+  },
+  {
+    "id": "codex-skills",
+    "category": "tool-documentation",
+    "location": "https://developers.openai.com/codex/skills/",
+    "reviewed_on": "2026-10-21",
+    "status": "metadata-discovery-observed-behavior-not-tested"
+  },
+  {
+    "id": "promptfoo",
+    "category": "tool-documentation",
+    "location": "https://www.promptfoo.dev/docs/configuration/expected-outputs/",
+    "reviewed_on": "2026-10-21",
+    "status": "integration-not-implemented"
+  },
+  {
+    "id": "llm-judge",
+    "category": "experimental",
+    "location": "https://www.promptfoo.dev/docs/configuration/expected-outputs/",
+    "reviewed_on": "2026-10-21",
+    "status": "not-implemented-fallible"
+  },
+  {
+    "id": "skill-evaluation-method",
+    "category": "external-reference",
+    "location": "https://agentskills.io/skill-creation/evaluating-skills",
+    "reviewed_on": "2026-10-21",
+    "status": "method-inspected-runtime-experiment-pending"
+  },
+  {
+    "id": "promptfoo-echo",
+    "category": "tool-documentation",
+    "location": "https://www.promptfoo.dev/docs/providers/echo/",
+    "reviewed_on": "2026-10-21",
+    "status": "offline-spike-planned-not-run"
+  },
+  {
+    "id": "deliberate-development-research",
+    "category": "core-principles",
+    "location": "../docs/research/ROUND-02.md",
+    "reviewed_on": "2026-10-21",
+    "status": "source-observations-and-inferences-separated"
+  },
+  {
+    "id": "backstage-system-model",
+    "category": "external-reference",
+    "location": "https://backstage.io/docs/features/software-catalog/system-model/",
+    "reviewed_on": "2026-10-21",
+    "status": "reference-only-domain-adaptation-proposed"
+  },
+  {
+    "id": "diataxis",
+    "category": "external-reference",
+    "location": "https://diataxis.fr/",
+    "reviewed_on": "2026-10-21",
+    "status": "reference-only-learning-organization"
+  },
+  {
+    "id": "w3c-complex-images",
+    "category": "external-reference",
+    "location": "https://www.w3.org/WAI/tutorials/images/complex/",
+    "reviewed_on": "2026-10-21",
+    "status": "accessibility-design-reference-not-conformance-evidence"
+  },
+  {
+    "id": "library-guideline-lesson",
+    "category": "core-principles",
+    "location": "content-design/using-existing-guidelines.md",
+    "reviewed_on": "2026-10-21",
+    "status": "draft-original-lesson-expert-and-learner-review-pending"
+  },
+  {
+    "id": "relationships-lesson",
+    "category": "core-principles",
+    "location": "content-design/system-relationships.md",
+    "reviewed_on": "2026-10-21",
+    "status": "draft-original-lesson-expert-and-learner-review-pending"
+  },
+  {
+    "id": "instructions-skills-lesson",
+    "category": "core-principles",
+    "location": "ai-fundamentals/instructions-and-skills.md",
+    "reviewed_on": "2026-10-21",
+    "status": "draft-original-lesson-expert-and-learner-review-pending"
+  }
+]

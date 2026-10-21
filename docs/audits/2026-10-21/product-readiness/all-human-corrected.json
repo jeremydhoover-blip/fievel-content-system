@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "stdout": "Saved deterministic_execution: C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\all-human-ch0rmss6\\result.json\n{\"pass\": 0, \"fail\": 0, \"not_run\": 9}\n",
+  "stderr": "",
+  "note": "Corrected fixture uses string value as required by schema; prior invalid-fixture probe preserved.",
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "not_run": 9
+  }
+}

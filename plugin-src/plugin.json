@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fievel",
+  "version": "0.1.0",
+  "description": "Build and improve a portable content system with guided workflows and local quality checks.",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "onboardingSkill": "./skills/fievel/SKILL.md",
+      "interface": {
+        "displayName": "Fievel",
+        "shortDescription": "Build your content system",
+        "longDescription": "A local pilot for building content standards, AI behavior, source records and quality checks. Requires Python 3.10+ and jsonschema. Guided behavior remains under evaluation.",
+        "developerName": "Jeremy Hoover",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "defaultPrompt": ["Start Fievel and help me build my content system.", "Resume my Fievel content system."],
+        "brandColor": "#B65B3D",
+        "logo": "./assets/fievel-logo.png",
+        "composerIcon": "./assets/fievel-logo.png"
+      }
+    }
+  }
+}

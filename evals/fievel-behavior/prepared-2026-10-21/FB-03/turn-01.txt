@@ -1,0 +1,5 @@
+Read AGENTS.md and follow its relevant Fievel workflow.
+
+Resume this content system from its saved files. Keep explanations brief and continue from the next action.
+
+The selected project folder is my-content-system.

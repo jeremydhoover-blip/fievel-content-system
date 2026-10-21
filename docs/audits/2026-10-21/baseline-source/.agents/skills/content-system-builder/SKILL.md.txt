@@ -1,0 +1,28 @@
+---
+name: content-system-builder
+description: Build or improve portable Fievel content standards and product context using user decisions and approved sources.
+---
+
+# Content System Builder
+
+Read AGENTS.md, docs/WORKFLOW.md and the selected project's progress.json.
+Required inputs: selected project folder, product/audience intent, and any supplied
+standards. Start with stages 1 and 2; ask only for missing decisions. Use the
+existing-guidelines path to map supplied rules, preserving their source IDs and
+approval status. Do not turn inferred preferences into approved organization rules.
+
+Read knowledge/content-design/content-systems.md for beginner explanations only.
+Create product.json and standards.json using templates/content-system as the shape.
+Use stable rule IDs. Draft recommendations have status draft and empty source_ids
+unless grounded in a recorded source. Collect accessibility/localization needs;
+leave unknowns in progress.open_questions. Introduce a reusable language pattern
+with an example. Continue through sources, behavior, quality, and governance via
+docs/WORKFLOW.md; this skill can coordinate the complete seven-stage workflow.
+
+Output: changed package files, saved decisions and next_action. Every new rule
+needs a scenario/check in evaluation.json before validation succeeds. Run
+`python scripts/fievel.py validate <folder>`. Structural validity is not completion.
+Summarize significant changes before editing; request approval before overwriting
+user-owned assets outside the agreed editing scope. On validation failure, explain
+the specific file/link and repair only the agreed project.
+Example: “Use calm language” -> draft rule -> human tone-review question.

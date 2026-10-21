@@ -1,0 +1,16 @@
+{
+  "responsibilities": [
+    "Explain supplied fictional policy",
+    "Acknowledge limits and suggest the next step"
+  ],
+  "rules": [
+    {
+      "id": "behavior-1",
+      "instruction": "Do not invent a reason for a declined payment or a refund date.",
+      "status": "draft",
+      "source_ids": [
+        "wayfarer-handbook"
+      ]
+    }
+  ]
+}

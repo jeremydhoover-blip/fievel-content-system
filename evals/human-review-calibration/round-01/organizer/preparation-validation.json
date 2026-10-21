@@ -1,0 +1,68 @@
+[
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-a/C01.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  },
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-b/C01.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  },
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-a/C02.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  },
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-b/C02.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  },
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-a/C03.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  },
+  {
+    "file": "evals/human-review-calibration/round-01/reviewer-b/C03.json",
+    "counts": {
+      "pending": 2,
+      "not_run": 0,
+      "pass": 0,
+      "fail": 0,
+      "borderline": 0,
+      "insufficient_evidence": 0
+    }
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-21",
+  "user_acceptance": "First functional UI pass called complete; usability/design improvement requested",
+  "files": {
+    "viewer/shell.html": "777ad9afee759ed0e023fe4056990995108c75e5ee793a508470912b32468593",
+    "viewer/viewer.css": "aaee1836373f3544882592ab2061b3e186bb20c5222a92ec8d616179dbe466e4",
+    "viewer/viewer.js": "5f50d1ce4fc90e23c695a0a102376da53d65080b3d7fdebae1520bf24ad2a2b6",
+    "tests/browser_viewer.cjs": "ff81d7c35f1a4523192c70ec17c792ec380f969a52424580bbbc8112cd85d442"
+  }
+}

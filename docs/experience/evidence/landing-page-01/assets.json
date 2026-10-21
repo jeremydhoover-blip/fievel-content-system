@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-21",
+  "total_bytes": 21869,
+  "sha256": {
+    "website/dist/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "website/dist/favicon.svg": "e5b177ebef6ca8ccc9cf98c814b644974914ad65632284d7d593b6c67e544702",
+    "website/dist/index.html": "52cfaeeef6e513e18c1b24470bb1720ca0844a8fc35337d6516cd87e7e4e995a",
+    "website/dist/main.js": "f067b89482b409f1b140af5c2169f4df1efc1dae270188349b37e48eb41d2f24",
+    "website/dist/styles.css": "cf5a3712775cab8604c11a4b6ffd94b0178b4f5feefa2f952914babd4b2badfa"
+  }
+}

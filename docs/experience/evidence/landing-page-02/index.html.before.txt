@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build your AI content system with Fievel. Connect product context, writing standards, sources, AI behavior and quality checks in a repository you own.">
+  <meta name="theme-color" content="#f6f6f7">
+  <title>Fievel — Your AI content systems architect</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header wrap">
+    <a class="wordmark" href="#" aria-label="Fievel home">Fievel<span class="version">early prototype</span></a>
+    <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#evaluations">Evaluations</a><a href="https://github.com/jeremydhoover-blip/fievel-content-system">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="overline">Your AI content systems architect</p>
+        <h1 id="hero-title">Your content standards.<br>A system your AI can work with.</h1>
+        <p class="intro">Turn product knowledge and writing guidance into connected rules, sources, AI behavior and quality checks. Fievel walks you through it, in a repository you own.</p>
+        <div class="actions"><a class="button primary" href="https://github.com/jeremydhoover-blip/fievel-content-system">Get Fievel on GitHub <span aria-hidden="true">↗</span></a><a class="quiet-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a></div>
+        <p class="small muted">Open source · MIT licensed · Bring your coding agent</p>
+      </div>
+      <div class="system-art" role="img" aria-label="An illustrative content system connects product context to writing standards, sources, AI behavior and evaluations.">
+        <div class="art-caption"><span class="dot"></span> A connected content system</div>
+        <svg viewBox="0 0 480 360" aria-hidden="true">
+          <g class="wires"><path d="M240 70V107M240 107H110V150M240 107H370V150M110 205V250H240M370 205V250H240V285"/><path class="dotted" d="M175 178H305"/></g>
+          <g class="art-node"><rect x="140" y="12" width="200" height="58" rx="12"/><text x="160" y="37" class="art-kicker">01 / CONTEXT</text><text x="160" y="57">Your product &amp; audience</text></g>
+          <g class="art-node"><rect x="10" y="150" width="200" height="58" rx="12"/><text x="30" y="175" class="art-kicker">02 / CONTENT</text><text x="30" y="195">Voice, rules &amp; sources</text></g>
+          <g class="art-node"><rect x="270" y="150" width="200" height="58" rx="12"/><text x="290" y="175" class="art-kicker">03 / BEHAVIOR</text><text x="290" y="195">What your AI should do</text></g>
+          <g class="art-node dark-node"><rect x="140" y="285" width="200" height="58" rx="12"/><text x="160" y="310" class="art-kicker">04 / EVALUATIONS</text><text x="160" y="330">Define what good looks like</text></g>
+          <circle cx="240" cy="107" r="4"/><circle cx="240" cy="250" r="4"/>
+        </svg>
+        <p class="art-foot">Readable files. Traceable connections. Yours to evolve.</p>
+      </div>
+    </section>
+
+    <section class="process section wrap" id="how-it-works" aria-labelledby="process-title">
+      <div class="section-top"><div><p class="overline">A conversation that becomes a system</p><h2 id="process-title">One useful decision<br>at a time.</h2></div><p>Start with a single product task or bring your existing style guide. Your agent leads the conversation; Fievel supplies the structure, skills and reference material.</p></div>
+      <div class="process-grid">
+        <ol class="steps">
+          <li><span class="step-number">01</span><div><h3>Start with what you know</h3><p>Describe your product, audience and constraints. New to AI content systems? Begin with a fictional example.</p></div></li>
+          <li><span class="step-number">02</span><div><h3>Connect the pieces</h3><p>Shape writing standards, source records and behavior rules. Keep unknowns explicit and drafts separate from approved guidance.</p></div></li>
+          <li><span class="step-number">03</span><div><h3>Check, review, improve</h3><p>Define realistic scenarios, try saved responses and plan ownership. Open the local dashboard to see the system you have created.</p></div></li>
+        </ol>
+        <figure class="demo">
+          <figcaption><span class="dot"></span> Illustrative conversation · fictional example</figcaption>
+          <div class="chat"><div class="bubble user"><span>Designer</span>I have a style guide. Where do I start with our support assistant?</div><div class="bubble agent"><span>Fievel</span>Let’s start with one task. What should the assistant help someone do?</div><div class="bubble user"><span>Designer</span>Change a booking. It should ask if details are missing.</div><div class="bubble agent"><span>Fievel</span>Let’s draft that behavior, then link your approved change policy when you provide it.</div></div>
+          <div class="artifact"><div><span class="file-icon" aria-hidden="true">{ }</span><strong>behavior.json</strong><span class="pill">Draft</span></div><p>Ask for missing booking details before proposing a change.</p><div class="artifact-bottom"><span>Source not linked yet</span><span>↳ Scenario to define</span></div></div>
+          <p class="demo-note">A storyboard of the workflow, not a recording or a live chat.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="included section wrap" aria-labelledby="included-title">
+      <div class="section-top"><div><p class="overline">Inside the repository</p><h2 id="included-title">More than a prompt.<br>A foundation to build on.</h2></div><p>Keep the decisions behind your AI experience together, in readable files you can inspect, adapt and maintain.</p></div>
+      <div class="included-grid">
+        <article><span class="tile-symbol" aria-hidden="true">Aa</span><h3>Product &amp; content</h3><p>Product context, audience, voice, terminology and writing rules.</p></article>
+        <article><span class="tile-symbol" aria-hidden="true">↳</span><h3>Sources &amp; behavior</h3><p>Source authority, permitted use, AI responsibilities and boundaries.</p></article>
+        <article><span class="tile-symbol" aria-hidden="true">✓</span><h3>Quality &amp; ownership</h3><p>Scenarios, check definitions, review questions and maintenance decisions.</p></article>
+        <article><span class="tile-symbol" aria-hidden="true">⊞</span><h3>Tools to make it tangible</h3><p>Six guiding skills, local lessons, templates, a fictional example and a read-only visual dashboard.</p></article>
+      </div>
+    </section>
+
+    <section class="evaluation-band" id="evaluations" aria-labelledby="evaluations-title"><div class="wrap evaluation-layout">
+      <div><p class="overline">Evaluations are part of the system</p><h2 id="evaluations-title">Define good.<br>Then put it to the test.</h2><p>Connect your rules to realistic situations and quality checks. Run literal checks on saved responses, then review meaning and judgment with a person.</p><p class="eval-note">A defined check is not a result. A literal pass is not proof of overall quality. Human questions stay open until reviewed.</p></div>
+      <div class="eval-chain" aria-label="Illustrative evaluation connection, not an executed result">
+        <div><span class="chain-icon" aria-hidden="true">01</span><section><span class="chain-label">Rule</span><h3>Ask when booking details are missing.</h3></section></div><div><span class="chain-icon" aria-hidden="true">02</span><section><span class="chain-label">Scenario</span><h3>“Can you change my booking?”</h3></section></div><div><span class="chain-icon" aria-hidden="true">03</span><section><span class="chain-label">Human review question</span><h3>Did it request the details it needs?</h3><span class="pill">Defined · not assessed</span></section></div>
+        <p>Illustrative connection · no execution result</p>
+      </div>
+    </div></section>
+
+    <section class="agents section wrap" aria-labelledby="agents-title"><div class="section-top"><div><p class="overline">Bring your coding agent</p><h2 id="agents-title">A familiar tool.<br>A more structured process.</h2></div><p>Repository instructions and skills are supplied for these environments. Fresh-session workflows are still being validated.</p></div>
+      <ul class="agent-list"><li><strong>Claude Code</strong><span>Project skills &amp; instructions</span></li><li><strong>GitHub Copilot</strong><span>VS Code instructions &amp; skills</span></li><li><strong>Codex</strong><span>Repository instructions &amp; skills</span></li></ul>
+      <p class="compatibility-note"><strong>ChatGPT &amp; other agents:</strong> a repository-capable environment or additional setup is needed. Ordinary chat does not automatically load this repo. <a href="https://github.com/jeremydhoover-blip/fievel-content-system/blob/main/docs/COMPATIBILITY.md">See compatibility and setup evidence <span aria-hidden="true">↗</span></a></p>
+    </section>
+
+    <section class="start section wrap" id="get-started" aria-labelledby="start-title"><div><p class="overline">Start small. Build something yours.</p><h2 id="start-title">Your first product task<br>is enough to begin.</h2><p>Clone the repo, open it in your agent and start a conversation.</p><a class="button primary" href="https://github.com/jeremydhoover-blip/fievel-content-system">Get Fievel on GitHub <span aria-hidden="true">↗</span></a></div>
+      <div class="setup"><div class="copy-field"><label for="clone-command">1. Clone the repository</label><div><input id="clone-command" readonly value="git clone https://github.com/jeremydhoover-blip/fievel-content-system.git" spellcheck="false"><button type="button" data-copy="clone-command" aria-label="Copy clone command">Copy</button></div></div><div class="copy-field"><label for="first-prompt">2. Open the folder in your agent and ask</label><div><textarea id="first-prompt" readonly rows="2">Read AGENTS.md and start Fievel. I'm new to AI content systems.</textarea><button type="button" data-copy="first-prompt" aria-label="Copy first prompt">Copy</button></div></div><p id="copy-status" class="small" role="status" aria-live="polite"></p><p class="small muted">Agent access is separate. Local commands need Python 3.10+ and dependencies. <a href="https://github.com/jeremydhoover-blip/fievel-content-system#run-the-local-exercise">Read setup instructions ↗</a></p></div>
+    </section>
+  </main>
+  <footer class="footer wrap"><span>Fievel · Open-source AI content systems architect</span><span>Early prototype · <a href="https://github.com/jeremydhoover-blip/fievel-content-system/blob/main/LICENSE">MIT license</a></span></footer>
+</body>
+</html>

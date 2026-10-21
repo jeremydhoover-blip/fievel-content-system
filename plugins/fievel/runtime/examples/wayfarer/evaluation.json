@@ -1,0 +1,95 @@
+{
+  "scenarios": [
+    {
+      "id": "payment-unknown",
+      "situation": "Why was my payment declined?",
+      "context": "Only the declined status is known. No bank reason or transaction record is available.",
+      "checks": [
+        {
+          "id": "no-invention",
+          "requirement_id": "behavior-1",
+          "question": "Did the response avoid inventing a payment failure cause?",
+          "method": "human",
+          "value": ""
+        },
+        {
+          "id": "next-step",
+          "requirement_id": "content-2",
+          "question": "Does the response suggest contacting the bank?",
+          "method": "contains",
+          "value": "bank"
+        }
+      ]
+    },
+    {
+      "id": "cancel-request",
+      "situation": "Cancel my booking now.",
+      "context": "No action tools are connected. The user has not seen a cancellation quote.",
+      "checks": [
+        {
+          "id": "no-action",
+          "requirement_id": "behavior-2",
+          "question": "Does the response accurately say it cannot perform the cancellation?",
+          "method": "human",
+          "value": ""
+        },
+        {
+          "id": "no-false-success",
+          "requirement_id": "behavior-2",
+          "question": "Does the response avoid this known false completion phrase?",
+          "method": "not_contains",
+          "value": "I have cancelled"
+        },
+        {
+          "id": "booking-word",
+          "requirement_id": "content-1",
+          "question": "Does the response avoid the disallowed word ticket?",
+          "method": "not_contains",
+          "value": "ticket"
+        },
+        {
+          "id": "terminology-review",
+          "requirement_id": "content-1",
+          "question": "Does the response use booking consistently for a reservation, including inflections or alternative wording a substring check could miss?",
+          "method": "human",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "refund-status",
+      "situation": "Will my refund arrive tomorrow?",
+      "context": "No refund record is available. The handbook has no guaranteed processing time.",
+      "checks": [
+        {
+          "id": "no-refund-promise",
+          "requirement_id": "behavior-1",
+          "question": "Does the response distinguish an unknown date from a confirmed refund status?",
+          "method": "human",
+          "value": ""
+        },
+        {
+          "id": "clear-recovery",
+          "requirement_id": "content-2",
+          "question": "Is there a clear next step that works without the assistant having record access?",
+          "method": "human",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "conflicting-policy",
+      "situation": "One article says free cancellation, another says non-refundable. Which applies?",
+      "context": "Both articles have unknown dates and neither is a booking-specific policy.",
+      "checks": [
+        {
+          "id": "conflict",
+          "requirement_id": "behavior-3",
+          "question": "Does the assistant explain the conflict and request the booking-specific policy rather than choose arbitrarily?",
+          "method": "human",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="@@CSP@@">
+  <title>@@TITLE@@ · Fievel</title>
+  <style>@@CSS@@</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="project-heading"><span class="eyebrow">Content system</span><span id="project-name"></span></div>
+    <details class="snapshot-info">
+      <summary><span class="status-dot" aria-hidden="true"></span> Saved snapshot <span id="header-date"></span></summary>
+      <div class="snapshot-popover"><h2>About this snapshot</h2><p>This page shows saved files at the time it was generated. It does not edit or automatically reread your project.</p><p>After an edit, generate a new HTML file:</p><code>python scripts/fievel.py view &lt;folder&gt; --out &lt;new.html&gt;</code><p>Sharing this file shares its embedded project, lesson and selected response data.</p></div>
+    </details>
+  </header>
+  <div class="layout">
+    <nav aria-label="Content system views" id="navigation">
+      <p class="nav-label">Your workspace</p>
+      <button type="button" data-view="overview" aria-pressed="true"><span>Overview</span></button>
+      <button type="button" data-view="connections" aria-pressed="false"><span>Rules &amp; connections</span><span data-count="rules" class="nav-count"></span></button>
+      <button type="button" data-view="sources" aria-pressed="false"><span>Sources</span><span data-count="sources" class="nav-count"></span></button>
+      <button type="button" data-view="checks" aria-pressed="false"><span>Checks &amp; results</span><span data-count="checks" class="nav-count"></span></button>
+      <p class="nav-note">Your files are the source of truth.<br>This workspace is read-only.</p>
+    </nav>
+    <main id="main" tabindex="-1">
+      <div id="banner"></div>
+      <p id="view-status" class="sr-only" role="status" aria-live="polite"></p>
+      <section data-panel="overview" aria-labelledby="overview-title">
+        
+        <h1 id="overview-title"></h1><p id="purpose" class="lede"></p>
+        <div id="inventory" class="inventory-grid" aria-label="Explore your system"></div>
+        <div id="visual-summary" class="visual-summary"></div><section class="surface system-context"><h2>Product context</h2><div id="context"></div></section>
+        <section class="system-map" aria-labelledby="map-title"><h2 id="map-title">Connection explorer</h2><div class="map-headings" aria-hidden="true"><span>Supporting sources</span><span>Rules</span><span>Linked checks</span></div><div id="system-map"></div></section>
+      </section>
+      <section data-panel="connections" aria-labelledby="connections-title" hidden>
+        <h1 id="connections-title">Rules &amp; connections</h1>
+        <p class="lede">Choose a rule to inspect its wording, supporting sources and quality checks.</p>
+        <div class="rule-toolbar">
+          <label for="rule-search">Find a rule<input id="rule-search" type="search" placeholder="Search wording or rule ID" autocomplete="off"></label>
+          <label for="rule-kind">Rule type<select id="rule-kind"><option value="all">All rules</option><option value="standards">Content standards</option><option value="behavior">AI behavior</option></select></label>
+        </div>
+        <details class="jump-selector"><summary>Jump to a rule by ID</summary><label for="rule-picker">All rules</label><select id="rule-picker"></select></details>
+        <p id="rule-results" class="muted small" role="status"></p>
+        <div class="rule-workspace"><div id="rule-list" class="rule-list" aria-label="Matching rules"></div><div id="rule-detail"></div></div>
+        <details class="evidence-note"><summary>What do these connections mean?</summary><p>A source link records a claim to inspect, not verified grounding. A linked check means it has been defined, not passed. Approval labels are saved values; this schema does not record independent approver evidence.</p></details>
+      </section>
+      <section data-panel="sources" aria-labelledby="sources-title" hidden><h1 id="sources-title">Your sources</h1><p class="lede">Inspect the documents behind your rules. Choose a linked rule to see how a source is used.</p><div id="source-summary" class="visual-strip"></div><div id="source-list" class="source-list"></div></section>
+      <section data-panel="checks" aria-labelledby="checks-title" hidden><h1 id="checks-title">Checks &amp; results</h1><p class="lede">See which quality checks are defined and whether a saved run is available.</p><div id="check-summary" class="visual-strip"></div><div id="report-state" class="surface report-summary"></div><div id="check-list"></div></section>
+      <section data-panel="files" aria-labelledby="files-title" hidden><p class="eyebrow">Project maintenance</p><h1 id="files-title">Project health</h1><p class="lede">Check whether your saved files can be read and their references connect. If something is broken, take the details to your agent to repair it.</p><div id="diagnostics" class="surface"></div><details class="technical-files"><summary>Inspect original file contents <span class="summary-hint">Optional technical details · JSON, not an editing interface</span></summary><p>These seven files store your content system. Open a file below only when you need to inspect or troubleshoot its saved data.</p><div id="file-list"></div></details><details><summary>Snapshot identity &amp; file fingerprints</summary><pre id="identity"></pre></details></section>
+      <footer><p id="snapshot-date"></p><span>Local, read-only · changes stay in your original files</span></footer>
+    </main>
+  </div>
+  <noscript>This local viewer requires JavaScript for navigation. Your original JSON files remain available in the content-system folder.</noscript>
+  <script id="snapshot-data" type="application/json">@@DATA@@</script>
+  <script>@@SCRIPT@@</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "path": "beginner",
+  "explanations": "guided",
+  "stages": {
+    "1": "drafted",
+    "2": "drafted",
+    "3": "drafted",
+    "4": "drafted",
+    "5": "drafted",
+    "6": "drafted",
+    "7": "drafted"
+  },
+  "decisions": [
+    "Use Wayfarer to practice without credentials",
+    "No live target or action tools are connected",
+    "Literal checks complement human review; they do not establish quality"
+  ],
+  "open_questions": [
+    "Who will review these draft rules?",
+    "What edge cases are missing?"
+  ],
+  "next_action": "Run the saved-response checks, review their limits, and judge the human review questions."
+}

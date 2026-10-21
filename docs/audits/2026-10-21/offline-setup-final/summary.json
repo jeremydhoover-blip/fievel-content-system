@@ -1,0 +1,18 @@
+{
+  "kind": "offline_setup_evidence",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "workspace": "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\workspace",
+  "venv": "C:\\Users\\jerem\\Documents\\ChatGPT\\Fievel Content System\\.scratch\\offline-setup-huic3nih\\venv",
+  "model_calls": 0,
+  "downloads_attempted": false,
+  "pip_install_succeeded": false,
+  "runtime_recovery": "copied_existing_local_dependencies",
+  "unexpected_failures": [],
+  "missing_dependency_message_verified": true,
+  "limitations": [
+    "Single Windows/Python environment only",
+    "Installed dependency copying is not clean pip installation",
+    "No agent host activation or model behavior tested"
+  ]
+}

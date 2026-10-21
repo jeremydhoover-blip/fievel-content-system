@@ -1,0 +1,117 @@
+'use strict';
+document.body.classList.add('js');
+const get = id => document.getElementById(id);
+const entityText = {
+ source: 'A change request needs the booking reference and preferred date. This is an authored fictional policy passage.',
+ rule: 'Draft behavior rule: ask for the booking reference and preferred date when either is missing. The policy informs this interpretation.',
+ scenario: 'A guest asks Can you change my booking without providing a reference or preferred date. This situation supplies context for the check.',
+ check: 'Human review question: does the response ask for the missing reference and preferred date? This assesses the rule and has not been run.'
+};
+document.querySelectorAll('[data-entity]').forEach(button => button.addEventListener('click', () => {
+ document.querySelectorAll('[data-entity]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+ get('entity-detail').textContent = entityText[button.dataset.entity];
+}));
+const tabs = [...document.querySelectorAll('[data-tab]')];
+function selectTab(button, focus = false) {
+ tabs.forEach(item => { const selected = item === button; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
+ document.querySelectorAll('[data-tab-panel]').forEach(panel => panel.hidden = panel.dataset.tabPanel !== button.dataset.tab);
+ if(focus) button.focus();
+}
+tabs.forEach((button,index) => {
+ button.addEventListener('click',()=>selectTab(button));
+ button.addEventListener('keydown',event=>{
+  let target;
+  if(event.key==='ArrowRight') target=(index+1)%tabs.length;
+  if(event.key==='ArrowLeft') target=(index+tabs.length-1)%tabs.length;
+  if(event.key==='Home') target=0;
+  if(event.key==='End') target=tabs.length-1;
+  if(target!==undefined){event.preventDefault();selectTab(tabs[target],true);}
+ });
+});
+selectTab(tabs[0]);
+const agentText = {
+ claude: 'Open the repository in Claude Code and trust the workspace. Try /getting-started or ask it to read AGENTS.md and start Fievel.',
+ copilot: 'Open the repository in VS Code with GitHub Copilot. Ask the agent to read AGENTS.md and start Fievel. Repository instructions and skills are supplied; activation and fresh-session behavior still need validation.',
+ codex: 'Open the repository in Codex. Try $getting-started or ask it to read AGENTS.md and start Fievel. Local skill discovery has been observed; fresh-session workflows are still being validated.'
+};
+document.querySelectorAll('[data-agent]').forEach(button => button.addEventListener('click',()=>{
+ document.querySelectorAll('[data-agent]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+ get('agent-detail').textContent=agentText[button.dataset.agent];
+}));
+document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+ const field=get(button.dataset.copy), status=get('copy-status');
+ try {
+  if(!navigator.clipboard?.writeText) throw Error('Clipboard unavailable');
+  await navigator.clipboard.writeText(field.value);
+  status.textContent=button.dataset.copy==='clone-command'?'Clone command copied.':'First prompt copied.';
+ } catch {field.focus();field.select();status.textContent='Text selected. Use your device copy command to copy it.';}
+}));
+// A single owned timer makes pause and replay deterministic and cancellable.
+const messages=[...document.querySelectorAll('[data-message]')];
+const chat=get('chat-window'), typing=get('typing'), play=get('play'), replay=get('replay');
+const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let timer=null, remaining=0, deadline=0, eventIndex=0, state='ready';
+const events=[
+ {delay:0,visible:1,dots:false},
+ {delay:2200,visible:1,dots:true},
+ {delay:1200,visible:2,dots:false},
+ {delay:3500,visible:3,dots:false},
+ {delay:2500,visible:3,dots:true},
+ {delay:1200,visible:4,dots:false},
+ {delay:3500,visible:5,dots:false},
+ {delay:2500,visible:5,dots:true},
+ {delay:1200,visible:6,dots:false},
+ {delay:4000,visible:6,dots:false,done:true}
+];
+function cancel(){if(timer!==null)clearTimeout(timer);timer=null;}
+function artifact(visible){
+ const parent=get('draft-artifact');parent.replaceChildren();
+ const heading=document.createElement('h3'),body=document.createElement('p');
+ if(visible<4){heading.textContent='A decision becomes a rule';body.textContent='As the conversation unfolds, the behavior takes shape here.';}
+ else {heading.textContent='Ask for missing booking details';body.textContent='Request the booking reference and preferred date when either is missing.';}
+ parent.append(heading,body);
+ if(visible>=4){const note=document.createElement('p');note.className='small';note.textContent=visible>=6?'Policy link recorded in this illustration. Human review check still to define.':'Source link still to add.';parent.append(note);}
+}
+function show(visible,dots){
+ messages.forEach((message,index)=>{const wasHidden=message.hidden;message.hidden=index>=visible;message.classList.toggle('entering',wasHidden&&!message.hidden&&state==='playing');});
+ typing.hidden=!dots;
+ artifact(visible);
+ chat.scrollTop=chat.scrollHeight;
+}
+function controls(){
+ play.textContent=state==='playing'?'Pause':state==='paused'?'Resume':state==='ended'?'Play again':'Play example';
+ replay.disabled=motion.matches;
+ play.disabled=motion.matches;
+ typing.style.animationPlayState=state==='paused'?'paused':'running';
+ typing.querySelectorAll('i').forEach(dot=>dot.style.animationPlayState=state==='paused'?'paused':'running');
+ get('playback-state').textContent=motion.matches?'Static view for reduced motion':({ready:'Ready to play',playing:'Playing',paused:'Paused',ended:'Example complete'}[state]);
+}
+function schedule(delay){remaining=delay;deadline=performance.now()+delay;timer=setTimeout(advance,delay);}
+function advance(){
+ timer=null;if(state!=='playing')return;
+ const event=events[eventIndex];show(event.visible,event.dots);eventIndex++;
+ if(event.done){state='ended';controls();return;}
+ schedule(events[eventIndex].delay);
+}
+function start(){
+ if(motion.matches)return;
+ cancel();eventIndex=0;state='playing';show(0,false);controls();schedule(0);
+}
+function pause(){if(state!=='playing')return;remaining=Math.max(0,deadline-performance.now());cancel();state='paused';controls();}
+play.addEventListener('click',()=>{
+ if(state==='playing')pause();
+ else if(state==='paused'){state='playing';controls();schedule(remaining);}
+ else start();
+});
+replay.addEventListener('click',start);
+document.querySelector('.watch').addEventListener('click',()=>{if(state==='ready'||state==='ended')start();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
+function applyMotion(){
+ cancel();state='ready';eventIndex=0;
+ if(motion.matches){show(6,false);chat.scrollTop=chat.scrollHeight;}
+ else {show(1,false);chat.scrollTop=0;}
+ controls();
+}
+motion.addEventListener('change',applyMotion);
+document.querySelector('.playback').hidden=false;
+applyMotion();

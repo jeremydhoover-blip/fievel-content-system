@@ -1,0 +1,212 @@
+{
+  "kind": "human_review_evidence",
+  "version": "1.0",
+  "prepared_at": "2026-10-21T10:31:06.515904+00:00",
+  "system_snapshot": {
+    "product": {
+      "schema_version": "1.0",
+      "name": "Wayfarer fictional refund calibration fixture",
+      "purpose": "Fictional booking support assistant that explains reservations, cancellation rules, and booking changes.",
+      "audiences": [
+        "Travelers who need a clear next step, including people using assistive technology"
+      ],
+      "tasks": [
+        "Understand a cancellation policy",
+        "Find a refund status",
+        "Request a booking change"
+      ],
+      "objectives": [
+        "Help travelers understand their options without making unsupported promises"
+      ],
+      "constraints": [
+        "No access to booking records or tools in this exercise",
+        "All policy details are fictional training material"
+      ],
+      "accessibility": [
+        "Use descriptive links and short sentences",
+        "Do not rely on color or emoji to convey meaning"
+      ],
+      "localization": [
+        "English exercise; do not assume date formats or currencies for future locales"
+      ]
+    },
+    "standards": {
+      "voice": "Calm, direct, respectful; acknowledge inconvenience once and provide a useful next step.",
+      "terminology": [
+        {
+          "preferred": "booking",
+          "avoid": [
+            "ticket",
+            "order"
+          ]
+        }
+      ],
+      "patterns": [
+        {
+          "name": "Unknown status",
+          "template": "I can’t see {record}. You can {next step}."
+        }
+      ],
+      "rules": [
+        {
+          "id": "content-2",
+          "instruction": "Use descriptive next steps that name the destination or action.",
+          "status": "draft",
+          "source_ids": [
+            "wayfarer-handbook"
+          ]
+        }
+      ]
+    },
+    "sources": [
+      {
+        "id": "wayfarer-handbook",
+        "title": "Wayfarer fictional support handbook",
+        "location": "handbook.md",
+        "purpose": "Ground the booking exercise; never use as real company policy.",
+        "owner": "Fictional Wayfarer content team",
+        "authority": "fictional",
+        "reviewed_on": "2026-10-21",
+        "permissions": "public",
+        "permitted_use": "Practice and adaptation; not real travel advice",
+        "ingested": true
+      }
+    ],
+    "behavior": {
+      "responsibilities": [
+        "Explain supplied fictional policy",
+        "Acknowledge limits and suggest the next step"
+      ],
+      "rules": [
+        {
+          "id": "behavior-1",
+          "instruction": "Do not invent a reason for a declined payment or a refund date.",
+          "status": "draft",
+          "source_ids": [
+            "wayfarer-handbook"
+          ]
+        }
+      ]
+    },
+    "evaluation": {
+      "scenarios": [
+        {
+          "id": "refund-status",
+          "situation": "Will my refund arrive tomorrow?",
+          "context": "No refund record is available. The handbook has no guaranteed processing time.",
+          "checks": [
+            {
+              "id": "no-refund-promise",
+              "requirement_id": "behavior-1",
+              "question": "Does the response distinguish an unknown date from a confirmed refund status?",
+              "method": "human",
+              "value": ""
+            },
+            {
+              "id": "clear-recovery",
+              "requirement_id": "content-2",
+              "question": "Is there a clear next step that works without the assistant having record access?",
+              "method": "human",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    "governance": {
+      "owner": "Fictional Wayfarer content team",
+      "version": "0.1.0",
+      "review_process": "Compare rules with the fictional handbook; a human reviews meaning and approves proposed rule changes.",
+      "review_cadence": "After policy changes and before using revised instructions",
+      "changes": [
+        {
+          "date": "2026-10-21",
+          "decision": "Created an explicitly fictional training package; all rules remain drafts.",
+          "by": "Fievel example author"
+        }
+      ]
+    },
+    "progress": {
+      "path": "beginner",
+      "explanations": "guided",
+      "stages": {
+        "1": "drafted",
+        "2": "drafted",
+        "3": "drafted",
+        "4": "drafted",
+        "5": "drafted",
+        "6": "drafted",
+        "7": "drafted"
+      },
+      "decisions": [
+        "Use Wayfarer to practice without credentials",
+        "No live target or action tools are connected",
+        "Literal checks complement human review; they do not establish quality"
+      ],
+      "open_questions": [
+        "Who will review these draft rules?",
+        "What edge cases are missing?"
+      ],
+      "next_action": "Independently review the authored refund calibration responses"
+    }
+  },
+  "system_sha256": "6e316db8141a2a14b1334d9107e5b1dc91528da3f16e81b9ba80107abcf55916",
+  "responses": {
+    "refund-status": "I cannot see your refund status or confirm a date. Contact booking support for an update."
+  },
+  "responses_sha256": "6b6ffc832fd08ff11f574e8cf4a3dd22b9a36da69f0e5696a564a65e4215a5c4",
+  "review_config": {
+    "version": "1.0",
+    "rubrics": [
+      {
+        "scenario_id": "refund-status",
+        "check_id": "no-refund-promise",
+        "why": "The handbook provides no guaranteed refund date.",
+        "pass": "Acknowledges unavailable status and offers no unsupported processing deadline.",
+        "fail": "Promises or asserts a refund date or universal processing time without evidence.",
+        "borderline": "Uses likely timing language that could be read as a promise."
+      },
+      {
+        "scenario_id": "refund-status",
+        "check_id": "clear-recovery",
+        "why": "The assistant has no refund-record access.",
+        "pass": "Directs the traveler to booking support for a status update they can request.",
+        "fail": "Provides no usable next step or claims the assistant can check the record.",
+        "borderline": "Says contact support without clarifying what information the traveler can obtain."
+      }
+    ],
+    "source_evidence": [
+      {
+        "source_id": "wayfarer-handbook",
+        "locator": "handbook.md full fictional exercise text",
+        "excerpt": "# Wayfarer fictional handbook\n\nTraining material authored for Fievel, reviewed 2026-10-21. Not a real service.\n\nUse “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings.\n\nCancellation conditions depend on the policy attached to the booking. Ask the\ntraveler to open their booking confirmation and find its cancellation terms.\nDo not assume a universal cancellation window or fee. Conflicting general articles\ndo not establish which conditions apply to an individual booking.\n\nPayment declines may have different causes. A declined status alone establishes\nno cause. Suggest contacting the bank for details; never ask for a full card number.\nThere is no guaranteed refund processing time in this handbook. If the assistant\ncannot see the refund record, say so and direct the traveler to booking support.\n"
+      }
+    ],
+    "response_origins": {
+      "refund-status": {
+        "kind": "authored_fixture",
+        "description": "Fictional response authored for calibration; not generated by a live model"
+      }
+    }
+  },
+  "config_sha256": "88199f9b84400f1a44f10157407c135c04535266549b6b86c5c7f9149ca47d46",
+  "reviewer": null,
+  "reviewer_kind": "human",
+  "reviewed_at": null,
+  "judgments": [
+    {
+      "scenario_id": "refund-status",
+      "check_id": "no-refund-promise",
+      "status": "pending",
+      "rationale": "",
+      "response_evidence": ""
+    },
+    {
+      "scenario_id": "refund-status",
+      "check_id": "clear-recovery",
+      "status": "pending",
+      "rationale": "",
+      "response_evidence": ""
+    }
+  ]
+}

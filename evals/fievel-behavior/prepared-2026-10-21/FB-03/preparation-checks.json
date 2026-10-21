@@ -1,0 +1,30 @@
+[
+  {
+    "operation": [
+      "validate"
+    ],
+    "exit_code": 0,
+    "stdout": "Structure and requirement links are valid. This is not content approval.\nDraft rules still needing quality checks: content-next-step\n",
+    "stderr": "",
+    "dependency_setup": "Reused existing root .deps through PYTHONPATH for offline preparation validation; not a clean-install test"
+  },
+  {
+    "operation": [
+      "validate",
+      "--require-coverage"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Fievel: Requirements without quality checks: content-next-step\n",
+    "dependency_setup": "Reused existing root .deps through PYTHONPATH for offline preparation validation; not a clean-install test"
+  },
+  {
+    "operation": [
+      "status"
+    ],
+    "exit_code": 0,
+    "stdout": "Path: ai-experience; explanations: brief\n1. Understand your product: drafted\n2. Understand your content: drafted\n3. Identify your sources: pending\n4. Design AI behavior: pending\n5. Define quality: pending\n6. Try and improve: pending\n7. Maintain your system: pending\nNext: Inventory the available sources\nDraft rules still needing quality checks: content-next-step\n",
+    "stderr": "",
+    "dependency_setup": "Reused existing root .deps through PYTHONPATH for offline preparation validation; not a clean-install test"
+  }
+]

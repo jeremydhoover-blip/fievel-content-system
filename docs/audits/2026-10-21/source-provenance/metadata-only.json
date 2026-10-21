@@ -1,0 +1,69 @@
+{
+  "kind": "source_provenance_audit",
+  "version": "1.0",
+  "as_of": "2026-10-21",
+  "max_age_days": null,
+  "system_sha256": "fc08f10113548df2db79f9c208e4e4f8b56defa32283e4f6a6122c1efd956f07",
+  "provenance_sha256": "b1f873e5bcbeb3d24287368358e0c5f407a610b81ba2051955113def3eebdf39",
+  "counts": {
+    "error": 0,
+    "warning": 6
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "freshness_window_unspecified",
+      "message": "No freshness window supplied; age-based expiry was not assessed",
+      "source_id": null,
+      "rule_id": null,
+      "conflict_id": null
+    },
+    {
+      "severity": "warning",
+      "code": "evidence_locator_missing",
+      "message": "Declared source link has no supplied locator and excerpt",
+      "source_id": "wayfarer-handbook",
+      "rule_id": "content-1",
+      "conflict_id": null
+    },
+    {
+      "severity": "warning",
+      "code": "evidence_locator_missing",
+      "message": "Declared source link has no supplied locator and excerpt",
+      "source_id": "wayfarer-handbook",
+      "rule_id": "content-2",
+      "conflict_id": null
+    },
+    {
+      "severity": "warning",
+      "code": "evidence_locator_missing",
+      "message": "Declared source link has no supplied locator and excerpt",
+      "source_id": "wayfarer-handbook",
+      "rule_id": "behavior-1",
+      "conflict_id": null
+    },
+    {
+      "severity": "warning",
+      "code": "evidence_locator_missing",
+      "message": "Declared source link has no supplied locator and excerpt",
+      "source_id": "wayfarer-handbook",
+      "rule_id": "behavior-2",
+      "conflict_id": null
+    },
+    {
+      "severity": "warning",
+      "code": "evidence_locator_missing",
+      "message": "Declared source link has no supplied locator and excerpt",
+      "source_id": "wayfarer-handbook",
+      "rule_id": "behavior-3",
+      "conflict_id": null
+    }
+  ],
+  "source_locations_checked": false,
+  "declared_conflicts": 0,
+  "limitations": [
+    "Source locations and excerpt accuracy were not checked.",
+    "Authority, permission and conflict decisions are declared, not authenticated.",
+    "No semantic conflict detection or content approval was performed."
+  ]
+}

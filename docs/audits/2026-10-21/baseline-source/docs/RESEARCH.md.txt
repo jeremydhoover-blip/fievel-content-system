@@ -1,0 +1,69 @@
+# Focused research and reuse decisions
+
+Reviewed **2026-10-21** against public primary sources. Scope: a working,
+repository-native first slice with no required model API or external connectors.
+We inspected project READMEs, documentation, license declarations and public GitHub
+metadata. [repository-snapshot.json](repository-snapshot.json) records actual
+pushed_at, archive state and license classification from the GitHub API. A push
+date is an activity signal, not proof of a support commitment or implementation quality.
+
+No upstream implementation or training scenario was copied. Fievel's workflows,
+example and teaching text are original. Links are references; they do not extend
+Fievel's license to third-party content. Recheck file-level licenses and notices
+before incorporating any upstream code in later releases.
+
+## Comparison matrix
+
+| Project / purpose | Useful functionality and compatibility | Dependencies | License / reuse constraints | Maintenance snapshot | Risks | Decision |
+|---|---|---|---|---|---|---|
+| [Microsoft eval-guide](https://github.com/microsoft/eval-guide): Copilot Studio evaluation guidance | Modular skills; separate discovery, planning, generation, execution and interpretation. Portable workflow ideas, platform-specific execution | Claude/Copilot; Copilot Studio for its target execution | MIT declared; retain notices if copying code | Not archived; pushed 2026-06-24 | Platform assumptions and workbook workflows exceed first-slice needs | **Adapt concepts**, author original Fievel skills; no plugin dependency |
+| [Microsoft scenario library](https://github.com/microsoft/ai-agent-eval-scenario-library): agent evaluation situations | Business-problem and capability categories; acceptance criteria and method selection complement each other | Markdown guidance; examples may assume Copilot Studio | MIT declared; examples still require contextual review | Not archived; pushed 2026-03-18 | Broad scenarios are not ready-made booking ground truth | **Reference** taxonomy; write original task and behavior cases |
+| [Promptfoo](https://github.com/promptfoo/promptfoo): configurable evaluation CLI/library | Providers, assertions, model-based grading, results; compatible behind an optional adapter | Separate CLI/runtime and configured target; model providers may cost money | MIT declared; inspect exact installed release and bundled assets | Not archived; pushed 2026-10-21 | Unconfigured providers, costs, fallible judges; network handling depends on provider | **Integrate later**; first slice keeps neutral definitions and local evidence |
+| [Vale](https://github.com/vale-cli/vale): markup-aware prose linting | Reusable terminology/style rules; good future exporter from approved standards | Vale binary plus chosen style packages | Engine MIT; styles can have independent licenses | Not archived; pushed 2026-10-16 | Literal checks cannot reproduce its document parsing; style ownership matters | **Integrate later**; do not recreate a prose engine |
+| [MCP reference servers](https://github.com/modelcontextprotocol/servers): examples of protocol tools/resources | Filesystem, Git and fetch patterns demonstrate controlled source access | MCP client and chosen server runtime | Current README: Apache-2.0 for new contributions, MIT for existing code; API reports NOASSERTION. Inspect file-level history and LICENSE | Not archived; pushed 2026-10-19 | Reference implementations are explicitly not production-ready; archived connectors differ from maintained offerings | **Reference**, no server installed; use host local file access first |
+| [GOV.UK Design System](https://github.com/alphagov/govuk-design-system): documented styles/components/patterns | Small pattern guidance and contribution organization are relevant to on-demand learning | Node/build system only if running its site | Repository MIT declaration; do not assume all linked government content, logos or assets share it | Not archived; pushed 2026-10-20 | Government service patterns need adaptation to AI interactions | **Reference** organization, no site code or policy copied |
+| [IBM Carbon content](https://www.carbondesignsystem.com/building-blocks/foundations/content): content foundations and accessibility resources | Decision-focused content guidance fits modular lessons | Browser for reference; no runtime dependency | [Carbon code repository](https://github.com/carbon-design-system/carbon) Apache-2.0; that does not automatically license every linked IBM writing resource | Code repo not archived; pushed 2026-10-21; content page says updated 2026-09-30 | Enterprise brand policy is not universal guidance; linked resources may restrict access | **Reference**, no text/assets copied |
+| [Agent Skills](https://agentskills.io/specification): portable SKILL.md format | Frontmatter discovery and progressive loading fit all six workflows | Supporting host; scripts keep separate Python requirement | [Specification repository](https://github.com/agentskills/agentskills) Apache-2.0 declaration; no implementation copied | Not archived; pushed 2026-08-09 | Format compatibility does not prove runtime discovery or behavior | **Adopt** format; canonical .agents skills and generated Claude copies |
+
+## Evaluation design findings
+
+The [eval-guide workflow](https://github.com/microsoft/eval-guide#skills) distinguishes
+design work from a run against a real agent. Fievel preserves that boundary:
+definitions alone never produce pass results. The
+[scenario library](https://github.com/microsoft/ai-agent-eval-scenario-library#two-types-of-scenarios)
+distinguishes task outcomes from underlying capabilities. Wayfarer includes both
+booking support tasks and evidence/action-boundary questions.
+
+[Promptfoo assertions](https://www.promptfoo.dev/docs/configuration/expected-outputs/)
+offer deterministic and model-graded methods. Fievel's initial contract is smaller:
+contains, not_contains and human. This is not a Promptfoo-compatible configuration
+or a claim that Promptfoo ran. A future adapter needs explicit provider selection,
+credential handling, provenance, assertion mapping and grader validation tests.
+
+[Vale styles](https://docs.vale.sh/topics/styles) separate rule type, scope and
+feedback. Exporting approved terminology to Vale is preferable to extending our
+substring checker into a homemade language linter. Vale is not installed or tested.
+
+## Agent-host compatibility findings
+
+| Environment | Official guidance checked | Implementation choice | Actual validation |
+|---|---|---|---|
+| Codex | [Project instructions](https://developers.openai.com/codex/guides/agents-md/), [skills](https://developers.openai.com/codex/skills/) | AGENTS.md and .agents/skills; explicit read prompt fallback | Files inspected and local commands tested from this Codex session; fresh-session automatic loading/conversation not tested |
+| Claude Code | [Skills](https://code.claude.com/docs/en/skills) | CLAUDE.md pointer and generated .claude/skills copies | Static synchronization only; runtime unavailable/unverified |
+| VS Code agent | [Agent Skills](https://code.visualstudio.com/docs/agent-customization/agent-skills) | Copilot instructions pointer and canonical .agents skills | Static assets only; runtime unavailable/unverified |
+
+Official documentation describes these discovery paths, but existing host sessions
+can cache skill inventories and different agents/extensions may behave differently.
+Adapters therefore include an explicit-read route; do not market them as tested
+cross-platform support. No model-specific API, API key or custom MCP setup is required.
+
+## Reuse and dependency decision
+
+Use Python's standard library for portable file operations, CLI parsing, hashing
+and tests. Reuse [python-jsonschema](https://github.com/python-jsonschema/jsonschema)
+(MIT) for Draft 2020-12 instead of inventing a partial validator. requirements.txt
+pins the directly used version; transitive resolution is not fully locked yet.
+The locally installed distribution includes its upstream license notices in .deps;
+dependencies are not vendored or committed. No other researched tool is a runtime
+dependency. Full upstream code audits and runtime integration validation remain
+prerequisites to any future incorporation.

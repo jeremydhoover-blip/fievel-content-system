@@ -1,0 +1,27 @@
+[
+  {
+    "operation": [
+      "validate"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Install the validator first: python -m pip install --target .deps -r requirements.txt\n"
+  },
+  {
+    "operation": [
+      "validate",
+      "--require-coverage"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Install the validator first: python -m pip install --target .deps -r requirements.txt\n"
+  },
+  {
+    "operation": [
+      "status"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Install the validator first: python -m pip install --target .deps -r requirements.txt\n"
+  }
+]

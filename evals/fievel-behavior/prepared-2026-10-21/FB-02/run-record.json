@@ -1,0 +1,23 @@
+{
+  "case_id": "FB-02",
+  "status": "not_run",
+  "condition": "candidate-explicit-read",
+  "host": null,
+  "host_version": null,
+  "model": null,
+  "assessor": null,
+  "turns": [
+    {
+      "file": "turn-01.txt",
+      "canonical_user_turn": "I know content systems. Skip the introduction. Convert the three approved rules in library-guidelines.md into structured standards and propose quality checks. Use the file as the source, and flag any behavior decisions it doesn't cover.",
+      "executed": false
+    }
+  ],
+  "native_discovery_tested": false,
+  "baseline_comparison_run": false,
+  "limitations": [
+    "Prepared inputs only; no model calls authorized",
+    "No learner or human judgment evidence",
+    "One prepared candidate per case; no repeated trials"
+  ]
+}

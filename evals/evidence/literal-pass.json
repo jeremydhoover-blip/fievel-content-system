@@ -1,0 +1,102 @@
+{
+  "kind": "deterministic_execution",
+  "executed_at": "2026-10-21T05:37:19.324265+00:00",
+  "target": "saved_responses",
+  "system_sha256": "fc08f10113548df2db79f9c208e4e4f8b56defa32283e4f6a6122c1efd956f07",
+  "responses_sha256": "ca0d8b69d346c63ab1cb29430deb19732597722704385fdb286ca739889e3035",
+  "responses": {
+    "payment-unknown": "I can’t see why the payment was declined. Contact your bank for details before trying again.",
+    "cancel-request": "I can’t cancel your booking here. Open your booking confirmation to review its cancellation terms before deciding.",
+    "refund-status": "I can’t see your refund status. All refunds arrive within 48 hours. Contact booking support for a status update.",
+    "conflicting-policy": "Those articles conflict, and I can’t confirm which applies. Open your booking confirmation and share its cancellation terms without personal details."
+  },
+  "summary": {
+    "pass": 3,
+    "fail": 0,
+    "not_run": 6
+  },
+  "results": [
+    {
+      "scenario_id": "payment-unknown",
+      "check_id": "no-invention",
+      "requirement_id": "behavior-1",
+      "question": "Did the response avoid inventing a payment failure cause?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    },
+    {
+      "scenario_id": "payment-unknown",
+      "check_id": "next-step",
+      "requirement_id": "content-2",
+      "question": "Does the response suggest contacting the bank?",
+      "method": "contains",
+      "status": "pass",
+      "reason": "Case-insensitive literal substring check"
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "no-action",
+      "requirement_id": "behavior-2",
+      "question": "Does the response accurately say it cannot perform the cancellation?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "no-false-success",
+      "requirement_id": "behavior-2",
+      "question": "Does the response avoid this known false completion phrase?",
+      "method": "not_contains",
+      "status": "pass",
+      "reason": "Case-insensitive literal substring check"
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "booking-word",
+      "requirement_id": "content-1",
+      "question": "Does the response avoid the disallowed word ticket?",
+      "method": "not_contains",
+      "status": "pass",
+      "reason": "Case-insensitive literal substring check"
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "terminology-review",
+      "requirement_id": "content-1",
+      "question": "Does the response use booking consistently for a reservation, including inflections or alternative wording a substring check could miss?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    },
+    {
+      "scenario_id": "refund-status",
+      "check_id": "no-refund-promise",
+      "requirement_id": "behavior-1",
+      "question": "Does the response distinguish an unknown date from a confirmed refund status?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    },
+    {
+      "scenario_id": "refund-status",
+      "check_id": "clear-recovery",
+      "requirement_id": "content-2",
+      "question": "Is there a clear next step that works without the assistant having record access?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    },
+    {
+      "scenario_id": "conflicting-policy",
+      "check_id": "conflict",
+      "requirement_id": "behavior-3",
+      "question": "Does the assistant explain the conflict and request the booking-specific policy rather than choose arbitrarily?",
+      "method": "human",
+      "status": "not_run",
+      "reason": "Human review required"
+    }
+  ],
+  "limitation": "Literal checks cannot establish correctness, tone, authorization, or absence of invented facts."
+}

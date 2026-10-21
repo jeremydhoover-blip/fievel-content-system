@@ -1,0 +1,166 @@
+import copy
+import importlib.util
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location('fievel', ROOT / 'scripts/fievel.py')
+f = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(f)
+
+
+class WorkflowTests(unittest.TestCase):
+    def setUp(self):
+        scratch = ROOT / '.scratch'
+        scratch.mkdir(exist_ok=True)
+        self.temp = tempfile.TemporaryDirectory(dir=scratch)
+        def cleanup():
+            # Verify the absolute target before recursive temporary cleanup.
+            assert Path(self.temp.name).resolve().is_relative_to(scratch.resolve())
+            self.temp.cleanup()
+        self.addCleanup(cleanup)
+        self.folder = f.initialize(Path(self.temp.name) / 'system', example=True)
+
+    def edit(self, name, change):
+        path = self.folder / (name + '.json')
+        value = f.read(path)
+        change(value)
+        path.write_text(json.dumps(value), encoding='utf-8')
+
+    def test_schema_and_bundled_packages(self):
+        f.Draft202012Validator.check_schema(f.read(ROOT / 'schemas/content-system.schema.json'))
+        for folder in ('examples/wayfarer', 'templates/content-system'):
+            f.validate(ROOT / folder)
+
+    def test_initialization_preserves_existing_work(self):
+        marker = self.folder / 'mine.txt'
+        marker.write_text('keep')
+        with self.assertRaises(ValueError):
+            f.initialize(self.folder, True)
+        self.assertEqual(marker.read_text(), 'keep')
+
+    def test_template_starts_pending(self):
+        folder = f.initialize(Path(self.temp.name) / 'new')
+        data = f.validate(folder)
+        self.assertEqual(set(data['progress']['stages'].values()), {'pending'})
+        self.assertIsNone(data['governance']['owner'])
+        self.assertEqual(data['sources'], [])
+
+    def test_invalid_shape_rejected(self):
+        self.edit('product', lambda d: d.update(audiences='everyone'))
+        with self.assertRaisesRegex(ValueError, 'audiences'):
+            f.validate(self.folder)
+
+    def test_unknown_fields_rejected(self):
+        self.edit('behavior', lambda d: d.update(hidden_policy=True))
+        with self.assertRaisesRegex(ValueError, 'Additional properties'):
+            f.validate(self.folder)
+
+    def test_unknown_requirement_rejected(self):
+        self.edit('evaluation', lambda d: d['scenarios'][0]['checks'][0].update(requirement_id='missing'))
+        with self.assertRaisesRegex(ValueError, 'Unknown requirement'):
+            f.validate(self.folder)
+
+    def test_unknown_source_rejected(self):
+        self.edit('behavior', lambda d: d['rules'][0].update(source_ids=['missing']))
+        with self.assertRaisesRegex(ValueError, 'Unknown source'):
+            f.validate(self.folder)
+
+    def test_duplicate_ids_rejected(self):
+        self.edit('behavior', lambda d: d['rules'].append(copy.deepcopy(d['rules'][0])))
+        with self.assertRaisesRegex(ValueError, 'Duplicate requirement'):
+            f.validate(self.folder)
+
+    def test_duplicate_scenarios_rejected(self):
+        self.edit('evaluation', lambda d: d['scenarios'].append(copy.deepcopy(d['scenarios'][0])))
+        with self.assertRaisesRegex(ValueError, 'Duplicate scenario'):
+            f.validate(self.folder)
+
+    def test_duplicate_check_ids_rejected(self):
+        self.edit('evaluation', lambda d: d['scenarios'][0]['checks'].append(copy.deepcopy(d['scenarios'][0]['checks'][0])))
+        with self.assertRaisesRegex(ValueError, 'Duplicate check'):
+            f.validate(self.folder)
+
+    def test_uncovered_requirement_rejected(self):
+        self.edit('behavior', lambda d: d['rules'].append({'id':'extra','instruction':'New rule','status':'draft','source_ids':[]}))
+        with self.assertRaisesRegex(ValueError, 'without quality checks'):
+            f.validate(self.folder)
+
+    def test_empty_literal_rejected(self):
+        self.edit('evaluation', lambda d: d['scenarios'][0]['checks'][1].update(value=''))
+        with self.assertRaises(ValueError):
+            f.validate(self.folder)
+
+    def test_authored_literal_pass_fixture_does_not_pass_human_checks(self):
+        result = f.evaluate(self.folder, f.read(ROOT / 'examples/responses-good.json'))
+        self.assertEqual(result['summary'], {'pass':3,'fail':0,'not_run':6})
+        self.assertTrue(all(row['status']=='not_run' for row in result['results'] if row['method']=='human'))
+        self.assertEqual(result['target'], 'saved_responses')
+
+    def test_bad_fixture_fails(self):
+        result = f.evaluate(self.folder, f.read(ROOT / 'examples/responses-bad.json'))
+        self.assertEqual(result['summary'], {'pass':0,'fail':3,'not_run':6})
+
+    def test_missing_responses_not_run(self):
+        result = f.evaluate(self.folder, {'refund-status':'Unknown'})
+        self.assertEqual(result['summary']['not_run'],9)
+
+    def test_invalid_response_targets_rejected(self):
+        for value in ({}, [], {'unknown':'text'}, {'payment-unknown':''}, {'payment-unknown':42}):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                f.evaluate(self.folder, value)
+
+    def test_human_review_is_pending_and_identifies_responses(self):
+        responses = f.read(ROOT / 'examples/responses-good.json')
+        review = f.review_sheet(self.folder, responses)
+        self.assertEqual(review['kind'],'human_review')
+        self.assertIsNone(review['reviewer'])
+        self.assertEqual(len(review['judgments']),6)
+        self.assertEqual({j['status'] for j in review['judgments']},{'pending'})
+        self.assertEqual(review['responses'],responses)
+
+    def test_changed_system_changes_evidence_hash(self):
+        responses = {'refund-status':'Unknown'}
+        first = f.evaluate(self.folder, responses)
+        self.edit('product',lambda d: d.update(name='Changed'))
+        second = f.evaluate(self.folder, responses)
+        self.assertNotEqual(first['system_sha256'],second['system_sha256'])
+
+    def test_reports_never_overwrite(self):
+        path = Path(self.temp.name) / 'report.json'
+        f.write_new(path, {'original':True})
+        with self.assertRaises(FileExistsError):
+            f.write_new(path, {})
+        self.assertEqual(f.read(path),{'original':True})
+
+    def test_cli_end_to_end_from_other_directory(self):
+        project = Path(self.temp.name) / 'cli'
+        def cli(*args):
+            return subprocess.run([sys.executable,str(ROOT/'scripts/fievel.py'),*map(str,args)],
+                cwd=self.temp.name,capture_output=True,text=True,encoding='utf-8')
+        self.assertEqual(cli('init',project,'--example').returncode,0)
+        self.assertEqual(cli('status',project).returncode,0)
+        self.assertEqual(cli('validate',project).returncode,0)
+        report = project/'results/good.json'
+        result = cli('check',project,'--responses',ROOT/'examples/responses-good.json','--out',report)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(f.read(report)['summary']['not_run'],6)
+        self.assertEqual(cli('check',project,'--responses',ROOT/'examples/responses-bad.json','--out',project/'results/bad.json').returncode,1)
+        self.assertEqual(cli('check',project,'--responses',ROOT/'examples/responses-good.json','--out',report).returncode,2)
+
+    def test_adapters_and_skill_metadata(self):
+        self.assertEqual(f.adapters(check=True),8)
+        for path in (ROOT/'.agents/skills').glob('*/SKILL.md'):
+            text = path.read_text(encoding='utf-8')
+            self.assertTrue(text.startswith('---\n'))
+            self.assertIn('name: '+path.parent.name+'\n',text)
+            self.assertIn('description: ',text)
+            self.assertLess(len(text.split('description: ',1)[1].splitlines()[0]),1024)
+
+
+if __name__ == '__main__':
+    unittest.main()

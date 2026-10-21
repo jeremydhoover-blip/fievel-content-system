@@ -1,0 +1,9 @@
+.venv/
+.deps/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+my-content-system/
+.scratch/

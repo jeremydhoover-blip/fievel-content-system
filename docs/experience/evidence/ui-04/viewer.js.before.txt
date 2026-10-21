@@ -1,0 +1,322 @@
+(() => {
+  'use strict';
+  const data = JSON.parse(document.getElementById('snapshot-data').textContent);
+  const P = data.package;
+  const get = id => document.getElementById(id);
+  const names = { overview: 'Overview', connections: 'Rules & connections', sources: 'Sources', checks: 'Checks & results', learn: 'Guides', files: 'Project health' };
+  const node = (tag, text, className) => {
+    const element = document.createElement(tag);
+    if (text !== undefined && text !== null) element.textContent = String(text);
+    if (className) element.className = className;
+    return element;
+  };
+  const unknown = value => value === null || value === undefined || value === '' ? 'Not recorded' : String(value);
+  const counts = { rules: data.rules.length, sources: (P.sources || []).length, checks: data.checks.length };
+  let selectedKey = data.rules[0]?.key || null;
+  let visibleLimit = 40;
+  const resultIndex = new Map(data.report.results.map(result => [`${result.scenario_id}\0${result.check_id}`, result]));
+
+  function list(parent, values, empty) {
+    if (!values.length) { parent.append(node('p', empty, 'muted small')); return; }
+    const ul = node('ul');
+    values.forEach(value => ul.append(node('li', value)));
+    parent.append(ul);
+  }
+  function row(parent, label, value) {
+    const item = node('dl', undefined, 'row');
+    item.append(node('dt', label), node('dd', value));
+    parent.append(item);
+  }
+  function action(label, callback, className) {
+    const button = node('button', label, className);
+    button.type = 'button';
+    button.addEventListener('click', callback);
+    return button;
+  }
+  function disclosure(label, children) {
+    const details = node('details');
+    details.append(node('summary', label), ...children);
+    return details;
+  }
+  function address(view, key) {
+    return `#${view}${view === 'connections' && key ? `?rule=${encodeURIComponent(key)}` : ''}`;
+  }
+  function applyRoute() {
+    if (location.hash === '#main') return;
+    const [candidate, query] = location.hash.slice(1).split('?');
+    const view = Object.hasOwn(names, candidate) ? candidate : 'overview';
+    const key = new URLSearchParams(query || '').get('rule');
+    if (key && data.rules.some(rule => rule.key === key)) {
+      selectedKey = key;
+      if (!matchingRules().some(rule => rule.key === key)) {
+        get('rule-search').value = '';
+        get('rule-kind').value = 'all';
+      }
+    }
+    document.querySelectorAll('[data-panel]').forEach(panel => panel.hidden = panel.dataset.panel !== view);
+    document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+    get('view-status').textContent = names[view];
+    document.title = `${names[view]} · ${P.product?.name || data.folder}`;
+    if (view === 'connections') renderRules();
+  }
+  function navigate(view, key = selectedKey, focus = false) {
+    if (key) selectedKey = key;
+    const hash = address(view, selectedKey);
+    if (location.hash !== hash) history.pushState(null, '', hash);
+    applyRoute();
+    if (focus) {
+      if (view === 'connections') get('rule-search').focus();
+      else {
+        const heading = document.querySelector(`[data-panel="${view}"] h1`);
+        heading.setAttribute('tabindex', '-1');
+        heading.focus();
+      }
+    }
+  }
+  const jump = (label, view, className) => action(label, () => navigate(view, selectedKey, true), className);
+  document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => navigate(button.dataset.view)));
+  window.addEventListener('popstate', applyRoute);
+  window.addEventListener('hashchange', applyRoute);
+
+  get('project-name').textContent = P.product?.name || data.folder;
+  get('overview-title').textContent = P.product?.name || 'Product information unavailable';
+  get('purpose').textContent = P.product?.purpose || 'Your product context could not be read. Open Project health to see what needs repair.';
+  const date = new Date(data.generated_at);
+  const shortDate = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(date);
+  const fullDate = new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' }).format(date);
+  get('header-date').textContent = shortDate;
+  get('snapshot-date').textContent = `Generated ${fullDate} UTC · version ${unknown(P.governance?.version)}`;
+  document.querySelectorAll('[data-count]').forEach(element => element.textContent = counts[element.dataset.count]);
+  if (data.issues.length) {
+    const banner = node('div', undefined, 'notice attention');
+    banner.append(node('h2', `${data.issues.length} item${data.issues.length === 1 ? '' : 's'} need attention`), node('p', 'Some saved information or connections could not be read reliably.'), jump('See what needs repair', 'files', 'text-button'));
+    get('banner').append(banner);
+  }
+
+  const drafts = data.rules.filter(rule => rule.status === 'draft').length;
+  const summaries = [
+    { count: counts.rules, label: 'Rules', note: `${drafts} draft · ${counts.rules - drafts} labeled approved`, view: 'connections' },
+    { count: counts.sources, label: 'Sources', note: 'Evidence to inspect', view: 'sources' },
+    { count: counts.checks, label: 'Quality checks', note: data.report.state === 'reproduced' ? 'Report outcomes reproduced' : 'Definitions, not results', view: 'checks' }
+  ];
+  summaries.forEach(item => {
+    const button = action('', () => navigate(item.view, selectedKey, true), 'inventory-item');
+    button.setAttribute('aria-label', `${item.label}: ${item.count}. ${item.note}`);
+    button.append(node('span', item.label, 'metric-label'), node('span', item.count, 'metric'), node('span', item.note, 'metric-note'));
+    get('inventory').append(button);
+  });
+  const nextText = node('div');
+  nextText.append(node('h2', 'Continue building'), node('p', P.progress?.next_action || 'Save a product goal and a next action with Fievel to begin.'));
+  const resume = disclosure('Show prompt to continue in your agent', [node('p', 'Copy this prompt into the agent where you opened this repository. This viewer shows saved work; it does not run the conversation.'), node('pre', `Read AGENTS.md and resume the content system in ${data.folder}. The saved next action is: ${P.progress?.next_action || 'Choose one product task and draft its first rule.'}`)]);
+  resume.className = 'resume-prompt';
+  get('next-action').append(nextText, resume);
+  get('inventory').after(jump('Inspect quality checks', 'checks', 'text-button'));
+  const questions = P.progress?.open_questions || [];
+  get('question-count').textContent = `${questions.length} open`;
+  list(get('questions'), questions, 'No open questions saved. You can add decisions to revisit with Fievel.');
+  list(get('decisions'), P.progress?.decisions || [], 'No decisions saved yet. Start with one product task and the limits of your assistant.');
+  row(get('decisions'), 'Owner', unknown(P.governance?.owner));
+  const context = get('context');
+  context.append(node('h3', 'Audiences')); list(context, P.product?.audiences || [], 'No audience available.');
+  context.append(node('h3', 'Important tasks')); list(context, P.product?.tasks || [], 'No tasks available.');
+  if (P.standards?.voice) context.append(node('h3', 'Voice'), node('p', P.standards.voice));
+  if (P.product?.constraints?.length) { context.append(node('h3', 'Constraints')); list(context, P.product.constraints, ''); }
+  if (P.progress) {
+    data.stages.forEach((stage, index) => row(get('progress'), `${index + 1}. ${stage}`, P.progress.stages[String(index + 1)]));
+    get('progress').append(node('p', 'Saved stage labels describe your recorded progress; they are not independent approval or learning assessments.', 'small muted'));
+  } else get('progress').append(node('p', 'Progress information is unavailable. Inspect the saved files to repair it.'));
+
+  function resultLabel(check) {
+    const result = resultIndex.get(`${check.scenario_id}\0${check.id}`);
+    if (!result) return check.method === 'human' ? 'Human review needed · no judgment loaded' : 'Defined · no current result';
+    return result.status === 'not_run' ? 'Not run' : `Literal ${result.status}`;
+  }
+  function renderCheck(check) {
+    const details = node('details', undefined, 'check-group');
+    details.append(node('summary', check.question), node('p', resultLabel(check), 'tag'));
+    details.append(node('h3', 'Situation'), node('p', check.situation), node('h3', 'Context'), node('p', check.context));
+    row(details, 'Method', check.method === 'human' ? 'Human review' : check.method);
+    row(details, 'Requirement', `${check.requirement_id} · ${check.target_state}`);
+    if (check.method !== 'human') row(details, 'Literal text', check.value);
+    if (Object.hasOwn(data.report.responses, check.scenario_id)) details.append(node('h3', 'Saved response'), node('p', data.report.responses[check.scenario_id]));
+    details.append(disclosure('File reference', [node('p', `evaluation.json · ${check.locator} · ${check.id}`, 'small muted')]));
+    return details;
+  }
+  const picker = get('rule-picker');
+  data.rules.forEach(rule => { const option = node('option', `${rule.id} · ${rule.instruction}`); option.value = rule.key; picker.append(option); });
+  picker.disabled = !data.rules.length;
+  picker.addEventListener('change', () => navigate('connections', picker.value));
+  function matchingRules() {
+    const query = get('rule-search').value.trim().toLocaleLowerCase();
+    const kind = get('rule-kind').value;
+    return data.rules.filter(rule => (kind === 'all' || rule.kind === kind) && `${rule.id} ${rule.instruction}`.toLocaleLowerCase().includes(query));
+  }
+  function resetFilters() {
+    get('rule-search').value = '';
+    get('rule-kind').value = 'all';
+    visibleLimit = 40;
+    renderRules();
+    get('rule-search').focus();
+  }
+  function renderRules() {
+    const matches = matchingRules();
+    if (!matches.some(rule => rule.key === selectedKey)) selectedKey = matches[0]?.key || null;
+    picker.value = selectedKey || '';
+    const shown = matches.slice(0, visibleLimit);
+    get('rule-results').textContent = `${matches.length} of ${data.rules.length} rules${matches.length > shown.length ? ` · showing ${shown.length}; refine your search or show more` : ''}`;
+    const container = get('rule-list');
+    container.replaceChildren();
+    shown.forEach(rule => {
+      const button = action('', () => navigate('connections', rule.key), 'rule-item');
+      button.dataset.ruleKey = rule.key;
+      button.setAttribute('aria-pressed', String(rule.key === selectedKey));
+      const meta = node('span', undefined, 'rule-id');
+      meta.append(node('span', rule.id), node('span', rule.kind === 'standards' ? 'Content' : 'Behavior'));
+      button.append(meta, node('span', rule.instruction, 'rule-wording'));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+        const buttons = [...container.querySelectorAll('[data-rule-key]')];
+        const index = buttons.indexOf(button) + (event.key === 'ArrowDown' ? 1 : -1);
+        if (buttons[index]) { event.preventDefault(); buttons[index].focus(); }
+      });
+      container.append(button);
+    });
+    if (matches.length > shown.length) container.append(action('Show more rules', () => {
+      const previousLimit = visibleLimit;
+      visibleLimit += 40;
+      renderRules();
+      container.querySelectorAll('[data-rule-key]')[previousLimit]?.focus();
+    }));
+    const rule = matches.find(item => item.key === selectedKey);
+    renderRule(rule);
+  }
+  function renderRule(rule) {
+    const detail = get('rule-detail');
+    detail.replaceChildren();
+    if (!rule) {
+      const empty = node('div', undefined, 'empty');
+      empty.append(node('h2', data.rules.length ? 'No matching rules' : 'Your first rule starts here'), node('p', data.rules.length ? 'Try a different phrase, rule ID or type. Your rules have not been removed.' : 'Draft one communication or behavior rule with Fievel, then generate a new snapshot.'));
+      empty.append(data.rules.length ? action('Clear search & filters', resetFilters) : jump('Understand system connections', 'learn'));
+      detail.append(empty);
+      return;
+    }
+    const heading = node('header', undefined, 'rule-heading');
+    heading.append(node('span', rule.kind === 'standards' ? 'Content standard' : 'AI behavior', 'badge'), node('span', rule.status, 'badge'), node('h2', rule.instruction));
+    heading.append(node('p', `${rule.id} · ${rule.source_links.length} source link${rule.source_links.length === 1 ? '' : 's'} · ${rule.checks.length} linked check${rule.checks.length === 1 ? '' : 's'}`, 'small muted'));
+    heading.append(disclosure('Rule details', [node('p', `${rule.file} · ${rule.locator}`, 'small'), node('p', 'Status is the label saved in this package. Independent approver evidence is not recorded in this schema.', 'small muted')]));
+    if (rule.ambiguous) heading.append(node('p', 'This ID occurs more than once. Repair it before assigning checks to one rule.', 'tag attention'));
+    detail.append(heading);
+    const trail = node('div', undefined, 'trail');
+    const sources = node('section'); sources.append(node('h2', 'Sources behind this rule', 'node-label'));
+    if (!rule.source_links.length) sources.append(node('p', 'No source linked. Keep inferred guidance separate from approved organizational standards.', 'muted'));
+    rule.source_links.forEach(link => {
+      if (link.state !== 'linked') { sources.append(node('p', `${link.state.toUpperCase()} source: ${link.id}`, 'tag attention'), jump('Inspect the broken connection', 'files', 'text-button')); return; }
+      const source = link.source;
+      sources.append(node('h3', source.title), node('p', source.authority, 'badge'), node('p', source.purpose, 'muted'));
+      const metadata = node('div');
+      row(metadata, 'Owner', unknown(source.owner)); row(metadata, 'Review date', unknown(source.reviewed_on));
+      row(metadata, 'Permissions', source.permissions); row(metadata, 'Location', source.location); row(metadata, 'Permitted use', source.permitted_use);
+      metadata.append(node('p', 'A linked record does not identify an exact supporting passage. Inspect the original source.', 'small muted'));
+      sources.append(disclosure('Source details', [metadata]));
+    });
+    const checks = node('section'); checks.append(node('h2', 'Checks linked to this rule', 'node-label'));
+    if (!rule.checks.length) checks.append(node('p', 'No unambiguous check linked yet. Define one when you reach the quality stage.'), jump('Learn how the parts connect', 'learn', 'text-button'));
+    rule.checks.forEach(check => checks.append(renderCheck(check)));
+    trail.append(sources, checks); detail.append(trail);
+  }
+  function filterChanged() {
+    visibleLimit = 40;
+    renderRules();
+    history.replaceState(null, '', address('connections', selectedKey));
+  }
+  get('rule-search').addEventListener('input', filterChanged);
+  get('rule-kind').addEventListener('change', filterChanged);
+
+  if (!(P.sources || []).length) {
+    const empty = node('div', undefined, 'empty');
+    empty.append(node('h2', 'Start with one source'), node('p', 'Ask Fievel to inventory an authorized local style guide, policy or example. Unknown authority or ownership can stay explicit.'), jump('Learn to use existing guidelines', 'learn'));
+    get('source-list').append(empty);
+  }
+  (P.sources || []).forEach(source => {
+    const card = node('section', undefined, 'surface');
+    card.append(node('p', source.authority, 'badge'), node('h2', source.title), node('p', source.purpose));
+    row(card, 'Owner', unknown(source.owner)); row(card, 'Location', source.location);
+    const extra = node('div'); row(extra, 'Review date', unknown(source.reviewed_on)); row(extra, 'Permissions', source.permissions); row(extra, 'Permitted use', source.permitted_use);
+    card.append(disclosure('Source context & permissions', [extra]));
+    const rules = data.rules.filter(rule => rule.source_ids.includes(source.id));
+    card.append(node('h3', `${rules.length} rule${rules.length === 1 ? '' : 's'} referring to this source`));
+    const links = node('div', undefined, 'source-links');
+    rules.forEach(rule => links.append(action(rule.id, () => navigate('connections', rule.key, true))));
+    if (!rules.length) links.append(node('p', 'No rule refers to this source yet.', 'muted small'));
+    card.append(links); get('source-list').append(card);
+  });
+
+  const reportLabels = { none: 'No execution report selected', reproduced: 'Literal outcomes reproduced', stale: 'This report belongs to an earlier or different system', invalid: 'This report could not be verified', unsupported: 'This report type is not supported yet' };
+  const report = get('report-state');
+  report.append(node('h2', reportLabels[data.report.state]), node('p', data.report.message));
+  if (data.report.name) report.append(node('p', `Selected file: ${data.report.name}`, 'small muted'));
+  if (data.report.summary) {
+    const metrics = node('div', undefined, 'report-metrics');
+    row(metrics, 'Literal passes', data.report.summary.pass); row(metrics, 'Literal failures', data.report.summary.fail); row(metrics, 'Checks not run', data.report.summary.not_run);
+    report.append(metrics);
+  } else report.append(disclosure('How to include an execution report', [node('p', 'Generate a new snapshot with an explicitly selected saved execution report. No report is loaded automatically.'), node('code', 'python scripts/fievel.py view <folder> --report <execution.json> --out <new.html>')]));
+  report.append(node('p', 'Human questions still need contextual review. Reproduced literal outcomes do not establish overall quality.', 'small muted'));
+  if (!data.checks.length) get('check-list').append(node('div', 'No situations or checks defined yet. Work with Fievel to turn one rule into something you can inspect.', 'empty'));
+  data.checks.forEach(check => get('check-list').append(renderCheck(check)));
+
+  const plain = text => text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)').replace(/\*\*/g, '').replace(/`/g, '');
+  function renderLesson() {
+    const lesson = data.lessons[Number(get('lesson-picker').value)];
+    const parent = get('lesson'); parent.replaceChildren(); if (!lesson) return;
+    parent.append(disclosure('About this reference article', [node('p', `Bundled draft guidance: ${lesson.path}. Use your own approved sources for organizational policy.`, 'small muted')]));
+    document.querySelectorAll('[data-guide]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.guide) === Number(get('lesson-picker').value))));
+    let paragraph = [];
+    function flush() { if (paragraph.length) parent.append(node('p', plain(paragraph.join(' ')))); paragraph = []; }
+    const lines = lesson.text.split('\n');
+    for (let index = 0; index < lines.length; index++) {
+      const line = lines[index].trim();
+      if (!line) { flush(); continue; }
+      const heading = line.match(/^(#{1,3}) (.*)$/);
+      if (heading) { flush(); parent.append(node(`h${Math.min(heading[1].length + 1, 4)}`, heading[2])); continue; }
+      if (line.startsWith('|')) {
+        flush(); const table = node('table');
+        while (index < lines.length && lines[index].trim().startsWith('|')) {
+          const cells = lines[index].trim().split('|').slice(1, -1).map(cell => cell.trim());
+          if (!cells.every(cell => /^[-: ]+$/.test(cell))) { const tr = node('tr'); cells.forEach(cell => tr.append(node(table.rows.length ? 'td' : 'th', plain(cell)))); table.append(tr); }
+          index++;
+        }
+        index--; parent.append(table); continue;
+      }
+      if (/^[-*] /.test(line)) { flush(); const ul = node('ul'); ul.append(node('li', plain(line.slice(2)))); parent.append(ul); continue; }
+      paragraph.push(line);
+    }
+    flush();
+  }
+  data.lessons.forEach((lesson, index) => { const option = node('option', lesson.title); option.value = String(index); get('lesson-picker').append(option); });
+  const guideDescriptions = [
+    ['Understand how the parts connect', 'See how product context, rules, sources and quality checks fit together.'],
+    ['Bring your existing style guide', 'Map approved guidance into rules while keeping its source and authority visible.'],
+    ['Understand instructions and skills', 'Learn what belongs in a reusable rule, an instruction or a task-specific skill.']
+  ];
+  data.lessons.forEach((lesson, index) => {
+    const description = guideDescriptions[index] || [lesson.title, 'Read this reference article.'];
+    const button = action('', () => { get('lesson-picker').value = String(index); renderLesson(); get('lesson').scrollIntoView({block:'start'}); }, 'guide-choice');
+    button.dataset.guide = String(index);
+    button.append(node('strong', description[0]), node('span', description[1]));
+    get('guide-choices').append(button);
+  });
+  get('lesson-picker').addEventListener('change', renderLesson); renderLesson();
+
+  if (data.issues.length) {
+    get('diagnostics').append(node('h2', 'Repair these saved files or references'), node('p', 'Ask Fievel to help resolve the items below, then generate a new snapshot. This page does not edit your files.'));
+    list(get('diagnostics'), data.issues.map(issue => `${issue.file}: ${issue.message}`), '');
+  } else get('diagnostics').append(node('h2', 'No structural issues found'), node('p', 'Files and declared references could be read. Content accuracy, source grounding and approval still need their own review.', 'muted'));
+  const filePurposes = { product: 'Who your product serves and what it does.', standards: 'Voice, terminology and writing rules.', sources: 'Evidence records and permitted use.', behavior: 'What the assistant should do and when.', evaluation: 'Scenarios and quality-check definitions.', governance: 'Ownership and review arrangements.', progress: 'Saved decisions, questions and next action.' };
+  ['product', 'standards', 'sources', 'behavior', 'evaluation', 'governance', 'progress'].forEach(name => {
+    const detail = disclosure(`${name}.json${P[name] === undefined ? ' · unavailable or invalid' : ''}`, [node('p', filePurposes[name]), node('pre', P[name] === undefined ? 'See diagnostics. Invalid content is excluded from the typed view.' : JSON.stringify(P[name], null, 2))]);
+    get('file-list').append(detail);
+  });
+  get('identity').textContent = JSON.stringify({ generated_at: data.generated_at, system_sha256: data.system_sha256, file_sha256: data.file_sha256 }, null, 2);
+  renderRules();
+  applyRoute();
+})();

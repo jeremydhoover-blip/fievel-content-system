@@ -1,0 +1,33 @@
+{
+  "case_id": "FB-01",
+  "status": "not_run",
+  "condition": "candidate-explicit-read",
+  "host": null,
+  "host_version": null,
+  "model": null,
+  "assessor": null,
+  "turns": [
+    {
+      "file": "turn-01.txt",
+      "canonical_user_turn": "I'm new to AI content systems. Help me build a small fictional support assistant for a community library. I want to learn while we build it.",
+      "executed": false
+    },
+    {
+      "file": "turn-02.txt",
+      "canonical_user_turn": "It helps library members find what to do when they cannot renew a book. We don't have an approved renewal policy yet.",
+      "executed": false
+    },
+    {
+      "file": "turn-03.txt",
+      "canonical_user_turn": "Keep the wording calm and tell people what to do next. Save what we have so I can come back later.",
+      "executed": false
+    }
+  ],
+  "native_discovery_tested": false,
+  "baseline_comparison_run": false,
+  "limitations": [
+    "Prepared inputs only; no model calls authorized",
+    "No learner or human judgment evidence",
+    "One prepared candidate per case; no repeated trials"
+  ]
+}

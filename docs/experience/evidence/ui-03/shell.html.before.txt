@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="@@CSP@@">
+  <title>@@TITLE@@ · Fievel</title>
+  <style>@@CSS@@</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">f</span><span class="wordmark">fievel</span></div>
+    <div class="project-heading"><span class="eyebrow">Content workspace</span><span id="project-name"></span></div>
+    <details class="snapshot-info">
+      <summary><span class="status-dot" aria-hidden="true"></span> Saved snapshot <span id="header-date"></span></summary>
+      <div class="snapshot-popover"><h2>About this snapshot</h2><p>This page shows saved files at the time it was generated. It does not edit or automatically reread your project.</p><p>After an edit, generate a new HTML file:</p><code>python scripts/fievel.py view &lt;folder&gt; --out &lt;new.html&gt;</code><p>Sharing this file shares its embedded project, lesson and selected response data.</p></div>
+    </details>
+  </header>
+  <div class="layout">
+    <nav aria-label="Content system views" id="navigation">
+      <p class="nav-label">Your workspace</p>
+      <button type="button" data-view="overview" aria-pressed="true"><span>Overview</span></button>
+      <button type="button" data-view="connections" aria-pressed="false"><span>Rules &amp; connections</span><span data-count="rules" class="nav-count"></span></button>
+      <button type="button" data-view="sources" aria-pressed="false"><span>Sources</span><span data-count="sources" class="nav-count"></span></button>
+      <button type="button" data-view="checks" aria-pressed="false"><span>Checks &amp; results</span><span data-count="checks" class="nav-count"></span></button>
+      <p class="nav-label nav-divider">Resources</p>
+      <button type="button" data-view="learn" aria-pressed="false"><span>Learn as you build</span></button>
+      <button type="button" data-view="files" aria-pressed="false"><span>Files &amp; diagnostics</span></button>
+      <p class="nav-note">Your files are the source of truth.<br>This workspace is read-only.</p>
+    </nav>
+    <main id="main" tabindex="-1">
+      <div id="banner"></div>
+      <p id="view-status" class="sr-only" role="status" aria-live="polite"></p>
+      <section data-panel="overview" aria-labelledby="overview-title">
+        <p class="eyebrow">Your content system</p>
+        <h1 id="overview-title"></h1><p id="purpose" class="lede"></p>
+        <div id="inventory" class="inventory-grid" aria-label="Explore your system"></div>
+        <div id="next-action" class="next"></div>
+        <div class="overview-grid">
+          <section class="surface"><div class="section-heading"><h2>Decisions to make</h2><span id="question-count" class="badge"></span></div><p class="section-description">Questions saved for your next conversation with Fievel.</p><div id="questions"></div></section>
+          <section class="surface"><div class="section-heading"><h2>Project decisions</h2></div><div id="decisions"></div></section>
+        </div>
+        <div class="overview-grid supporting">
+          <details class="surface disclosure"><summary>Product, audience &amp; voice<span class="summary-hint">Context behind your rules</span></summary><div id="context"></div></details>
+          <details class="surface disclosure"><summary>Your seven stages<span class="summary-hint">Saved progress, at a glance</span></summary><div id="progress"></div></details>
+        </div>
+      </section>
+      <section data-panel="connections" aria-labelledby="connections-title" hidden>
+        <p class="eyebrow">Explore your system</p><h1 id="connections-title">Rules &amp; connections</h1>
+        <p class="lede">Find a rule. Follow the source behind it and the checks linked to it.</p>
+        <div class="rule-toolbar">
+          <label for="rule-search">Find a rule<input id="rule-search" type="search" placeholder="Search wording or rule ID" autocomplete="off"></label>
+          <label for="rule-kind">Rule type<select id="rule-kind"><option value="all">All rules</option><option value="standards">Content standards</option><option value="behavior">AI behavior</option></select></label>
+        </div>
+        <details class="jump-selector"><summary>Jump to a rule by ID</summary><label for="rule-picker">All rules</label><select id="rule-picker"></select></details>
+        <p id="rule-results" class="muted small" role="status"></p>
+        <div class="rule-workspace"><div id="rule-list" class="rule-list" aria-label="Matching rules"></div><div id="rule-detail"></div></div>
+        <details class="evidence-note"><summary>What do these connections mean?</summary><p>A source link records a claim to inspect, not verified grounding. A linked check means it has been defined, not passed. Approval labels are saved values; this schema does not record independent approver evidence.</p></details>
+      </section>
+      <section data-panel="sources" aria-labelledby="sources-title" hidden><p class="eyebrow">Evidence &amp; context</p><h1 id="sources-title">Your sources</h1><p class="lede">See where your standards come from and which rules refer to them.</p><div id="source-list" class="source-list"></div></section>
+      <section data-panel="checks" aria-labelledby="checks-title" hidden><p class="eyebrow">Check your system</p><h1 id="checks-title">Checks &amp; results</h1><p class="lede">Keep what you've defined separate from what has actually been assessed.</p><div id="report-state" class="surface report-summary"></div><div id="check-list"></div></section>
+      <section data-panel="learn" aria-labelledby="learn-title" hidden><p class="eyebrow">Build understanding</p><h1 id="learn-title">Learn as you build</h1><p class="lede">Focused local lessons, with an example to explore and a small exercise to try.</p><div class="lesson-toolbar"><label for="lesson-picker">What are you working on?</label><select id="lesson-picker"></select><p class="small muted">Draft educational guidance. Your organization's policies still need their own evidence.</p></div><article id="lesson" class="surface lesson"></article></section>
+      <section data-panel="files" aria-labelledby="files-title" hidden><p class="eyebrow">Under the surface</p><h1 id="files-title">Files &amp; diagnostics</h1><p class="lede">Inspect the saved package and find anything that needs repair.</p><div id="diagnostics" class="surface"></div><div id="file-list"></div><details><summary>Snapshot identity &amp; file fingerprints</summary><pre id="identity"></pre></details></section>
+      <footer><p id="snapshot-date"></p><span>Local, read-only · changes stay in your original files</span></footer>
+    </main>
+  </div>
+  <noscript>This local viewer requires JavaScript for navigation. Your original JSON files remain available in the content-system folder.</noscript>
+  <script id="snapshot-data" type="application/json">@@DATA@@</script>
+  <script>@@SCRIPT@@</script>
+</body>
+</html>

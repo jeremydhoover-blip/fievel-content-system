@@ -1,0 +1,125 @@
+{
+  "reviewed_on": "2026-10-21",
+  "repositories": [
+    {
+      "full_name": "microsoft/eval-guide",
+      "html_url": "https://github.com/microsoft/eval-guide",
+      "default_branch": "main",
+      "pushed_at": "2026-06-24T19:13:52Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "full_name": "microsoft/ai-agent-eval-scenario-library",
+      "html_url": "https://github.com/microsoft/ai-agent-eval-scenario-library",
+      "default_branch": "main",
+      "pushed_at": "2026-03-18T22:26:19Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "full_name": "promptfoo/promptfoo",
+      "html_url": "https://github.com/promptfoo/promptfoo",
+      "default_branch": "main",
+      "pushed_at": "2026-10-21T05:26:41Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "full_name": "vale-cli/vale",
+      "html_url": "https://github.com/vale-cli/vale",
+      "default_branch": "v3",
+      "pushed_at": "2026-10-16T23:18:32Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "full_name": "modelcontextprotocol/servers",
+      "html_url": "https://github.com/modelcontextprotocol/servers",
+      "default_branch": "main",
+      "pushed_at": "2026-10-19T06:46:48Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      }
+    },
+    {
+      "full_name": "alphagov/govuk-design-system",
+      "html_url": "https://github.com/alphagov/govuk-design-system",
+      "default_branch": "main",
+      "pushed_at": "2026-10-20T18:13:11Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "full_name": "carbon-design-system/carbon",
+      "html_url": "https://github.com/carbon-design-system/carbon",
+      "default_branch": "main",
+      "pushed_at": "2026-10-21T05:04:06Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "apache-2.0",
+        "name": "Apache License 2.0",
+        "spdx_id": "Apache-2.0",
+        "url": "https://api.github.com/licenses/apache-2.0",
+        "node_id": "MDc6TGljZW5zZTI="
+      }
+    },
+    {
+      "full_name": "agentskills/agentskills",
+      "html_url": "https://github.com/agentskills/agentskills",
+      "default_branch": "main",
+      "pushed_at": "2026-08-09T20:36:04Z",
+      "archived": false,
+      "disabled": false,
+      "license": {
+        "key": "apache-2.0",
+        "name": "Apache License 2.0",
+        "spdx_id": "Apache-2.0",
+        "url": "https://api.github.com/licenses/apache-2.0",
+        "node_id": "MDc6TGljZW5zZTI="
+      }
+    }
+  ]
+}

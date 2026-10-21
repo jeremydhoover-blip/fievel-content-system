@@ -1,0 +1,8 @@
+{
+  "evals/human-review-calibration/round-01/reviewer-a/C01.json": "72be21d032d5bd5a68528d4fb006474b66e3f2f07be9c36a47a615633e574df9",
+  "evals/human-review-calibration/round-01/reviewer-b/C01.json": "72be21d032d5bd5a68528d4fb006474b66e3f2f07be9c36a47a615633e574df9",
+  "evals/human-review-calibration/round-01/reviewer-a/C02.json": "e2af95f53239557e30a560b4695fae9167fa2dc93f7c37ec13215d2ad8a2dfd7",
+  "evals/human-review-calibration/round-01/reviewer-b/C02.json": "e2af95f53239557e30a560b4695fae9167fa2dc93f7c37ec13215d2ad8a2dfd7",
+  "evals/human-review-calibration/round-01/reviewer-a/C03.json": "e416de31965789a092b5664fe87beef5f89f1f0ce8ed22513369ae7e7106752a",
+  "evals/human-review-calibration/round-01/reviewer-b/C03.json": "e416de31965789a092b5664fe87beef5f89f1f0ce8ed22513369ae7e7106752a"
+}

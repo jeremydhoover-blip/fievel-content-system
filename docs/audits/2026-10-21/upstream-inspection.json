@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-21",
+  "scope": "Focused source inspection; not upstream runtime validation",
+  "sources": [
+    {
+      "repository": "microsoft/eval-guide",
+      "revision": "7a22a8957ced79a35fd7b4634fd5b5eac56c308e",
+      "path": "skills/eval-guide/SKILL.md",
+      "url": "https://github.com/microsoft/eval-guide/blob/7a22a8957ced79a35fd7b4634fd5b5eac56c308e/skills/eval-guide/SKILL.md",
+      "sha256": "b6c97207f9ce17536b3a1396521801d06ce7b5059ba5b36fca39994a6032b856",
+      "bytes": 88222
+    },
+    {
+      "repository": "microsoft/eval-guide",
+      "revision": "7a22a8957ced79a35fd7b4634fd5b5eac56c308e",
+      "path": "skills/eval-guide/playbook.md",
+      "url": "https://github.com/microsoft/eval-guide/blob/7a22a8957ced79a35fd7b4634fd5b5eac56c308e/skills/eval-guide/playbook.md",
+      "sha256": "2848f906313a2876628e5dba18bacb3c565a5a0a9840d4ee6e6637c4fe8e48e5",
+      "bytes": 14966
+    },
+    {
+      "repository": "microsoft/eval-guide",
+      "revision": "7a22a8957ced79a35fd7b4634fd5b5eac56c308e",
+      "path": "evals/eval-plan.md",
+      "url": "https://github.com/microsoft/eval-guide/blob/7a22a8957ced79a35fd7b4634fd5b5eac56c308e/evals/eval-plan.md",
+      "sha256": "3d298351b858534d3f0e9c62dbd7703e4ffcd0ba5e845d2333c83d215dbfd5fb",
+      "bytes": 23051
+    },
+    {
+      "repository": "microsoft/eval-guide",
+      "revision": "7a22a8957ced79a35fd7b4634fd5b5eac56c308e",
+      "path": "evals/test-cases.json",
+      "url": "https://github.com/microsoft/eval-guide/blob/7a22a8957ced79a35fd7b4634fd5b5eac56c308e/evals/test-cases.json",
+      "sha256": "cf288ce7b8eee6b33883f8772146b1dc65b37922dd928cfe4c23ac1c8b3ef257",
+      "bytes": 39979
+    },
+    {
+      "repository": "microsoft/ai-agent-eval-scenario-library",
+      "revision": "04fc731937cd2bb8b9ef5195540c6f53914f52a5",
+      "path": "resources/evaluation-method-selection-guide.md",
+      "url": "https://github.com/microsoft/ai-agent-eval-scenario-library/blob/04fc731937cd2bb8b9ef5195540c6f53914f52a5/resources/evaluation-method-selection-guide.md",
+      "sha256": "d4788bc039fab8d35ee3393babd5d81e5e4cc61c14324621639719eb7880af4f",
+      "bytes": 12300
+    },
+    {
+      "repository": "microsoft/ai-agent-eval-scenario-library",
+      "revision": "04fc731937cd2bb8b9ef5195540c6f53914f52a5",
+      "path": "capability-scenarios/knowledge-grounding-and-accuracy.md",
+      "url": "https://github.com/microsoft/ai-agent-eval-scenario-library/blob/04fc731937cd2bb8b9ef5195540c6f53914f52a5/capability-scenarios/knowledge-grounding-and-accuracy.md",
+      "sha256": "96fce52c15418b71453693ef772d803888c9c80e97b3605785248ec396e45f13",
+      "bytes": 45119
+    },
+    {
+      "repository": "microsoft/ai-agent-eval-scenario-library",
+      "revision": "04fc731937cd2bb8b9ef5195540c6f53914f52a5",
+      "path": "capability-scenarios/graceful-failure-and-escalation.md",
+      "url": "https://github.com/microsoft/ai-agent-eval-scenario-library/blob/04fc731937cd2bb8b9ef5195540c6f53914f52a5/capability-scenarios/graceful-failure-and-escalation.md",
+      "sha256": "c7eae537febe6679d55b54ac548ac04974e57b866f90fc79315df9f5922240be",
+      "bytes": 31869
+    },
+    {
+      "repository": "agentskills/agentskills",
+      "revision": "69ef37e9424c0a7ea9dd2293b559e43ec8176379",
+      "path": "docs/skill-creation/evaluating-skills.mdx",
+      "url": "https://github.com/agentskills/agentskills/blob/69ef37e9424c0a7ea9dd2293b559e43ec8176379/docs/skill-creation/evaluating-skills.mdx",
+      "sha256": "20e53ee9085966bb25345fc4c431bcf24f1f1b410b687605dc870c76f8579a49",
+      "bytes": 16755
+    },
+    {
+      "repository": "agentskills/agentskills",
+      "revision": "69ef37e9424c0a7ea9dd2293b559e43ec8176379",
+      "path": "docs/LICENSE",
+      "url": "https://github.com/agentskills/agentskills/blob/69ef37e9424c0a7ea9dd2293b559e43ec8176379/docs/LICENSE",
+      "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+      "bytes": 18656
+    }
+  ]
+}

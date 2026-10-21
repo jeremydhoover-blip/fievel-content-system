@@ -1,0 +1,70 @@
+(() => {
+  'use strict';
+  const data = JSON.parse(document.getElementById('snapshot-data').textContent), P = data.package;
+  const get = id => document.getElementById(id);
+  const node = (tag, text, cls) => { const e=document.createElement(tag); if(text!==undefined&&text!==null)e.textContent=String(text); if(cls)e.className=cls; return e; };
+  const unknown = v => v===null||v===undefined||v==='' ? 'Unknown' : String(v);
+  function list(parent, values, empty) { if(!values.length){parent.append(node('p',empty,'muted'));return;} const ul=node('ul'); values.forEach(v=>ul.append(node('li',v)));parent.append(ul); }
+  function row(parent,label,value) { const r=node('div',undefined,'row');r.append(node('span',label),node('span',value));parent.append(r); }
+  function show(name) { document.querySelectorAll('[data-panel]').forEach(e=>e.hidden=e.dataset.panel!==name);document.querySelectorAll('[data-view]').forEach(e=>e.setAttribute('aria-pressed',String(e.dataset.view===name))); }
+  function jump(label,name) { const b=node('button',label);b.type='button';b.addEventListener('click',()=>{show(name);if(name==='connections')get('rule-picker').focus();});return b; }
+  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
+  get('project-name').textContent=P.product?.name||data.folder;
+  get('overview-title').textContent=P.product?.name||'Product information unavailable';
+  get('purpose').textContent=P.product?.purpose||'Inspect Files & diagnostics to repair missing or invalid product information.';
+  get('snapshot-date').textContent=`Generated ${data.generated_at} · folder ${data.folder} · package version ${unknown(P.governance?.version)}`;
+  if(data.issues.length){const b=node('div',undefined,'notice attention');b.append(node('p',`${data.issues.length} diagnostic issue(s). Some content or relationships need attention.`),jump('Inspect diagnostics','files'));get('banner').append(b);}
+  get('next-action').append(node('h2','Your saved next action'),node('p',P.progress?.next_action||'No valid saved next action is available.'),jump('Explore your connections','connections'));
+  const context=get('context');context.append(node('h3','Audiences'));list(context,P.product?.audiences||[],'No audience available.');context.append(node('h3','Important tasks'));list(context,P.product?.tasks||[],'No tasks available.');
+  if(P.standards?.voice)context.append(node('h3','Recorded voice'),node('p',P.standards.voice));
+  row(get('inventory'),'Content and behavior rules',`${data.rules.length} recorded`);row(get('inventory'),'Sources',`${(P.sources||[]).length} recorded`);row(get('inventory'),'Things to check',`${data.checks.length} defined`);row(get('inventory'),'Rules without a linked check',data.rules.filter(r=>r.uncovered).length);
+  get('inventory').append(node('p','Counts describe recorded artifacts. They do not measure approval, learning completion or quality.','small muted'));
+  const decisions=get('decisions');decisions.append(node('h3','Saved decisions'));list(decisions,P.progress?.decisions||[],'No decisions recorded.');decisions.append(node('h3','Open questions'));list(decisions,P.progress?.open_questions||[],'No open questions recorded. This does not establish completeness.');row(decisions,'Recorded owner',unknown(P.governance?.owner));
+  if(P.progress){data.stages.forEach((stage,i)=>row(get('progress'),`${i+1}. ${stage}`,P.progress.stages[String(i+1)]));get('progress').append(node('p','These are saved stage labels, not independently verified completion or approval.','small muted'));}else get('progress').append(node('p','Progress information unavailable.'));
+
+  const resultIndex=new Map(data.report.results.map(r=>[`${r.scenario_id}\0${r.check_id}`,r]));
+  function resultLabel(c){const r=resultIndex.get(`${c.scenario_id}\0${c.id}`);return !r?'No current result displayed':r.status==='not_run'?'Not run':`Literal ${r.status}`;}
+  function renderCheck(c){
+    const d=node('details');d.append(node('summary',c.question),node('p',`Situation: ${c.situation}`),node('p',`Context: ${c.context}`),node('p',`Requirement: ${c.requirement_id} · ${c.target_state}`),node('p',`Method: ${c.method==='human'?'Human review required':c.method}`));
+    if(c.method!=='human')d.append(node('p',`Literal value: ${c.value}`));d.append(node('p',resultLabel(c),'tag'));
+    const response=Object.hasOwn(data.report.responses,c.scenario_id)?data.report.responses[c.scenario_id]:undefined;if(response!==undefined)d.append(node('h3','Saved response'),node('p',response));
+    d.append(node('p',`evaluation.json · ${c.locator} · ${c.id}`,'small muted'));return d;
+  }
+  const picker=get('rule-picker');data.rules.forEach(r=>{const o=node('option',`${r.id} · ${r.instruction}`);o.value=r.key;picker.append(o);});
+  function renderRule(){
+    const detail=get('rule-detail');detail.replaceChildren();const r=data.rules.find(r=>r.key===picker.value);
+    if(!r){detail.append(node('p','No valid rules are available yet. Draft one with Fievel, then generate a new snapshot.'));return;}
+    const trail=node('div',undefined,'trail'),sources=node('section'),rule=node('section'),checks=node('section');sources.append(node('h2','1. Declared sources'));
+    if(!r.source_links.length)sources.append(node('p','No source linked. This may be a draft recommendation; its organizational authority is not established.'));
+    r.source_links.forEach(link=>{
+      if(link.state!=='linked'){sources.append(node('p',`${link.state.toUpperCase()} source: ${link.id}`,'tag'));return;}
+      const s=link.source;sources.append(node('h3',s.title),node('p',s.purpose));row(sources,'Recorded authority',s.authority);row(sources,'Owner',unknown(s.owner));row(sources,'Review date',unknown(s.reviewed_on));row(sources,'Permissions',s.permissions);
+      sources.append(node('p',`Location: ${s.location}`),node('p',`Permitted use: ${s.permitted_use}`),node('p','An exact supporting passage is not represented by this source ID. Inspect the actual evidence.','small muted'));
+    });
+    rule.append(node('h2','2. Recorded rule'),node('p',r.instruction),node('p',`Recorded status: ${r.status}`,'tag'),node('p',`${r.file} · ${r.locator} · ${r.id}`,'small muted'));
+    if(r.ambiguous)rule.append(node('p','This rule ID is ambiguous. Checks cannot be assigned to one record reliably.'));
+    rule.append(node('p','A recorded approval label has no independently verified approver evidence in this schema.','small muted'));
+    checks.append(node('h2','3. Defined checks'));if(!r.checks.length)checks.append(node('p','No unambiguous quality check linked. Define one when you reach the quality stage.'));r.checks.forEach(c=>checks.append(renderCheck(c)));
+    trail.append(sources,rule,checks);detail.append(trail,node('p','Review these declared dependencies when a source or rule changes. The map cannot show dependencies that have not been recorded.','muted'));
+  }
+  picker.disabled=!data.rules.length;picker.addEventListener('change',renderRule);renderRule();
+  const report=get('report-state');report.append(node('h2',`Execution report: ${data.report.state}`),node('p',data.report.message));if(data.report.name)report.append(node('p',`Selected file: ${data.report.name}`,'small muted'));
+  if(data.report.summary){row(report,'Literal passes',data.report.summary.pass);row(report,'Literal failures',data.report.summary.fail);row(report,'Checks not run',data.report.summary.not_run);report.append(node('p',`Execution timestamp: ${data.report.executed_at}`));}
+  report.append(node('p','Human questions require contextual review. No completed human judgments are accepted by this viewer.','muted'));if(!data.checks.length)get('check-list').append(node('p','No valid situations or checks are defined yet.'));data.checks.forEach(c=>get('check-list').append(renderCheck(c)));
+
+  const plain=t=>t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'$1 ($2)').replace(/\*\*/g,'').replace(/`/g,'');
+  function renderLesson(){
+    const lesson=data.lessons[Number(get('lesson-picker').value)],parent=get('lesson');parent.replaceChildren();if(!lesson)return;parent.append(node('p',lesson.path,'small muted'));let paragraph=[];
+    function flush(){if(paragraph.length)parent.append(node('p',plain(paragraph.join(' '))));paragraph=[];}
+    const lines=lesson.text.split('\n');for(let i=0;i<lines.length;i++){
+      const line=lines[i].trim();if(!line){flush();continue;}const heading=line.match(/^(#{1,3}) (.*)$/);
+      if(heading){flush();parent.append(node(`h${Math.min(heading[1].length+1,4)}`,heading[2]));continue;}
+      if(line.startsWith('|')){flush();const table=node('table');while(i<lines.length&&lines[i].trim().startsWith('|')){const cells=lines[i].trim().split('|').slice(1,-1).map(c=>c.trim());if(!cells.every(c=>/^[-: ]+$/.test(c))){const tr=node('tr');cells.forEach(c=>tr.append(node(table.rows.length?'td':'th',plain(c))));table.append(tr);}i++;}i--;parent.append(table);continue;}
+      if(/^[-*] /.test(line)){flush();const ul=node('ul');ul.append(node('li',plain(line.slice(2))));parent.append(ul);continue;}paragraph.push(line);
+    }flush();
+  }
+  data.lessons.forEach((l,i)=>{const o=node('option',l.title);o.value=String(i);get('lesson-picker').append(o);});get('lesson-picker').addEventListener('change',renderLesson);renderLesson();
+  if(data.issues.length)list(get('diagnostics'),data.issues.map(i=>`${i.file}: ${i.message}`),'');else get('diagnostics').append(node('p','No structural or reference diagnostics found. This is not a content approval or quality verdict.'));
+  ['product','standards','sources','behavior','evaluation','governance','progress'].forEach(name=>{const d=node('details');d.append(node('summary',`${name}.json${P[name]===undefined?' · unavailable or invalid':''}`),node('pre',P[name]===undefined?'See diagnostics. Invalid content is excluded from typed presentation.':JSON.stringify(P[name],null,2)));get('file-list').append(d);});
+  get('identity').textContent=JSON.stringify({generated_at:data.generated_at,system_sha256:data.system_sha256,file_sha256:data.file_sha256},null,2);
+})();

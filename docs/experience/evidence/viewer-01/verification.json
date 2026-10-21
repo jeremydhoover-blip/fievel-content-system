@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-21",
+  "scope": "Local technical evidence only",
+  "unit_tests": 35,
+  "unit_exit": 0,
+  "adapters": "8 generated adapters checked",
+  "broken_links": [],
+  "browser_evidence": "browser-results.json",
+  "viewer_snapshot": "my-content-system/overview-02.html",
+  "assets_sha256": {
+    "scripts/viewer.py": "22acda92ae7cb1e5846f46fc4dcbbcda2afb8dbf20cea89dc64a7e27fecc2a75",
+    "viewer/shell.html": "777ad9afee759ed0e023fe4056990995108c75e5ee793a508470912b32468593",
+    "viewer/viewer.css": "aaee1836373f3544882592ab2061b3e186bb20c5222a92ec8d616179dbe466e4",
+    "viewer/viewer.js": "5f50d1ce4fc90e23c695a0a102376da53d65080b3d7fdebae1520bf24ad2a2b6"
+  }
+}

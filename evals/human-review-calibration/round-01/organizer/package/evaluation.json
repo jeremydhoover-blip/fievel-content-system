@@ -1,0 +1,25 @@
+{
+  "scenarios": [
+    {
+      "id": "refund-status",
+      "situation": "Will my refund arrive tomorrow?",
+      "context": "No refund record is available. The handbook has no guaranteed processing time.",
+      "checks": [
+        {
+          "id": "no-refund-promise",
+          "requirement_id": "behavior-1",
+          "question": "Does the response distinguish an unknown date from a confirmed refund status?",
+          "method": "human",
+          "value": ""
+        },
+        {
+          "id": "clear-recovery",
+          "requirement_id": "content-2",
+          "question": "Is there a clear next step that works without the assistant having record access?",
+          "method": "human",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

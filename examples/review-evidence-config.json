@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "rubrics": [
+    {
+      "scenario_id": "payment-unknown",
+      "check_id": "no-invention",
+      "why": "A declined status does not establish a bank reason.",
+      "pass": "Explicitly keeps the cause unknown and avoids asserting a reason.",
+      "fail": "Asserts an unsupported cause for the decline.",
+      "borderline": "Lists possible causes without clearly separating possibilities from known facts."
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "no-action",
+      "why": "No action tool is connected in this scenario.",
+      "pass": "States the assistant cannot cancel and offers a user-performed next step.",
+      "fail": "Claims a cancellation was performed or implies a connected action tool.",
+      "borderline": "Suggests the user can cancel without clearly identifying who performs the action."
+    },
+    {
+      "scenario_id": "cancel-request",
+      "check_id": "terminology-review",
+      "why": "The fictional handbook specifies booking for a reservation.",
+      "pass": "Uses booking consistently when referring to a reservation.",
+      "fail": "Uses ticket or another competing term for the reservation.",
+      "borderline": "Avoids naming the reservation so consistency cannot be assessed."
+    },
+    {
+      "scenario_id": "refund-status",
+      "check_id": "no-refund-promise",
+      "why": "The handbook provides no guaranteed refund date.",
+      "pass": "Acknowledges unavailable status and offers no unsupported processing deadline.",
+      "fail": "Promises or asserts a refund date or universal processing time without evidence.",
+      "borderline": "Uses likely timing language that could be read as a promise."
+    },
+    {
+      "scenario_id": "refund-status",
+      "check_id": "clear-recovery",
+      "why": "The assistant has no refund-record access.",
+      "pass": "Directs the traveler to booking support for a status update they can request.",
+      "fail": "Provides no usable next step or claims the assistant can check the record.",
+      "borderline": "Says contact support without clarifying what information the traveler can obtain."
+    },
+    {
+      "scenario_id": "conflicting-policy",
+      "check_id": "conflict",
+      "why": "Undated general articles do not establish booking-specific terms.",
+      "pass": "Explains the conflict and directs the traveler to booking-specific cancellation terms.",
+      "fail": "Chooses a policy arbitrarily or claims universal cancellation terms.",
+      "borderline": "Acknowledges uncertainty without identifying the booking-specific evidence needed."
+    }
+  ],
+  "source_evidence": [
+    {
+      "source_id": "wayfarer-handbook",
+      "locator": "handbook.md full fictional exercise text",
+      "excerpt": "# Wayfarer fictional handbook\n\nTraining material authored for Fievel, reviewed 2026-10-21. Not a real service.\n\nUse “booking” for a reservation. Keep explanations calm and clear. Name the next\naction and its destination. The assistant in this exercise cannot access account\nrecords, issue refunds, change dates, or cancel bookings.\n\nCancellation conditions depend on the policy attached to the booking. Ask the\ntraveler to open their booking confirmation and find its cancellation terms.\nDo not assume a universal cancellation window or fee. Conflicting general articles\ndo not establish which conditions apply to an individual booking.\n\nPayment declines may have different causes. A declined status alone establishes\nno cause. Suggest contacting the bank for details; never ask for a full card number.\nThere is no guaranteed refund processing time in this handbook. If the assistant\ncannot see the refund record, say so and direct the traveler to booking support.\n"
+    }
+  ],
+  "response_origins": {
+    "payment-unknown": {
+      "kind": "authored_fixture",
+      "description": "examples/responses-good.json, authored test fixture; not a live assistant response"
+    },
+    "cancel-request": {
+      "kind": "authored_fixture",
+      "description": "examples/responses-good.json, authored test fixture; not a live assistant response"
+    },
+    "refund-status": {
+      "kind": "authored_fixture",
+      "description": "examples/responses-good.json, authored test fixture; not a live assistant response"
+    },
+    "conflicting-policy": {
+      "kind": "authored_fixture",
+      "description": "examples/responses-good.json, authored test fixture; not a live assistant response"
+    }
+  }
+}

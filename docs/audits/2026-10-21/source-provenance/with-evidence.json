@@ -1,0 +1,20 @@
+{
+  "kind": "source_provenance_audit",
+  "version": "1.0",
+  "as_of": "2026-10-21",
+  "max_age_days": 365,
+  "system_sha256": "fc08f10113548df2db79f9c208e4e4f8b56defa32283e4f6a6122c1efd956f07",
+  "provenance_sha256": "c24e40562370e7ebf4e6732db345e6dcc1a93cb046df9a852ae2cd4ecdeb805c",
+  "counts": {
+    "error": 0,
+    "warning": 0
+  },
+  "findings": [],
+  "source_locations_checked": false,
+  "declared_conflicts": 0,
+  "limitations": [
+    "Source locations and excerpt accuracy were not checked.",
+    "Authority, permission and conflict decisions are declared, not authenticated.",
+    "No semantic conflict detection or content approval was performed."
+  ]
+}
