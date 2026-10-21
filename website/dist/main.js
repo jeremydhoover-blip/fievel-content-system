@@ -26,7 +26,7 @@ document.querySelectorAll('[data-copy]').forEach(button => button.addEventListen
  try {
   if(!navigator.clipboard?.writeText) throw Error('Clipboard unavailable');
   await navigator.clipboard.writeText(field.value);
-  status.textContent=button.dataset.copy==='clone-command'?'Clone command copied.':'First prompt copied.';
+  status.textContent=`${button.dataset.label||'Text'} copied.`;
  } catch {field.focus();field.select();status.textContent='Text selected. Use your device copy command to copy it.';}
 }));
 // A single owned timer makes pause and replay deterministic and cancellable.

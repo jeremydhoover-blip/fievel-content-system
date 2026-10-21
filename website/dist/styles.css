@@ -231,3 +231,9 @@ body:not(.js) .agent-options{display:grid}
 @media(prefers-reduced-motion:reduce){#play::before,#play::after,#playback-state::before{animation:none}#play[data-state]::after{display:none}}
 .agent-options .agent-link span{display:inline;margin:0;color:inherit;font-size:inherit}
 .agent-card code{white-space:nowrap}
+
+/* Plugin install alternative */
+.plugin-option{max-width:800px;margin-top:28px;padding:24px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(110deg,#faf0e9,var(--tint))}
+.plugin-option h3{font-size:17px;margin-bottom:6px}.plugin-option>p{font-size:13px;color:var(--muted);margin-bottom:18px;max-width:64ch}
+.plugin-fields{display:grid;grid-template-columns:1fr;gap:16px}.plugin-fields .copy-field{margin:0}.plugin-fields textarea{white-space:pre;overflow-x:auto}
+@media(max-width:760px){.plugin-fields{grid-template-columns:1fr}.plugin-option{padding:18px}}

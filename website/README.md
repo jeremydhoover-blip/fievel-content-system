@@ -19,27 +19,22 @@ Open `http://127.0.0.1:8765/`. `dist/index.html` also opens directly as a local
 file. Clipboard denial selects the text for manual copying. The site uses only
 relative asset paths, so project Pages subpaths work without rewriting URLs.
 
-## GitHub Pages, when ready
+## GitHub Pages
 
-The user supplied repository is
-[jeremydhoover-blip/fievel-content-system](https://github.com/jeremydhoover-blip/fievel-content-system).
-The site uses that exact URL and its HTTPS clone command. Documentation/license
-links assume the public branch is `main`; verify them after the initial push.
-The repository was described as newly created; linked project content will only
-exist after it is pushed. No push or deployment was performed here.
+Live at <https://jeremydhoover-blip.github.io/fievel-content-system/>, published
+from [jeremydhoover-blip/fievel-content-system](https://github.com/jeremydhoover-blip/fievel-content-system)
+branch `main`. Pages uses **GitHub Actions** as its source.
 
-1. Push the project to that repository and confirm the public/default branch.
-2. In repository Settings → Pages, select **GitHub Actions** as the source.
-3. Run **Publish landing page** manually from Actions on the intended branch.
-4. Verify links and assets on the returned deployed URL.
+To republish after changing `website/dist`, push to `main`, then run **Publish
+landing page** from the Actions tab (or `gh workflow run pages.yml --ref main`)
+and check the deployed URL.
 
 The workflow uploads only `website/dist`, never the repo, local user packages,
-research evidence or credentials. It has no push trigger: creating these files
-does not publish anything. No custom domain or CNAME is configured. Standard
-project Pages would use the repository subpath `/fievel-content-system/`.
+research evidence or credentials. It has no push trigger, so pushing alone does not
+publish. No custom domain or CNAME is configured; the site uses the project
+subpath `/fievel-content-system/`.
 
 Workflow design follows [GitHub's official Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-Hosting availability/settings and successful remote execution are unverified.
 
 ## Validation
 
@@ -58,7 +53,6 @@ and it is implemented locally. Page writing has no eyebrow text, no punctuation
 in titles and no em dashes. The revised page includes a concrete relationship
 map, controlled animated chat and distinct section interactions. See
 [revision evidence](../docs/experience/evidence/landing-page-02/RESULTS.md).
-User review remains open; nothing has been pushed or published.
 
 
 ## Current content direction

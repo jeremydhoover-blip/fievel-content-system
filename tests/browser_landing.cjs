@@ -53,6 +53,12 @@ const {pathToFileURL}=require('url');let browser;
  await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForFunction(()=>!document.getElementById('play').disabled);assert.equal(await page.locator('[data-message]:visible').count(),2);
  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.copiedText=text}}));
  await page.locator('[data-copy="clone-command"]').click();assert.equal(await page.evaluate(()=>window.copiedText),`git clone ${repo}.git`);
+ for(const [id,tool,install] of [['claude-install','Claude Code','claude plugin install'],['codex-install','Codex','codex plugin add']]){
+  await page.locator(`[data-copy="${id}"]`).click();const text=await page.evaluate(()=>window.copiedText);
+  assert(text.includes('marketplace add jeremydhoover-blip/fievel-content-system')&&text.includes(`${install} fievel@fievel-content-system`),text);
+  assert.equal(await page.locator('#copy-status').textContent(),`${tool} install commands copied.`);
+ }
+ assert.equal(await page.locator('.footer a').getAttribute('href'),`${repo}/blob/main/LICENSE`);assert(!/all rights reserved/i.test(await page.locator('.footer').textContent()));
  await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw Error('denied');};});await page.locator('[data-copy="first-prompt"]').click();assert((await page.locator('#copy-status').textContent()).includes('Text selected'));assert.equal(await page.evaluate(()=>document.activeElement.id),'first-prompt');
  await page.goto(url);await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.className),'skip');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>location.hash),'#main');
  for(const width of [1440,1024,768,390,320]){
@@ -62,6 +68,6 @@ const {pathToFileURL}=require('url');let browser;
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:1000}});await fallback.goto(url);
  assert.equal(await fallback.locator('[data-message]:visible').count(),6);assert(await fallback.locator('.playback').isHidden());await fallback.close();
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
- const result={url,layouts,errors,external,checks:['writing rules','seven content system entities and labeled relationships','removed content breakdown','agent cards with collapsed setup and download links','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','section anchors','skip link','relative assets']};
+ const result={url,layouts,errors,external,checks:['writing rules','seven content system entities and labeled relationships','removed content breakdown','agent cards with collapsed setup and download links','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','plugin install commands','MIT license footer','section anchors','skip link','relative assets']};
  fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));await browser.close();console.log(JSON.stringify(result));
 })().catch(async error=>{console.error(error);if(browser)await browser.close();process.exitCode=1;});
