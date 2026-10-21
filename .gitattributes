@@ -1,0 +1,10 @@
+# Keep LF everywhere: adapter and plugin bundle hashes are computed from file bytes.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+
+# Recorded evidence stays byte-exact; some records hash these files as written.
+docs/audits/** -text
+docs/experience/evidence/** -text
+evals/** -text
