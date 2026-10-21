@@ -629,3 +629,19 @@ name `fievel` so install commands and skill namespaces are unchanged. Unknown-ke
 warnings for documentationUrl, privacyPolicyUrl, supportUrl and icon are expected
 listing fields. 90 tests pass; validate --strict passes; an isolated install shows
 "Fievel Content System (fievel) 0.2.0". Not run: the portal's revalidation.
+
+
+## I37 Live Claude Code plugin trial
+
+2026-10-21. User authorized live Claude Code sessions after questioning product
+quality. Ran the published 0.2.0 plugin headless in a clean folder outside the
+repository with a fictional home-energy assistant and style guide: six resumed
+turns plus a fresh-session resume. Fievel set up dependencies locally, captured
+the brief, imported sources with provenance, defined 18 rules and 10 situations,
+caught all three seeded response violations plus an unseeded data mismatch,
+handled a source change with history, and resumed from files alone. Independent
+re-run reproduced the check report; all human items stayed pending. Findings
+LT-01 (progress in fingerprint makes reports stale), LT-02 (source-discovery not
+routed), LT-03 (denied PowerShell/compound commands) and LT-04 (cost growth).
+Evidence: audits/2026-10-21/live-claude-trial/RESULTS.md. Not run: Codex, an
+interactive user, content-audit, real sources.
