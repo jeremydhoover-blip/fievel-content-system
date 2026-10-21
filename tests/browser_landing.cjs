@@ -14,7 +14,7 @@ const {pathToFileURL}=require('url');let browser;
  assert.equal(await page.locator('.transcript,.map-description').count(),0);
  await page.locator('.watch').click();assert.equal(await page.locator('#playback-state').textContent(),'Ready to play');
  assert.equal(await page.locator('.actions .primary').getAttribute('href'),'#get-started');
- for(const heading of await page.locator('h1,h2,h3,title').allTextContents())assert(/^[\p{L}\p{N}\s]+$/u.test(heading),heading);
+ for(const heading of (await page.locator('h1,h2,h3,title').allTextContents()).filter(Boolean))assert(/^[\p{L}\p{N}\s]+$/u.test(heading),heading);
  for(const file of ['index.html','styles.css','main.js'])assert(!fs.readFileSync(path.join('website/dist',file),'utf8').includes('\u2014'));
  assert.equal(await page.locator('.overline,.eyebrow').count(),0);
  assert.equal(await page.locator('[data-entity]:visible').count(),7);
@@ -30,9 +30,12 @@ const {pathToFileURL}=require('url');let browser;
  for(const link of await page.locator('a[href^="https://github.com/"]').evaluateAll(nodes=>nodes.map(n=>n.href)))assert(link.startsWith(repo));
  for(const id of await page.locator('a[href^="#"]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href').slice(1)).filter(Boolean)))assert(await page.locator(`[id="${id}"]`).count());
  assert.equal(await page.locator('.foundation-details,[role=tablist]').count(),0);
- await page.locator('[data-agent="codex"]').click();assert((await page.locator('#agent-detail').textContent()).includes('$getting-started'));
- await page.locator('[data-agent="copilot"]').click();assert((await page.locator('#agent-detail').textContent()).includes('VS Code'));
- await page.locator('[data-agent="claude"]').click();
+ for(const [agent,text] of [['claude','/getting-started'],['copilot','VS Code'],['codex','$getting-started']]){
+  const card=page.locator(`[data-agent="${agent}"]`),body=card.locator('details p');
+  assert(await body.isHidden());assert((await card.locator('.agent-link').getAttribute('href')).startsWith('https://'));
+  await card.locator('summary').click();assert(await body.isVisible());assert((await body.textContent()).includes(text));
+ }
+ assert.equal(await page.locator('[data-agent] details p').evaluateAll(nodes=>nodes.filter(n=>/validat|untested|\bpilot\b/i.test(n.textContent)).length),0);
  await page.locator('.setup-topics details').first().locator('summary').click();assert(await page.locator('.setup-topics details').first().locator('p').isVisible());
  assert.equal(await page.locator('.eval-branches>div').count(),2);
  // A controlled clock verifies that pause preserves the current typing phase and resume delay.
@@ -59,6 +62,6 @@ const {pathToFileURL}=require('url');let browser;
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:1000}});await fallback.goto(url);
  assert.equal(await fallback.locator('[data-message]:visible').count(),6);assert(await fallback.locator('.playback').isHidden());await fallback.close();
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
- const result={url,layouts,errors,external,checks:['writing rules','seven content system entities and labeled relationships','removed content breakdown','agent setup selector','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','section anchors','skip link','relative assets']};
+ const result={url,layouts,errors,external,checks:['writing rules','seven content system entities and labeled relationships','removed content breakdown','agent cards with collapsed setup and download links','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','section anchors','skip link','relative assets']};
  fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));await browser.close();console.log(JSON.stringify(result));
 })().catch(async error=>{console.error(error);if(browser)await browser.close();process.exitCode=1;});

@@ -21,15 +21,6 @@ document.querySelectorAll('[data-entity]').forEach(button => {
  button.addEventListener('click',()=>selectEntity(button));
  if(button.tagName.toLowerCase()==='g') button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectEntity(button);}});
 });
-const agentText = {
- claude: 'Open the repository in Claude Code and trust the workspace. Try /getting-started or ask it to read AGENTS.md and start Fievel.',
- copilot: 'Open the repository in VS Code with GitHub Copilot. Ask the agent to read AGENTS.md and start Fievel. Repository instructions and skills are supplied; activation and fresh-session behavior still need validation.',
- codex: 'Open the repository in Codex. Try $getting-started or ask it to read AGENTS.md and start Fievel. Local skill discovery has been observed; fresh-session workflows are still being validated.'
-};
-document.querySelectorAll('[data-agent]').forEach(button => button.addEventListener('click',()=>{
- document.querySelectorAll('[data-agent]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
- get('agent-detail').textContent=agentText[button.dataset.agent];
-}));
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
  const field=get(button.dataset.copy), status=get('copy-status');
  try {
@@ -64,6 +55,8 @@ function show(visible,dots){
 function controls(){
  play.textContent=state==='playing'?'Pause':state==='paused'?'Resume':state==='ended'?'Play again':'Play example';
  play.disabled=motion.matches;
+ play.dataset.state=motion.matches?'static':state;
+ get('playback-state').dataset.state=play.dataset.state;
  typing.style.animationPlayState=state==='paused'?'paused':'running';
  typing.querySelectorAll('i').forEach(dot=>dot.style.animationPlayState=state==='paused'?'paused':'running');
  get('playback-state').textContent=motion.matches?'Static view for reduced motion':({ready:'Ready to play',playing:'Playing',paused:'Paused',ended:'Example complete'}[state]);
