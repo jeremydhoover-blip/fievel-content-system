@@ -69,9 +69,9 @@ run the relevant tests and `python scripts/fievel.py sync --check`, then build a
 new candidate, update the local catalog to that candidate, and reinstall/refresh.
 Retain the old manifest with its evidence so trial results refer to exact content.
 
-The local catalog is `.agents/plugins/marketplace.json`, named `fievel-local`.
-Installed identity: `fievel@fievel-local`. The CLI in this environment supports
-`codex plugin add fievel@fievel-local --json`; verify its returned installed path.
+The local catalog is `.agents/plugins/marketplace.json`, named `fievel-content-system`.
+Installed identity: `fievel@fievel-content-system`. The CLI in this environment supports
+`codex plugin add fievel@fievel-content-system --json`; verify its returned installed path.
 Uninstall through Codex's plugin management when desired. Project files remain
 separate and are not part of the plugin cache.
 

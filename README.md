@@ -34,15 +34,21 @@ prompt above.
 Prefer not to clone? The Fievel plugin carries the same six skills and tools, and
 keeps your project in whatever folder you choose. Python 3.10+ is still required.
 
-In Claude Code:
+In Claude Code (or type the same commands after `/plugin` inside a session):
 
 ```sh
-/plugin marketplace add jeremydhoover-blip/fievel-content-system
-/plugin install fievel@fievel-content-system
+claude plugin marketplace add jeremydhoover-blip/fievel-content-system
+claude plugin install fievel@fievel-content-system
 ```
 
-In Codex, add this repository's plugin marketplace and install `fievel`. Then
-start a new chat in your project folder and ask Fievel to get started.
+In Codex:
+
+```sh
+codex plugin marketplace add jeremydhoover-blip/fievel-content-system
+codex plugin add fievel@fievel-content-system
+```
+
+Then start a new chat in your project folder and ask Fievel to get started.
 
 ## Run the local exercise
 

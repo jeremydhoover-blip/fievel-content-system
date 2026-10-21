@@ -16,7 +16,7 @@ only the manifest differs:
 | --- | --- | --- |
 | Manifest | root `plugin.json` (authored) | `.claude-plugin/plugin.json` (derived) |
 | Catalog | `.agents/plugins/marketplace.json` | `.claude-plugin/marketplace.json` |
-| Installed identity | `fievel@fievel-local` | `fievel@fievel-content-system` |
+| Installed identity | `fievel@fievel-content-system` | `fievel@fievel-content-system` |
 
 The derived manifest keeps name, version, description, license and author, and
 adds keywords and an `icon` (read only by directory listings). The Codex-only

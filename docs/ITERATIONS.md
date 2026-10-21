@@ -342,7 +342,7 @@ No new color palette or deployment was introduced.
 
 2026-10-21. User requested design-guide review, site updates and a workspace preview.
 Reviewed website/DESIGN-GUIDE.md and implemented its proposed neutral/violet surface
-hierarchy for WP-13 and LP-01–08. Consolidated foundation tokens and refined graph,
+hierarchy for WP-13 and LP-01â€“08. Consolidated foundation tokens and refined graph,
 chat, evaluation and agent-selector surfaces. Previous CSS preserved in
 experience/evidence/landing-depth-01/styles.css.before.txt. Content and interactions
 remain intact. Browser checks passed at 1440, 1024, 768, 390 and 320px without page
@@ -365,7 +365,7 @@ no new tests are claimed. Next action: user reviews the proposed direction.
 ## I18 Terracotta visual plan implementation
 
 2026-10-21. User authorized I17. Implemented the palette, gradients and elevation
-plan for WP-13 and LP-01–08. Preserved prior CSS in landing-terracotta-01 evidence.
+plan for WP-13 and LP-01â€“08. Preserved prior CSS in landing-terracotta-01 evidence.
 Removed superseded surface patches and consolidated color and shadow tokens.
 Desktop and mobile full-page screenshots inspected. Browser checks passed at
 1440, 1024, 768, 390 and 320px with no page overflow or script errors; graph
@@ -583,3 +583,22 @@ onboarding path and public manifest wording. The installed fievel@fievel-local
 cache still holds the earlier one-skill bundle at the same 0.1.0 version.
 Not run: any host session with the new skills, claude plugin validate, and the
 README's Codex marketplace instruction against a published repository.
+
+
+## I34 Pre-push readiness check
+
+2026-10-21. User asked to confirm repository, local viewer, landing page and both
+plugins before the first push. Fresh clone: the nested my-content-system/ ignore
+rule had excluded the FB-03 prepared package, so verify.py failed; anchored the
+rule to the root folder, tracked the fixture and added verify.py to CI. Fixed two
+Windows-1252 bytes in ITERATIONS.md. All doc and landing links resolve. From the
+clone: 89 tests, adapter sync, evidence verification and reproducible bundles pass.
+Viewer and review-page browser suites pass; README exercise and viewer render
+without errors at 1440 and 390. Landing: logo reduced from 1.09 MB to 106 KB,
+Fievel favicon and touch icon, share tags, theme colour, no-wrap code; browser
+suite passes with no external requests. Claude Code 2.1.304: plugin and catalog
+pass validate --strict; isolated install lists six skills. Codex 0.162.0-alpha.17.2:
+renamed catalog to fievel-content-system; isolated install and prompt render list
+six fievel:* skills with no icon warnings. README now has exact install commands.
+Not run: a live model session in either host, a GitHub-sourced install, the CI
+matrix and the Pages deployment.
