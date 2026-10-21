@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "fievel": {
+      "type": "streamable-http",
+      "url": "https://fievel-mcp-dwgf6niyyq-uc.a.run.app/mcp"
+    }
+  }
+}

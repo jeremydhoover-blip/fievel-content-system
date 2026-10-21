@@ -13,6 +13,15 @@ Fievel ships two MCP servers built on the same code ([ADR-008](decisions/ADR-008
 Run locally: `python scripts/mcp_local.py` (set FIEVEL_WORKSPACE to the project
 root) or `PORT=8080 python scripts/mcp_remote.py`, then POST JSON-RPC to `/mcp`.
 
+## Live deployment
+
+- Endpoint: `https://fievel-mcp-dwgf6niyyq-uc.a.run.app/mcp` (health: `/health`)
+- Google Cloud project `fievel-content-system`, region us-central1, service `fievel-mcp`
+- Spend cap: budget "Fievel MCP server cap", 15 ILS per month on Cloud Run with
+  enforcement (pauses the service), alerts at 50, 80 and 100 percent; resets monthly
+- Public access uses `--no-invoker-iam-check`: the project's organization policy
+  forbids granting allUsers the invoker role
+
 ## Deploy the hosted server to Google Cloud Run
 
 Use Cloud Shell, the browser terminal in the Google Cloud console; it already has

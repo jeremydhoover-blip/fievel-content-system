@@ -62,11 +62,13 @@ skills-only submissions at this time." Adding an MCP server to an existing
 skills-only plugin is not supported, so submit 0.3.0 as a new **With MCP** plugin
 and delete the skills-only draft. Guide: https://developers.openai.com/plugins/deploy/submission.
 
-1. Deploy the hosted server ([MCP-SERVER.md](MCP-SERVER.md)) and set its
+1. Done: the hosted server is live at `https://fievel-mcp-dwgf6niyyq-uc.a.run.app/mcp`
+   and set in `plugin-src/remote-mcp.json`. To redeploy, see [MCP-SERVER.md](MCP-SERVER.md); it was set from its
    `https://<service-url>/mcp` address in `plugin-src/remote-mcp.json`. Rebuild the
    Codex bundle; the build adds `mcp.json` only when the address is set.
 2. Build the ZIP so `plugin.json` sits at the archive root:
    `python -c "import shutil; shutil.make_archive('release/fievel-codex-0.3.0', 'zip', 'plugins/fievel')"`
+   The prepared `release/fievel-codex-0.3.0.zip` is built from the committed bundle.
 3. In the OpenAI Platform, open Plugins, create a plugin **With MCP**, choose your
    verified identity and upload the ZIP. Connect the MCP endpoint; it needs no
    authentication, so no reviewer test account is needed.

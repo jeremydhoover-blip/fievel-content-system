@@ -694,3 +694,20 @@ Clone the repository, each with numbered steps and copyable commands; without
 JavaScript both paths show. Landing browser suite updated (eight entities and
 edges, path switching, card links, no-JS paths) and passes at five widths with no
 errors or external requests.
+
+
+## I41 Hosted MCP server live on Cloud Run
+
+2026-10-22. With the user, linked billing to fievel-content-system (after
+removing billing from the unused default project; the account had reached its
+five-project limit) and created a Cloud Run spend cap of 15 ILS per month with
+enforcement. First deploy failed: the default compute service account lacked
+build permissions; the deploy script now grants roles/run.builder. Second deploy
+served but the organization policy blocked the allUsers invoker grant, and
+/healthz never reached the container because Cloud Run reserves paths ending in
+z; switched to --no-invoker-iam-check and /health. Live checks from outside
+Google Cloud: initialize, tools/list, all six tools, path traversal rejected, 413
+on oversized bodies, 400 on batches, 405 on GET /mcp. Codex bundle now includes
+mcp.json for the live endpoint; release/fievel-codex-0.3.0.zip installs in an
+isolated Codex home with six skills and the server registered. Not run: a live
+Codex session calling the tools, domain verification, OpenAI's tool scan.
