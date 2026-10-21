@@ -36,6 +36,13 @@ subpath `/fievel-content-system/`.
 
 Workflow design follows [GitHub's official Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
+## Plugin directory links
+
+Agent cards link "Install the Fievel plugin" to the install steps on this page.
+When a directory listing goes live, set its page URL in `pluginListings` at the
+top of the plugin section in `dist/main.js` (`claude` or `codex`); that card's
+button then opens the listing instead. Republish Pages afterwards.
+
 ## Validation
 
 Optional local Playwright runner: `node tests/browser_landing.cjs`, with

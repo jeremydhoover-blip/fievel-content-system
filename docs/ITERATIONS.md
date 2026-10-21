@@ -679,3 +679,18 @@ guidance, Codex test cases and version 0.3.0. 100 tests pass; Claude validate
 --strict passes and an isolated install reports the local server Connected; the
 remote server runs from the container's file set. Not run: Cloud Run deployment,
 domain verification, OpenAI tool scan, a live session using the tools.
+
+
+## I40 Landing page for plugins and tools
+
+2026-10-22. User asked for the landing page to reflect the plugin and MCP
+architecture. The system map gains a Tools and connectors node, linked from AI
+behavior ("permits"), with lesson text on MCP servers and tool permissions. Agent
+cards now lead with "Install the Fievel plugin" (Claude Code, Codex) or "Use the
+Fievel repository" (Copilot), which select the matching start path; a
+pluginListings setting in main.js switches them to directory pages once listings
+are live. Get started now offers two paths, Install the plugin (default) and
+Clone the repository, each with numbered steps and copyable commands; without
+JavaScript both paths show. Landing browser suite updated (eight entities and
+edges, path switching, card links, no-JS paths) and passes at five widths with no
+errors or external requests.

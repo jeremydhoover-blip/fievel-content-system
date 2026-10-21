@@ -8,7 +8,8 @@ const entityText = {
  behavior: 'AI behavior defines responsibilities, boundaries, clarification and recovery. It is guided by your standards and grounded in your sources.',
  skills: 'Instructions and skills turn guidance into reusable directions and task workflows for your agent. They need to reflect your intended behavior.',
  evaluations: 'Evaluations connect your rules to scenarios, checks and review so you can assess behavior and identify what needs improvement.',
- governance: 'Governance defines ownership, approval and review so knowledge and instructions can be maintained as your system changes.'
+ governance: 'Governance defines ownership, approval and review so knowledge and instructions can be maintained as your system changes.',
+ tools: 'Tools and connectors, such as MCP servers, give your AI data and actions. Your behavior rules decide when it may use them, and your checks confirm it does.'
 };
 function selectEntity(button) {
  document.querySelectorAll('[data-entity]').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.entity === button.dataset.entity)));
@@ -21,6 +22,21 @@ document.querySelectorAll('[data-entity]').forEach(button => {
  button.addEventListener('click',()=>selectEntity(button));
  if(button.tagName.toLowerCase()==='g') button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectEntity(button);}});
 });
+// Directory listing pages. Leave empty until a listing is live; links then fall back to the install steps.
+const pluginListings = { claude: '', codex: '' };
+document.querySelectorAll('[data-plugin]').forEach(link => {
+ const url = pluginListings[link.dataset.plugin];
+ if (!url) return;
+ link.href = url; link.target = '_blank'; link.rel = 'noopener';
+ link.textContent = 'Get the Fievel plugin'; delete link.dataset.startPath;
+});
+function choosePath(name) {
+ document.querySelectorAll('[data-path]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.path === name)));
+ document.querySelectorAll('[data-path-panel]').forEach(panel => { panel.hidden = panel.dataset.pathPanel !== name; });
+}
+document.querySelectorAll('[data-path]').forEach(button => button.addEventListener('click', () => choosePath(button.dataset.path)));
+document.querySelectorAll('[data-start-path]').forEach(link => link.addEventListener('click', () => choosePath(link.dataset.startPath)));
+choosePath('plugin');
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
  const field=get(button.dataset.copy), status=get('copy-status');
  try {
@@ -90,7 +106,7 @@ document.querySelector('.playback').hidden=false;
 applyMotion();
 
 // Highlight real graph relationships on hover, keyboard focus and selection.
-const graphLinks = [ ['context','standards'], ['sources','behavior'], ['standards','behavior'], ['behavior','skills'], ['evaluations','behavior'], ['governance','skills'], ['governance','sources'] ];
+const graphLinks = [ ['context','standards'], ['sources','behavior'], ['standards','behavior'], ['behavior','skills'], ['evaluations','behavior'], ['governance','skills'], ['governance','sources'], ['behavior','tools'] ];
 const graphPaths = [...document.querySelectorAll('.ontology-edges path')];
 function highlightConnections(key){graphPaths.forEach((path,index)=>path.classList.toggle('is-connected',graphLinks[index].includes(key)));}
 function selectedConnections(){highlightConnections(document.querySelector('[data-entity][aria-pressed="true"]')?.dataset.entity);}
@@ -115,7 +131,7 @@ if('IntersectionObserver' in window){
  const reveals=new IntersectionObserver(entries=>entries.forEach(entry=>{
   if(entry.isIntersecting){reveals.unobserve(entry.target);entrance(entry.target);}
  }),{threshold:.12});
- document.querySelectorAll('.demo,.setup-companion,.evaluation-flow,.agent-options,.start-steps').forEach(element=>reveals.observe(element));
+ document.querySelectorAll('.demo,.setup-companion,.evaluation-flow,.agent-options,.path-options').forEach(element=>reveals.observe(element));
 }
 document.querySelectorAll('.setup-topics details').forEach(details=>details.addEventListener('toggle',()=>{if(details.open)entrance(details.querySelector('p'));}));
 motion.addEventListener('change',()=>{if(motion.matches)decorativeAnimations.forEach(animation=>animation.cancel());});

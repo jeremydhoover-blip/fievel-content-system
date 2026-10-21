@@ -17,14 +17,14 @@ const {pathToFileURL}=require('url');let browser;
  for(const heading of (await page.locator('h1,h2,h3,title').allTextContents()).filter(Boolean))assert(/^[\p{L}\p{N}\s]+$/u.test(heading),heading);
  for(const file of ['index.html','styles.css','main.js'])assert(!fs.readFileSync(path.join('website/dist',file),'utf8').includes('\u2014'));
  assert.equal(await page.locator('.overline,.eyebrow').count(),0);
- assert.equal(await page.locator('[data-entity]:visible').count(),7);
- assert.equal(await page.locator('.ontology-edges path').count(),7);
+ assert.equal(await page.locator('[data-entity]:visible').count(),8);
+ assert.equal(await page.locator('.ontology-edges path').count(),8);
  assert(!/booking|refund|behavior\.json|no files are being written/i.test(await page.locator('body').innerText()));
  assert((await page.locator('[data-message="1"]').textContent()).includes("I'm Fievel"));
- for(const [entity,text] of [['standards','voice'],['sources','ground'],['behavior','responsibilities'],['skills','workflows'],['evaluations','scenarios'],['governance','ownership'],['context','who you serve']]){
+ for(const [entity,text] of [['standards','voice'],['sources','ground'],['behavior','responsibilities'],['skills','workflows'],['evaluations','scenarios'],['governance','ownership'],['context','who you serve'],['tools','MCP servers']]){
   await page.locator(`[data-entity="${entity}"]:visible`).click();assert((await page.locator('#entity-detail').textContent()).includes(text));
  }
- await page.locator('[data-entity="behavior"]').hover();assert.equal(await page.locator('.ontology-edges .is-connected').count(),4);
+ await page.locator('[data-entity="behavior"]').hover();assert.equal(await page.locator('.ontology-edges .is-connected').count(),5);
  await page.locator('[data-entity="governance"]').focus();assert.equal(await page.locator('.ontology-edges .is-connected').count(),2);
  const repo='https://github.com/jeremydhoover-blip/fievel-content-system';
  for(const link of await page.locator('a[href^="https://github.com/"]').evaluateAll(nodes=>nodes.map(n=>n.href)))assert(link.startsWith(repo));
@@ -52,22 +52,17 @@ const {pathToFileURL}=require('url');let browser;
  assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior),'auto');
  await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForFunction(()=>!document.getElementById('play').disabled);assert.equal(await page.locator('[data-message]:visible').count(),2);
  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.copiedText=text}}));
- await page.locator('[data-copy="clone-command"]').click();assert.equal(await page.evaluate(()=>window.copiedText),`git clone ${repo}.git`);
- for(const [id,tool,install] of [['claude-install','Claude Code','claude plugin install'],['codex-install','Codex','codex plugin add']]){
-  await page.locator(`[data-copy="${id}"]`).click();const text=await page.evaluate(()=>window.copiedText);
-  assert(text.includes('marketplace add jeremydhoover-blip/fievel-content-system')&&text.includes(`${install} fievel@fievel-content-system`),text);
-  assert.equal(await page.locator('#copy-status').textContent(),`${tool} install commands copied.`);
- }
+ assert(await page.locator('#path-plugin').isVisible());assert(await page.locator('#path-clone').isHidden());assert.equal(await page.locator('[data-path="plugin"]').getAttribute('aria-pressed'),'true');for(const [id,tool,install] of [['claude-install','Claude Code','claude plugin install'],['codex-install','Codex','codex plugin add']]){await page.locator(`[data-copy="${id}"]`).click();const text=await page.evaluate(()=>window.copiedText);assert(text.includes('marketplace add jeremydhoover-blip/fievel-content-system')&&text.includes(`${install} fievel@fievel-content-system`),text);assert.equal(await page.locator('#copy-status').textContent(),`${tool} install commands copied.`);}await page.locator('[data-copy="plugin-prompt"]').click();assert((await page.evaluate(()=>window.copiedText)).startsWith('Start Fievel'));await page.locator('[data-agent="copilot"] .agent-plugin').click();assert(await page.locator('#path-clone').isVisible());assert(await page.locator('#path-plugin').isHidden());await page.locator('[data-agent="codex"] .agent-plugin').click();assert(await page.locator('#path-plugin').isVisible());assert.equal(await page.locator('[data-agent] .agent-plugin[data-plugin]').count(),2);await page.locator('[data-path="clone"]').click();assert.equal(await page.locator('[data-path="clone"]').getAttribute('aria-pressed'),'true');await page.locator('[data-copy="clone-command"]').click();assert.equal(await page.evaluate(()=>window.copiedText),`git clone ${repo}.git`);
  assert.equal(await page.locator('.footer a[href$="LICENSE"]').getAttribute('href'),`${repo}/blob/main/LICENSE`);assert.equal(await page.locator('.footer a[href="./privacy.html"]').count(),1);assert(!/all rights reserved/i.test(await page.locator('.footer').textContent()));
  await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw Error('denied');};});await page.locator('[data-copy="first-prompt"]').click();assert((await page.locator('#copy-status').textContent()).includes('Text selected'));assert.equal(await page.evaluate(()=>document.activeElement.id),'first-prompt');
  await page.goto(url);await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.className),'skip');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>location.hash),'#main');
  for(const width of [1440,1024,768,390,320]){
-  await page.setViewportSize({width,height:1000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`Overflow at ${width}`);assert(await page.locator('.ontology-graph').isVisible());assert.equal(await page.locator('.ontology-node ellipse').count(),7);layouts.push({width,overflow:false,connectedGraph:true});
+  await page.setViewportSize({width,height:1000});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`Overflow at ${width}`);assert(await page.locator('.ontology-graph').isVisible());assert.equal(await page.locator('.ontology-node ellipse').count(),8);layouts.push({width,overflow:false,connectedGraph:true});
   if([1440,390].includes(width))await page.screenshot({path:path.join(out,`landing-${width}.png`),fullPage:true});
  }
  const fallback=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:1000}});await fallback.goto(url);
- assert.equal(await fallback.locator('[data-message]:visible').count(),6);assert(await fallback.locator('.playback').isHidden());await fallback.close();
+ assert.equal(await fallback.locator('[data-message]:visible').count(),6);assert(await fallback.locator('#path-plugin').isVisible());assert(await fallback.locator('#path-clone').isVisible());assert(await fallback.locator('.path-options').isHidden());assert(await fallback.locator('.playback').isHidden());await fallback.close();
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
- const result={url,layouts,errors,external,checks:['writing rules','seven content system entities and labeled relationships','removed content breakdown','agent cards with collapsed setup and download links','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','plugin install commands','MIT license footer','section anchors','skip link','relative assets']};
+ const result={url,layouts,errors,external,checks:['writing rules','eight content system entities and labeled relationships','plugin and clone start paths','removed content breakdown','agent cards with collapsed setup and download links','expandable numbered setup topics and visual evaluation branches','typing phase pause and resume','completion and replay','live reduced motion changes','static no JS fallback','copy success and denial fallback','plugin install commands','MIT license footer','section anchors','skip link','relative assets']};
  fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));await browser.close();console.log(JSON.stringify(result));
 })().catch(async error=>{console.error(error);if(browser)await browser.close();process.exitCode=1;});

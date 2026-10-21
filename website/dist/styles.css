@@ -232,11 +232,25 @@ body:not(.js) .agent-options{display:grid}
 .agent-options .agent-link span{display:inline;margin:0;color:inherit;font-size:inherit}
 .agent-card code{white-space:nowrap}
 
-/* Plugin install alternative */
-.plugin-option{max-width:800px;margin-top:28px;padding:24px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(110deg,#faf0e9,var(--tint))}
-.plugin-option h3{font-size:17px;margin-bottom:6px}.plugin-option>p{font-size:13px;color:var(--muted);margin-bottom:18px;max-width:64ch}
 .plugin-fields{display:grid;grid-template-columns:1fr;gap:16px}.plugin-fields .copy-field{margin:0}.plugin-fields textarea{white-space:pre;overflow-x:auto}
-@media(max-width:760px){.plugin-fields{grid-template-columns:1fr}.plugin-option{padding:18px}}
 
 /* Privacy policy page */
 .policy{max-width:720px;border-top:0}.policy h1{max-width:none;font-size:clamp(34px,4vw,48px)}.policy h2{font-size:22px;letter-spacing:-.5px;margin:34px 0 10px;max-width:none}.policy p{font-size:15px;line-height:1.8;color:var(--ink)}.policy a{color:var(--accent)}.policy-date{color:var(--muted)!important;font-size:13px!important}
+
+/* Get started paths and plugin links */
+.start-intro{font-size:14px;color:var(--muted);max-width:64ch;margin:-6px 0 24px}
+.path-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:800px}
+.path-options button{text-align:left;padding:18px 20px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);box-shadow:0 4px 12px #4b281b0f;transition:border-color var(--motion-fast) ease,background var(--motion-fast) ease}
+.path-options button strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.3px}
+.path-options button span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.path-options button[aria-pressed=true]{background:var(--tint);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 4px 12px #4b281b0f}
+.js .path-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.path-title{font-size:19px;margin:28px 0 0}
+body:not(.js) .path-options{display:none}
+.agent-links{display:flex;flex-direction:column;gap:8px}
+.agent-plugin{display:inline-flex;align-items:center;justify-content:center;width:fit-content;padding:9px 14px;border-radius:7px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;text-decoration:none}
+.agent-plugin:hover{background:#803b29}
+.agent-card .agent-link{font-weight:500}
+@media(max-width:600px){.path-options{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.path-options button{transition:none}}
+.start-steps .plugin-fields .copy-field label{font-size:12px;font-weight:600;color:var(--muted);margin:4px 0 6px}
