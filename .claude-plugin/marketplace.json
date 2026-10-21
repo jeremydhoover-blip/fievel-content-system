@@ -3,7 +3,7 @@
   "owner": {
     "name": "Jeremy Hoover"
   },
-  "description": "Fievel local pilot plugins for Claude Code.",
+  "description": "Fievel plugin for Claude Code.",
   "plugins": [
     {
       "name": "fievel",

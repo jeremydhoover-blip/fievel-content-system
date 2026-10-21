@@ -3,7 +3,7 @@ name: ai-behavior-designer
 description: Define AI responsibilities, permissions, uncertainty and recovery rules for a Fievel content system.
 ---
 
-# Ai Behavior Designer
+# AI Behavior Designer
 
 Read AGENTS.md and stage 4 of docs/WORKFLOW.md. Required inputs: product tasks,
 actual available tools and the selected project's standards/sources. Ask what the

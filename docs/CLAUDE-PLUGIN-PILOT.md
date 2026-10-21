@@ -20,8 +20,9 @@ only the manifest differs:
 
 The derived manifest keeps name, version, description, license and author, and
 adds keywords and an `icon` (read only by directory listings). The Codex-only
-`extensions` block is not copied. The entry skill locates `runtime/` two
-directories above its own SKILL.md, which holds in both installed layouts.
+`extensions` block is not copied. Both bundles carry the same six skills; each
+skill's preamble locates `runtime/` two directories above its own SKILL.md,
+which holds in both installed layouts.
 Python 3.10+ and jsonschema remain separate prerequisites, as for Codex.
 
 ## Build and refresh

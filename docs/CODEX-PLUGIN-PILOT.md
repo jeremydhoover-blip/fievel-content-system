@@ -17,8 +17,10 @@ Public distribution and other hosts remain later work.
 
 ## Package design
 
-`plugin-src/` contains the authored manifest and one Fievel entry skill. That skill
-routes to the six existing canonical workflows. `scripts/build_plugin.py` builds a
+`plugin-src/` contains the authored manifest and a shared skill preamble. The build
+publishes the six canonical `.agents/skills/` workflows as plugin skills, each with
+that preamble inserted after its title; getting-started is the onboarding skill.
+(Before I33 the pilot shipped one `fievel` router skill.) `scripts/build_plugin.py` builds a
 new self-contained directory from an explicit set of runtime sources, with hashes.
 The bundle includes no user content system, dependencies, credentials, evaluation
 transcripts, or development checkout. Its Python tools execute against project paths

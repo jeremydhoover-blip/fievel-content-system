@@ -1,6 +1,3 @@
-> Local Codex plugin pilot: see [setup and first trial](docs/CODEX-PLUGIN-PILOT.md). This is an installed local pilot under evaluation, not a public plugin release.
-> A [Claude Code plugin bundle](docs/CLAUDE-PLUGIN-PILOT.md) is built from the same sources; it has not yet been installed or tried in Claude Code.
-
 # Fievel
 
 **Your AI content systems architect.** Learn to build AI content systems by building one.
@@ -10,23 +7,10 @@ designers and AI experience designers. Work with a coding agent to connect produ
 context, writing standards, sources, AI behavior, quality checks and governance.
 Your output is a set of readable, reusable files that you own.
 
-This is the first functional prototype (0.1.0). It includes a seven-stage workflow,
-six skills, draft templates, a complete fictional booking support example, and a
-local command-line tool. There is no hosted service or custom agent framework.
-
-The guided experience remains under validation. The current
-[development plan](docs/DEVELOPMENT-PLAN.md) connects the original brief to
-[requirements](docs/REQUIREMENTS.md), [audit findings](docs/audits/2026-10-21/REVIEW.md),
-research, bounded changes and acceptance gates. [ITERATIONS.md](docs/ITERATIONS.md)
-records what actually changed and which outcomes remain untested.
-
-The intended experience now includes a local companion UI for viewing your system
-and its connections, alongside the guided conversation and bundled learning material.
-See [experience direction](docs/experience/EXPERIENCE-DIRECTION.md),
-[viewer proposal](docs/experience/VIEWER-DESIGN.md) and
-[knowledge architecture](docs/experience/KNOWLEDGE-ARCHITECTURE.md). The first
-read-only viewer now generates from actual saved files. It is an offline snapshot;
-editing, automatic refresh and learner validation remain future work.
+Version 0.1.0 includes a seven-stage workflow, six skills, draft templates, a
+complete fictional booking support example, a local command-line tool and a
+read-only viewer that maps how your system connects. There is no hosted service
+or custom agent framework.
 
 ## Start with your coding agent
 
@@ -37,18 +21,28 @@ editing, automatic refresh and learner validation remain future work.
 
 No separate paid API key or MCP connection is needed for the fictional exercise.
 Access to your chosen coding agent is separate and may require an account or plan.
-Regular ChatGPT chat does not imply repository execution or skill discovery.
+Regular ChatGPT chat does not run repository tools or skills.
 
-Codex uses AGENTS.md and canonical `.agents/skills/`. After opening a fresh session,
-you can try `$getting-started`. Claude Code has generated `.claude/skills/` copies
-and CLAUDE.md; try `/getting-started` after trusting the workspace. VS Code's coding
-agent has `.github/copilot-instructions.md` and can read the canonical skills.
-If discovery fails, use the explicit “Read AGENTS.md…” prompt above.
-See [compatibility evidence](docs/COMPATIBILITY.md): automatic discovery and live
-conversations in fresh agent sessions have not been tested.
+Codex uses AGENTS.md and `.agents/skills/`; try `$getting-started`. Claude Code
+uses CLAUDE.md and `.claude/skills/`; try `/getting-started` after trusting the
+workspace. GitHub Copilot in VS Code uses `.github/copilot-instructions.md` and
+can read the same skills. If a skill doesn't appear, use the “Read AGENTS.md…”
+prompt above.
 
-The current session's skill catalog lists all six Fievel skills. That is limited
-metadata-discovery evidence; it does not establish invocation, adherence or usability.
+## Install as a plugin
+
+Prefer not to clone? The Fievel plugin carries the same six skills and tools, and
+keeps your project in whatever folder you choose. Python 3.10+ is still required.
+
+In Claude Code:
+
+```sh
+/plugin marketplace add jeremydhoover-blip/fievel-content-system
+/plugin install fievel@fievel-content-system
+```
+
+In Codex, add this repository's plugin marketplace and install `fievel`. Then
+start a new chat in your project folder and ask Fievel to get started.
 
 ## Run the local exercise
 
@@ -82,8 +76,7 @@ missing coverage while allowing staged work. Use `validate <folder> --require-co
 to require every rule to have a check. `check` and `review`
 enforce that coverage automatically. Check output distinguishes executed checks,
 missing saved responses and pending human review. Exit code 0 means no literal
-failures were found; it is not an overall quality verdict. This changes the prototype's earlier default
-validation behavior; scripts relying on coverage failure should add the flag.
+failures were found; it is not an overall quality verdict.
 
 ## View your system locally
 
@@ -136,7 +129,7 @@ To resume, say **“Resume Fievel in my-content-system.”**
 Schema and relationship validation, saved progress, deterministic checks on saved
 responses, pending human review sheets, six modular skills and synchronized adapters.
 The full walkthrough is in [WORKFLOW.md](docs/WORKFLOW.md). See the
-[Wayfarer example](examples/wayfarer/START-HERE.md) and [test evidence](docs/VALIDATION.md).
+[Wayfarer example](examples/wayfarer/START-HERE.md).
 
 Promptfoo and Vale were researched but are not integrated. There is no live model
 runner, LLM judge, external source ingestion or MCP connector. The educational
@@ -171,7 +164,7 @@ The short introduction page lives in [website/dist/index.html](website/dist/inde
 It includes an illustrative guided conversation, system overview, embedded
 evaluations, compatibility notes and GitHub/clone links. See
 [website instructions](website/README.md) for local preview and the manual-only
-GitHub Pages workflow. No deployment has been performed.
+GitHub Pages workflow.
 
 
 For self-contained review packages with rubrics, source excerpts and completed-judgment
@@ -192,9 +185,3 @@ serialized before output creation so serialization errors do not leave empty fil
 Export selected rules and provenance for a named consumer with
 [consumer review export](docs/CONSUMER-EXPORT.md). Exports are draft review
 artifacts; they do not install instructions or verify model adherence.
-
-
-[Offline setup verification](docs/OFFLINE-SETUP.md) records a fresh local runtime
-check and its limits. Clean offline pip installation remains unverified because
-no matching distribution was available; recovery with existing local dependencies
-and the 78-test suite passed in an isolated Windows/Python environment.

@@ -1,7 +1,7 @@
 {
   "name": "fievel-local",
   "interface": {
-    "displayName": "Fievel local pilot"
+    "displayName": "Fievel"
   },
   "plugins": [
     {

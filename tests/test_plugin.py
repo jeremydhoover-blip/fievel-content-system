@@ -65,6 +65,27 @@ class PluginBundleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             package_files(target='vscode')
 
+    def test_plugins_publish_six_canonical_skills(self):
+        canonical = sorted(p.parent.name for p in (ROOT / '.agents/skills').glob('*/SKILL.md'))
+        preamble = (ROOT / 'plugin-src/skill-preamble.md').read_text(encoding='utf-8').splitlines()[0]
+        for target in ('codex', 'claude'):
+            files = package_files(target=target)
+            skills = sorted(p.split('/')[1] for p in files if p.startswith('skills/'))
+            self.assertEqual(skills, canonical)
+            for name in skills:
+                text = files[f'skills/{name}/SKILL.md'].decode('utf-8')
+                source = (ROOT / f'.agents/skills/{name}/SKILL.md').read_text(encoding='utf-8')
+                self.assertTrue(text.startswith(source.split('\n# ')[0] + '\n# '), name)
+                self.assertIn(preamble, text)
+                self.assertTrue(text.rstrip().endswith(source.rstrip().splitlines()[-1]), name)
+        onboarding = json.loads(package_files(target='codex')['plugin.json'])['extensions']['com.openai']['onboardingSkill']
+        self.assertIn(onboarding.removeprefix('./'), package_files(target='codex'))
+
+    def test_public_plugin_text_has_no_internal_status(self):
+        for text in (package_files(target='codex')['plugin.json'], package_files(target='claude')['.claude-plugin/plugin.json'],
+                     (ROOT / '.agents/plugins/marketplace.json').read_bytes(), (ROOT / '.claude-plugin/marketplace.json').read_bytes()):
+            self.assertNotRegex(text.decode('utf-8'), r'(?i)\bpilot\b|under evaluation|untested|not yet')
+
     def test_claude_bundle_runs_relocated(self):
         scratch = ROOT / '.scratch'
         scratch.mkdir(exist_ok=True)

@@ -1,8 +1,8 @@
 {
   "LICENSE": "8b0f501af0a0befb3d93c054c0bfd52af519c2d7bb8eb81bf6a558d5349e1848",
   "assets/fievel-logo.png": "7888a0c18b93984891248b9bccaf19d2733923a697eb039c40eafce50d991b53",
-  "plugin.json": "9dc27bcb94f026acafcfff832dd1492ad2e021366a394d8c76d4a4b3e4fe650f",
-  "runtime/.agents/skills/ai-behavior-designer/SKILL.md": "5d59a90f9336047262acae324f3753792e69b12092572cd38d358f8c5bea0c4c",
+  "plugin.json": "528266a929d6036984f743c1ba021a1e8e039dfc6d8a7165185ee733e5d29114",
+  "runtime/.agents/skills/ai-behavior-designer/SKILL.md": "0559a4c4785f4868916d43ed5d3634645685912595ee0c513c98fc1d6a5f85ca",
   "runtime/.agents/skills/content-audit/SKILL.md": "bc2b3306bdc4d28c4fab97be02604018ac58fa00c6a3517b4fabcde9ec3138b9",
   "runtime/.agents/skills/content-system-builder/SKILL.md": "fc176a8563e5472dfa611b32b577e405c45c9b8da0280d1a45de385e7ed33582",
   "runtime/.agents/skills/evaluation-designer/SKILL.md": "001e86a022d92f0ee1ae9347ec230771f5ffc491edb6a1e379e2adcee988642f",
@@ -58,5 +58,10 @@
   "runtime/viewer/shell.html": "f58345f76da69455388cb755ee27e73f22a7101f0d33e71a17c3eaf7af9e5b25",
   "runtime/viewer/viewer.css": "775f41a8cb89f546c5eb1e3ce94f4727dae3d4a000279aa16713918e9d7f34ae",
   "runtime/viewer/viewer.js": "4ed9414998d3cf3dc93adcc10fa0c400335207c549dc5a45401087594dba83e7",
-  "skills/fievel/SKILL.md": "7c8c094a93c2cbc4ad51f41394e54591daa474b94c9f553293f014126de2d80e"
+  "skills/ai-behavior-designer/SKILL.md": "7243b7698ea60abe39f910b069be4cffc7b53d631b2f9f6f7f789fcbd7d4480b",
+  "skills/content-audit/SKILL.md": "120b0acf458348eebf5e2c653e8a2b72e411cd0c646812ea414f60d29e8ac196",
+  "skills/content-system-builder/SKILL.md": "1f5cf047f76b72b277b6902039c973c494ba883f1e308e8b9527b84d19c4d85a",
+  "skills/evaluation-designer/SKILL.md": "a71d6ecafde828e1664b2daba1337207c6766a0ee9aac2b1fc10ab274eabe21d",
+  "skills/getting-started/SKILL.md": "acf395d7fa217ed9024ad38113f86d9583060803d5e2dab84a7fb806d4722a33",
+  "skills/source-discovery/SKILL.md": "2b800f858269ea312b94e7ce29914e74e35a6e70a9a9086cf810229e50853c69"
 }

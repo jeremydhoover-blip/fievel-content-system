@@ -7,15 +7,21 @@
   "extensions": {
     "com.openai": {
       "requires_local_executor": true,
-      "onboardingSkill": "./skills/fievel/SKILL.md",
+      "onboardingSkill": "./skills/getting-started/SKILL.md",
       "interface": {
         "displayName": "Fievel",
         "shortDescription": "Build your content system",
-        "longDescription": "A local pilot for building content standards, AI behavior, source records and quality checks. Requires Python 3.10+ and jsonschema. Guided behavior remains under evaluation.",
+        "longDescription": "Build content standards, AI behavior rules, source records and quality checks as portable files you own, with guided workflows and local validation. Requires Python 3.10+ and jsonschema.",
         "developerName": "Jeremy Hoover",
         "category": "Productivity",
-        "capabilities": ["Read", "Write"],
-        "defaultPrompt": ["Start Fievel and help me build my content system.", "Resume my Fievel content system."],
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "defaultPrompt": [
+          "Start Fievel and help me build my content system.",
+          "Resume my Fievel content system."
+        ],
         "brandColor": "#B65B3D",
         "logo": "./assets/fievel-logo.png",
         "composerIcon": "./assets/fievel-logo.png"

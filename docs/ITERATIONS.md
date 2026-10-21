@@ -566,3 +566,20 @@ matches a fresh build. No claude CLI was available, so claude plugin validate,
 installation and any Claude session behavior are unrun. Evidence: the tests and
 CLAUDE-PLUGIN-PILOT.md. Next action: validate and install in Claude Code, then
 run the shared trial tasks.
+
+
+## I33 Plugin release cleanup
+
+2026-10-21. User requested all six skills in both plugins and no internal status
+wording in public text. Replaced the single `fievel` router skill with the six
+canonical skills, each generated with a shared plugin-src/skill-preamble.md
+(runtime path, setup and handoff rules) after its title; getting-started is the
+Codex onboarding skill. Fixed the "Ai" title typo in the canonical skill and
+synced adapters. Rewrote the plugin long description, both catalog descriptions
+and the README introduction without pilot/validation status, and added an
+install-as-plugin section. Internal evidence docs keep their status records.
+Rebuilt both bundles; two new tests cover the six-skill set, preamble placement,
+onboarding path and public manifest wording. The installed fievel@fievel-local
+cache still holds the earlier one-skill bundle at the same 0.1.0 version.
+Not run: any host session with the new skills, claude plugin validate, and the
+README's Codex marketplace instruction against a published repository.

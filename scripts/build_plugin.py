@@ -1,4 +1,4 @@
-"""Build a self-contained Fievel pilot into a NEW directory; no user data copied."""
+"""Build a self-contained Fievel plugin into a NEW directory; no user data copied."""
 import argparse
 import hashlib
 import json
@@ -9,6 +9,19 @@ DOCS = ('WORKFLOW.md', 'HUMAN-REVIEW.md', 'SOURCE-PROVENANCE.md', 'CONSUMER-EXPO
 SCRIPTS = ('fievel.py', 'adapters.py', 'consumer.py', 'provenance.py',
            'review_evidence.py', 'review_page.py', 'viewer.py')
 TARGETS = ('codex', 'claude')
+SKILLS = ('getting-started', 'content-system-builder', 'source-discovery',
+          'ai-behavior-designer', 'evaluation-designer', 'content-audit')
+
+
+def plugin_skill(canonical, preamble):
+    """Insert the plugin path preamble after a canonical skill's frontmatter and title."""
+    lines = canonical.splitlines()
+    if not lines or lines[0] != '---':
+        raise ValueError('Canonical skill lacks frontmatter')
+    closing = lines.index('---', 1)
+    title = next(i for i in range(closing + 1, len(lines)) if lines[i].startswith('# '))
+    combined = lines[:title + 1] + [''] + preamble.splitlines() + lines[title + 1:]
+    return ('\n'.join(combined) + '\n').encode('utf-8')
 
 
 def claude_manifest(source):
@@ -39,14 +52,14 @@ def package_files(root=ROOT, target='codex'):
     def add(source, destination):
         result[destination] = read(source)
 
-    for path in sorted((root / 'plugin-src').rglob('*')):
-        if path.is_file():
-            relative = path.relative_to(root / 'plugin-src').as_posix()
-            if target == 'claude' and relative == 'plugin.json':
-                # Claude Code reads its manifest from .claude-plugin/, not the root.
-                result['.claude-plugin/plugin.json'] = claude_manifest(read(path.relative_to(root)))
-            else:
-                add(path.relative_to(root), relative)
+    if target == 'claude':
+        # Claude Code reads its manifest from .claude-plugin/, not the root.
+        result['.claude-plugin/plugin.json'] = claude_manifest(read('plugin-src/plugin.json'))
+    else:
+        add('plugin-src/plugin.json', 'plugin.json')
+    preamble = read('plugin-src/skill-preamble.md').decode('utf-8')
+    for name in SKILLS:
+        result[f'skills/{name}/SKILL.md'] = plugin_skill(read(f'.agents/skills/{name}/SKILL.md').decode('utf-8'), preamble)
     for name in ('AGENTS.md', 'requirements.txt', 'LICENSE', 'VERSION'):
         add(name, f'runtime/{name}')
     for name in DOCS:
