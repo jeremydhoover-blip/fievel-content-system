@@ -5,5 +5,5 @@ __pycache__/
 .env
 .env.*
 !.env.example
-my-content-system/
+/my-content-system/
 .scratch/

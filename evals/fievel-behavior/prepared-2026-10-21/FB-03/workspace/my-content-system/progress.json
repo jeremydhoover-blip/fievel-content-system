@@ -1,0 +1,20 @@
+{
+  "path": "ai-experience",
+  "explanations": "brief",
+  "stages": {
+    "1": "drafted",
+    "2": "drafted",
+    "3": "pending",
+    "4": "pending",
+    "5": "pending",
+    "6": "pending",
+    "7": "pending"
+  },
+  "decisions": [
+    "No renewal tool is available"
+  ],
+  "open_questions": [
+    "Who owns renewal policy?"
+  ],
+  "next_action": "Inventory the available sources"
+}

@@ -1,0 +1,13 @@
+{
+  "voice": "To be decided",
+  "terminology": [],
+  "patterns": [],
+  "rules": [
+    {
+      "id": "content-next-step",
+      "instruction": "Give a clear next action",
+      "status": "draft",
+      "source_ids": []
+    }
+  ]
+}

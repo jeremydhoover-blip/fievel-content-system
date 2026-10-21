@@ -17,3 +17,4 @@ jobs:
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
       - run: python scripts/fievel.py sync --check
+      - run: python evals/fievel-behavior/prepared-2026-10-21/verify.py
