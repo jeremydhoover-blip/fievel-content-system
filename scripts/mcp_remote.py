@@ -18,6 +18,7 @@ from scripts.mcp_protocol import INVALID_REQUEST, PARSE_ERROR, Server, Tool  # n
 from scripts.mcp_tools import VERSION, knowledge_tools  # noqa: E402
 
 MAX_BODY = 2 * 1024 * 1024
+DRAIN_LIMIT = 16 * 1024 * 1024
 
 
 def package_data(package):
@@ -111,6 +112,17 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             return self.send_json(411, {'error': 'Content-Length required'})
         if length > MAX_BODY:
+            # Read and discard the body (within a bound) so the client receives the 413
+            # instead of a broken pipe; anything larger just closes the connection.
+            if length <= DRAIN_LIMIT:
+                remaining = length
+                while remaining > 0:
+                    chunk = self.rfile.read(min(65536, remaining))
+                    if not chunk:
+                        break
+                    remaining -= len(chunk)
+            else:
+                self.close_connection = True
             return self.send_json(413, {'error': f'Request larger than {MAX_BODY} bytes'})
         try:
             message = f.decode_json(self.rfile.read(length), 'request')
