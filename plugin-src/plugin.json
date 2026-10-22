@@ -13,7 +13,7 @@
       "interface": {
         "displayName": "Fievel",
         "shortDescription": "Build your content system",
-        "longDescription": "Build content standards, AI behavior rules, source records and quality checks as portable files you own, with guided workflows and local validation. Requires Python 3.10+ and jsonschema.",
+        "longDescription": "Build portable content systems: six guided skills and local tools. Hosted MCP provides lessons, templates, validation and saved-response checks. Validation sends package data to Fievel's Google Cloud server for in-memory processing; no content is stored. Local tools need Python 3.10+ and jsonschema.",
         "developerName": "Jeremy Hoover",
         "category": "Productivity",
         "capabilities": [
@@ -38,7 +38,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "Six guided skills for building a portable content system: getting started, content standards, sources, AI behavior, evaluations and audits. Local Python tools validate your files, run saved-response checks and generate a read-only viewer. Your project stays in your own folder."
+        "release_notes": "Version 0.3.0 adds hosted MCP tools for lessons, templates, package validation and saved-response checks. Validation sends supplied package data to Fievel's Google Cloud server for in-memory processing; no content is stored. Six guided skills and local Python tools remain available."
       }
     }
   }
