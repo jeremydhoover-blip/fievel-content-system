@@ -168,7 +168,7 @@ function entrance(element){
 }
 // Scroll reveal: blocks below the fold rise in as their section arrives, staggered within the section.
 // They are hidden only after JS confirms motion is allowed, and only while off screen, so nothing flashes.
-const revealTargets='#how-it-works .demo,#how-it-works .setup-companion,#agents .section-heading,#agents .agent-card,#evaluations .eval-copy,#evaluations .card-block,#get-started>h2,#get-started .path-options,#get-started .start-path';
+const revealTargets='#how-it-works .demo,#how-it-works .setup-companion,#agents .section-heading,#agents .agent-card,#evaluations .eval-copy,#evaluations .card-block,#get-started>h2,#get-started .path-options,#get-started .start-path,.closing-band .closing-inner';
 if('IntersectionObserver' in window&&!motion.matches){
  const pending=[...document.querySelectorAll(revealTargets)].filter(element=>element.getBoundingClientRect().top>innerHeight);
  pending.forEach(element=>{const siblings=pending.filter(other=>other.closest('section')===element.closest('section'));element.style.setProperty('--reveal-delay',`${siblings.indexOf(element)*90}ms`);element.classList.add('reveal');});

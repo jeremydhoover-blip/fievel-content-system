@@ -555,3 +555,56 @@ body{background:var(--bg)}
 
 /* Copied: the green tint and check carry the success; the label stays in normal ink */
 .copy-field button.is-copied{color:var(--ink)}
+
+/* Beta: a quiet pill beside the wordmark and a line in the footer */
+.wordmark .beta-tag{display:inline-block;margin-left:4px;padding:2px 8px;border:1px solid var(--apricot-line);border-radius:999px;background:var(--apricot);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.2px;line-height:1.4}
+.footer-text{display:grid;gap:6px}
+.footer-beta{color:var(--muted)}
+.footer nav{display:flex;align-items:center;gap:8px}
+.footer nav a+a::before{content:"|";margin-right:8px;color:var(--muted)}
+
+/* Closing strip: breathing room before the footer, in the evaluation band's colors */
+.closing-band{background:linear-gradient(120deg,#e9f1ff 0%,#f6f3fb 55%,#ffeee2 100%);padding-block:72px;margin-top:24px}
+.closing-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.closing-logo.brand-icon{width:44px;height:50px;margin:0}
+.closing-logo.brand-icon img{width:80px;height:80px;left:-18px;top:-15px}
+.closing-line{margin:0;font-size:clamp(26px,3vw,36px);font-weight:600;letter-spacing:-1px;line-height:1.2;color:var(--ink);text-wrap:balance}
+@media(max-width:480px){.closing-band{padding-block:52px}}
+.closing-logo{mix-blend-mode:multiply}
+
+/* Footer: credits, beta note and links share one line on wide screens, separated like the rest */
+@media(min-width:900px){
+.footer{flex-direction:row;align-items:center}
+.footer-text{display:flex;flex-wrap:wrap;align-items:center;gap:0}
+.footer-beta::before{content:"|";margin:0 .45em}
+}
+
+/* Path choices answer the pointer like the cards: soft apricot edge and deeper shadow until chosen */
+@media(hover:hover) and (pointer:fine){
+.path-options button{transition:border-color var(--motion-fast) ease,background var(--motion-fast) ease,box-shadow var(--motion-normal) ease}
+.path-options button:not([aria-pressed=true]):hover{border-color:var(--apricot-line);box-shadow:0 0 0 1px var(--apricot-line),0 16px 36px rgba(34,52,96,.10)}
+.path-options button[aria-pressed=true]:hover{box-shadow:0 0 0 1px var(--accent),0 16px 36px rgba(34,52,96,.10)}
+}
+
+/* Closing strip: the logo gives a small playful tilt when the strip is hovered */
+.closing-logo{transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+@media(hover:hover) and (pointer:fine){.closing-band:hover .closing-logo{transform:rotate(-8deg) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){.closing-logo{transition:none}.closing-band:hover .closing-logo{transform:none}}
+
+/* Get started: fills with apricot, lifts, and the logo tips on hover or keyboard focus */
+.hero .primary{transition:background var(--motion-fast) ease,border-color var(--motion-fast) ease,box-shadow var(--motion-normal) ease,transform var(--motion-normal) var(--motion-ease)}
+.hero .primary .brand-icon{transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.hero .primary:hover,.hero .primary:focus-visible{background:var(--apricot);border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px rgba(196,81,43,.18)}
+.hero .primary:hover .brand-icon,.hero .primary:focus-visible .brand-icon{transform:rotate(-10deg) scale(1.1)}
+.hero .primary:active{transform:none;box-shadow:none}
+
+/* Copy fields: the box takes an apricot edge, and Copy turns solid accent */
+.copy-field>div{transition:border-color var(--motion-fast) ease,box-shadow var(--motion-normal) ease}
+.copy-field button{transition:background var(--motion-fast) ease,border-color var(--motion-fast) ease,color var(--motion-fast) ease,transform var(--motion-fast) ease,box-shadow var(--motion-normal) ease}
+@media(hover:hover) and (pointer:fine){
+.copy-field>div:hover{border-color:var(--apricot-line);box-shadow:0 0 0 1px var(--apricot-line),0 10px 24px rgba(34,52,96,.08)}
+.copy-field button:not(.is-copied):hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-1px);box-shadow:0 6px 14px rgba(196,81,43,.25)}
+}
+.copy-field button:not(.is-copied):focus-visible{background:var(--accent);border-color:var(--accent);color:#fff}
+@media(prefers-reduced-motion:reduce){.hero .primary,.hero .primary .brand-icon,.copy-field>div,.copy-field button{transition:none}.hero .primary:hover,.hero .primary:focus-visible,.copy-field button:hover{transform:none}.hero .primary:hover .brand-icon,.hero .primary:focus-visible .brand-icon{transform:none}}
+.hero .primary .brand-icon{mix-blend-mode:multiply}
