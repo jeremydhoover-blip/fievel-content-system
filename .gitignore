@@ -8,3 +8,5 @@ __pycache__/
 /my-content-system/
 .scratch/
 /release/
+# Directory submission notes stay local: listing drafts, attestations and demo plans
+/docs/PLUGIN-SUBMISSION.md

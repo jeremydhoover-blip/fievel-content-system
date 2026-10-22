@@ -614,7 +614,7 @@ Added website/dist/privacy.html, linked from the landing footer. Rebuilt both
 bundles; a new test covers listing URLs, README length and Anthropic's file size
 and count limits. 90 tests pass; adapters match; landing suite passes. Claude Code
 validate --strict passes; the Codex ZIP (release/, ignored) matches the bundle and
-installs as 0.2.0 with six skills in an isolated home. PLUGIN-SUBMISSION.md holds
+installs as 0.2.0 with six skills in an isolated home. PLUGIN-SUBMISSION.md (kept local, not in the repository) holds
 listing values, steps and draft data-handling answers. Not run: either directory's
 scan or review, a live model session, and the privacy page on the deployed site.
 
