@@ -519,3 +519,39 @@ body{background:var(--bg)}
 .copy-field textarea{white-space:pre-wrap;overflow-wrap:anywhere;overflow:hidden;field-sizing:content;min-height:0}
 @media(max-width:640px){.ontology-graph-portrait .ontology-node[aria-pressed=true] rect{fill:var(--apricot)}}
 .ontology-node,.eval-step{-webkit-tap-highlight-color:transparent}
+
+/* Hero title: even line lengths, so no word sits alone */
+#hero-title{text-wrap:balance}
+@media(min-width:761px) and (max-width:860px){#hero-title{font-size:43px}}
+
+/* The map now sits beside the setup topics; its detail styles no longer depend on the hero */
+.relationship-map.ontology .entity-detail{font-size:14px;line-height:1.8}
+.relationship-map.ontology .entity-detail h3{font-size:15px;margin-bottom:8px}
+@media(min-width:761px){.relationship-map.ontology .entity-detail{min-height:103px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}}
+@media(min-width:761px) and (max-width:960px){.relationship-map.ontology .entity-detail{min-height:130px}}
+
+/* Map nodes scale and move around their own centers during the load entrance */
+.ontology-node{transform-box:fill-box;transform-origin:center}
+
+/* Evaluation card matches the system map card */
+.evaluation-flow{background:linear-gradient(145deg,#fff 0%,#eef4fd 100%);border:1px solid var(--line);box-shadow:0 12px 32px rgba(34,52,96,.06)}
+
+/* Scroll reveal, added by main.js only when motion is allowed */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),transform .6s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms)}
+.reveal.is-revealed{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* Cards answer the pointer: a soft apricot edge and a deeper shadow */
+@media(hover:hover) and (pointer:fine){
+.agent-card,.demo,.relationship-map,.evaluation-flow{transition:border-color var(--motion-fast) ease,box-shadow var(--motion-normal) ease,opacity .6s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),transform .6s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms)}
+.agent-card:hover,.demo:hover,.relationship-map:hover,.evaluation-flow:hover{border-color:var(--apricot-line);box-shadow:0 0 0 1px var(--apricot-line),0 16px 36px rgba(34,52,96,.10)}
+}
+
+/* Learn more: accent color, a sweeping underline and a deeper arrow drop on hover or keyboard focus */
+.hero .watch{color:var(--ink);padding:4px 0;background:linear-gradient(var(--accent),var(--accent)) left bottom/0 1.5px no-repeat;transition:color var(--motion-fast) ease,background-size var(--motion-normal) var(--motion-ease)}
+.hero .watch:hover,.hero .watch:focus-visible{color:var(--accent);background-size:100% 1.5px}
+.hero .watch:hover span,.hero .watch:focus-visible span{transform:translateY(4px)}
+@media(prefers-reduced-motion:reduce){.hero .watch{transition:none}.hero .watch:hover span,.hero .watch:focus-visible span{transform:none}}
+
+/* Copied: the green tint and check carry the success; the label stays in normal ink */
+.copy-field button.is-copied{color:var(--ink)}

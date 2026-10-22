@@ -2,13 +2,13 @@
 document.body.classList.add('js');
 const get = id => document.getElementById(id);
 const entityText = {
- context: 'Product context defines who you serve, what they need and what your experience should achieve. It shapes your content standards.',
- standards: 'Content standards capture your voice, terminology and writing patterns. They guide how your AI communicates and behaves.',
+ context: 'Product context defines who you serve, what they need, and what your experience should achieve. It shapes your content standards.',
+ standards: 'Content standards capture your voice, terminology, and writing patterns. They guide how your AI communicates and behaves.',
  sources: 'Knowledge sources hold the information your AI can draw from, along with its authority and permitted use. They ground AI behavior.',
- behavior: 'AI behavior defines responsibilities, boundaries, clarification and recovery. It is guided by your standards and grounded in your sources.',
+ behavior: 'AI behavior defines responsibilities, boundaries, clarification, and recovery. It is guided by your standards and grounded in your sources.',
  skills: 'Instructions and skills turn guidance into reusable directions and task workflows for your agent. They need to reflect your intended behavior.',
- evaluations: 'Evaluations connect your rules to scenarios, checks and review so you can assess behavior and identify what needs improvement.',
- governance: 'Governance defines ownership, approval and review so knowledge and instructions can be maintained as your system changes.',
+ evaluations: 'Evaluations connect your rules to scenarios, checks, and review so you can assess behavior and identify what needs improvement.',
+ governance: 'Governance defines ownership, approval, and review so knowledge and instructions can be maintained as your system changes.',
  tools: 'Tools and connectors, such as MCP servers, give your AI data and actions. Your behavior rules decide when it may use them, and your checks confirm it does.'
 };
 function selectEntity(button) {
@@ -166,11 +166,17 @@ function entrance(element){
  decorativeAnimations.add(animation);
  animation.finished.then(()=>decorativeAnimations.delete(animation)).catch(()=>decorativeAnimations.delete(animation));
 }
-if('IntersectionObserver' in window){
+// Scroll reveal: blocks below the fold rise in as their section arrives, staggered within the section.
+// They are hidden only after JS confirms motion is allowed, and only while off screen, so nothing flashes.
+const revealTargets='#how-it-works .demo,#how-it-works .setup-companion,#agents .section-heading,#agents .agent-card,#evaluations .eval-copy,#evaluations .card-block,#get-started>h2,#get-started .path-options,#get-started .start-path';
+if('IntersectionObserver' in window&&!motion.matches){
+ const pending=[...document.querySelectorAll(revealTargets)].filter(element=>element.getBoundingClientRect().top>innerHeight);
+ pending.forEach(element=>{const siblings=pending.filter(other=>other.closest('section')===element.closest('section'));element.style.setProperty('--reveal-delay',`${siblings.indexOf(element)*90}ms`);element.classList.add('reveal');});
  const reveals=new IntersectionObserver(entries=>entries.forEach(entry=>{
-  if(entry.isIntersecting){reveals.unobserve(entry.target);entrance(entry.target);}
- }),{threshold:.12});
- document.querySelectorAll('.demo,.setup-companion,.evaluation-flow,.agent-options,.path-options').forEach(element=>reveals.observe(element));
+  if(entry.isIntersecting){reveals.unobserve(entry.target);entry.target.classList.add('is-revealed');}
+ }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+ pending.forEach(element=>reveals.observe(element));
+ motion.addEventListener('change',()=>{if(motion.matches)pending.forEach(element=>element.classList.add('is-revealed'));});
 }
 // One topic open at a time: native exclusive accordion via name, with this fallback for older browsers.
 const agentMore=[...document.querySelectorAll('[data-agent] details')];
@@ -188,10 +194,10 @@ motion.addEventListener('change',()=>{if(motion.matches)decorativeAnimations.for
 // Evaluation steps: select to explain, and light the connectors around a hovered or selected step.
 const evalText = {
  rules: 'Each rule has its own tag, so you can always see which check tests which rule.',
- scenarios: 'Scenarios are realistic situations, including unknowns, conflicting sources and requests the AI must decline. Each check inside one links to a rule.',
+ scenarios: 'Scenarios are realistic situations, including unknowns, conflicting sources, and requests the AI must decline. Each check inside one links to a rule.',
  literal: 'Automatic checks look for required or forbidden words in saved responses. They catch known slips quickly, but they cannot judge meaning.',
- human: 'People review meaning, tone, accuracy and permissions. Fievel prepares the review sheet and never fills in a judgment for you.',
- improve: 'Results show which rules hold and which need work. Adjust a rule or the prompt, save new responses and check again.'
+ human: 'People review meaning, tone, accuracy, and permissions. Fievel prepares the review sheet and never fills in a judgment for you.',
+ improve: 'Results show which rules hold and which need work. Adjust a rule or the prompt, save new responses, and check again.'
 };
 const evalSteps=[...document.querySelectorAll('[data-eval]')], evalLinks=[...document.querySelectorAll('.eval-connector[data-link]')];
 // Hidden copies of every step's text share the detail's grid cell, so it is always as tall as the longest one and selecting never moves the page.
@@ -219,3 +225,21 @@ evalSteps.forEach(step=>{
  step.addEventListener('focus',()=>lightEval(step.dataset.eval));
  step.addEventListener('blur',selectedEval);
 });
+
+// Load entrance: the hero copy rises in, then the map's nodes drift together and their links appear.
+// Transform and opacity only, so nothing shifts; skipped entirely for reduced motion.
+function introAnimation(){
+ if(motion.matches||!document.body.animate)return;
+ const ease='cubic-bezier(.2,.7,.2,1)', run=(element,frames,options)=>{const animation=element.animate(frames,{fill:'backwards',easing:ease,...options});decorativeAnimations.add(animation);animation.finished.then(()=>decorativeAnimations.delete(animation)).catch(()=>decorativeAnimations.delete(animation));};
+ [...document.querySelectorAll('.hero #hero-title,.hero .intro,.hero .actions>*')].forEach((element,index)=>
+  run(element,[{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:600,delay:80+index*110}));
+ [...document.querySelectorAll('.hero .ontology-graph')].filter(svg=>svg.getBoundingClientRect().width>0).forEach(svg=>{
+  const box=svg.viewBox.baseVal, cx=box.width/2, cy=box.height/2;
+  [...svg.querySelectorAll('.ontology-node')].forEach((node,index)=>{
+   const rect=node.querySelector('rect'), x=+rect.getAttribute('x')+(+rect.getAttribute('width'))/2, y=+rect.getAttribute('y')+(+rect.getAttribute('height'))/2;
+   run(node,[{opacity:0,transform:`translate(${(x-cx)*.22}px,${(y-cy)*.22}px) scale(.92)`},{opacity:1,transform:'none'}],{duration:700,delay:250+index*60});
+  });
+  svg.querySelectorAll('.ontology-edges path,.edge-labels text').forEach(line=>run(line,[{opacity:0},{opacity:1}],{duration:500,delay:850}));
+ });
+}
+introAnimation();
