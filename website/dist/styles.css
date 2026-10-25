@@ -608,3 +608,11 @@ body{background:var(--bg)}
 .copy-field button:not(.is-copied):focus-visible{background:var(--accent);border-color:var(--accent);color:#fff}
 @media(prefers-reduced-motion:reduce){.hero .primary,.hero .primary .brand-icon,.copy-field>div,.copy-field button{transition:none}.hero .primary:hover,.hero .primary:focus-visible,.copy-field button:hover{transform:none}.hero .primary:hover .brand-icon,.hero .primary:focus-visible .brand-icon{transform:none}}
 .hero .primary .brand-icon{mix-blend-mode:multiply}
+/* Keep the evaluation branches aligned when their labels wrap on mobile. */
+@media(max-width:640px){
+  .eval-branches{align-items:stretch}
+  .eval-branches>div{min-width:0;display:grid;grid-template-rows:2rem minmax(120px,1fr) 2rem;align-items:center}
+  .eval-branches .eval-connector{margin:0;line-height:1.2}
+  .eval-branch.eval-step{width:100%;height:100%;min-width:0;display:flex;flex-direction:column;justify-content:center;overflow-wrap:anywhere}
+  .eval-branch.eval-step strong,.eval-branch.eval-step span{overflow-wrap:anywhere}
+}
