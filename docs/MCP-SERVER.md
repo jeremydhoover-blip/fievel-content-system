@@ -28,10 +28,12 @@ Use Cloud Shell, the browser terminal in the Google Cloud console; it already ha
 `gcloud`. Cloud Run needs a billing account even within the free tier.
 
 Cost limits. Google Cloud has no automatic spending cap: a budget sends alerts
-but does not stop charges. The deploy command bounds cost instead: one instance at
-most, 256 MiB, CPU only while handling a request, 30-second timeout, scale to zero
-when idle. Ordinary use stays within Cloud Run's free tier. Even under constant
-abuse, one instance cannot consume more than one instance-month of request time.
+but does not stop charges. The deploy command bounds cost instead: three instances
+at most, 256 MiB, CPU only while handling a request, 30-second timeout, scale to
+zero when idle. Ordinary use stays within Cloud Run's free tier. Even under constant
+abuse, each instance cannot consume more than one instance-month of request time.
+A limit of one caused HTTP 500 "no available instance" errors, including one on a
+Codex request, so keep room above one. Extra instances run only when needed.
 Also create a budget with email alerts (Billing > Budgets & alerts, for example
 $5 with alerts at 50, 90 and 100 percent), and consider the kill switch below.
 
