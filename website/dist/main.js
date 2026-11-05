@@ -23,7 +23,7 @@ document.querySelectorAll('[data-entity]').forEach(button => {
  if(button.tagName.toLowerCase()==='g') button.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectEntity(button);}});
 });
 // Directory listing pages. Leave empty until a listing is live; links then fall back to the install steps.
-const pluginListings = { claude: '', codex: '' };
+const pluginListings = { claude: '', codex: 'https://chatgpt.com/plugins/plugin_asdk_app_6ad963ac7c8c8191ad0f23cd3beb563f' };
 document.querySelectorAll('[data-plugin]').forEach(link => {
  const url = pluginListings[link.dataset.plugin];
  if (!url) return;
