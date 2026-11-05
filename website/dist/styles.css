@@ -616,15 +616,42 @@ body{background:var(--bg)}
   .eval-branch.eval-step{width:100%;height:100%;min-width:0;display:flex;flex-direction:column;justify-content:center;overflow-wrap:anywhere}
   .eval-branch.eval-step strong,.eval-branch.eval-step span{overflow-wrap:anywhere}
 }
-
-/* Setup note: a requirement people should see before installing */
-.start-steps .step-note{margin-top:10px;padding:10px 14px;border:1px solid var(--apricot-line);border-radius:10px;background:var(--apricot);color:var(--ink);font-size:14px;line-height:1.6}
 .step-link{display:inline-block;margin:0 0 8px}
 
-/* Learn more floats below its own card, so opening it never resizes the cards or moves the page */
+/* Learn more dialog: the page dims behind it and nothing underneath moves */
 .agent-more p:first-child{margin-top:0}
-@media(min-width:481px){
-.agent-card{position:relative}
-.agent-card:has(details[open]){z-index:6;border-bottom-left-radius:0;border-bottom-right-radius:0}
-.agent-more{position:absolute;z-index:6;top:100%;left:-1px;right:-1px;padding:4px 22px 20px;border:1px solid var(--line);border-top:0;border-radius:0 0 10px 10px;background:var(--paper);box-shadow:0 16px 28px rgba(34,52,96,.12)}
-}
+.agent-dialog{width:min(480px,calc(100% - 32px));max-height:calc(100dvh - 48px);padding:0;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);box-shadow:0 24px 60px rgba(34,52,96,.24);overflow:auto}
+.agent-dialog::backdrop{background:rgba(34,37,46,.5)}
+.agent-dialog[open]{animation:agent-dialog-in .22s cubic-bezier(.2,.7,.2,1)}
+.agent-dialog[open]::backdrop{animation:agent-dialog-fade .22s ease}
+@keyframes agent-dialog-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes agent-dialog-fade{from{opacity:0}to{opacity:1}}
+.agent-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 16px 14px 24px;border-bottom:1px solid var(--line)}
+.agent-dialog-head h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.4px}
+.agent-dialog-close{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;padding:0;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:26px;line-height:1;cursor:pointer;transition:background var(--motion-fast) ease,color var(--motion-fast) ease}
+.agent-dialog-close:hover,.agent-dialog-close:focus-visible{background:var(--apricot);color:var(--accent)}
+#agent-dialog-body{padding:18px 24px 24px}
+#agent-dialog-body p{margin:0;font-size:15px;line-height:1.7}
+#agent-dialog-body .agent-tools{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+#agent-dialog-body .agent-tools strong{display:block;margin-bottom:4px;color:var(--accent);font-size:14px;font-weight:600}
+#agent-dialog-body code{font:13px ui-monospace,monospace;background:var(--tint);border-radius:4px;padding:1px 5px;white-space:nowrap}
+.agent-card summary{cursor:pointer}
+@media(prefers-reduced-motion:reduce){.agent-dialog[open],.agent-dialog[open]::backdrop{animation:none}.agent-dialog-close{transition:none}}
+.js .agent-card summary::after{content:none}
+
+/* Agent cards: a smaller button with more room below the logo and name */
+.agent-card .agent-plugin{padding:7px 12px;font-size:12.5px;line-height:1.5;border-radius:6px}
+.agent-card h3{margin-bottom:8px}
+.agent-card .agent-link{font-size:11.5px;font-weight:500}
+
+/* Agent card footer: Learn more on the left, the agent's own link on the right */
+.agent-foot{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:10px}
+.agent-card .agent-foot details{flex:1;min-width:0;border-top:0;padding-top:0}
+.agent-foot .agent-link{flex-shrink:0;line-height:1.6}
+.js .agent-foot{align-items:center}
+.js .agent-foot summary{padding-block:0;line-height:1.6}
+
+/* Setup topics open in the dialog, so a chevron replaces the plus */
+.js .setup-topics summary{cursor:pointer}
+.js .setup-topics summary::after{content:'›';font-size:22px;line-height:1;color:var(--muted);transform:none!important;transition:color var(--motion-fast) ease}
+@media(hover:hover) and (pointer:fine){.js .setup-topics summary:hover::after{color:var(--accent)}}

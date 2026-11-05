@@ -160,12 +160,6 @@ document.querySelectorAll('[data-entity]').forEach(node=>{
 selectedConnections();
 // Content is visible by default. Entrances are progressive enhancement only.
 const decorativeAnimations = new Set();
-function entrance(element){
- if(motion.matches || !element.animate)return;
- const animation=element.animate([{opacity:.65,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'});
- decorativeAnimations.add(animation);
- animation.finished.then(()=>decorativeAnimations.delete(animation)).catch(()=>decorativeAnimations.delete(animation));
-}
 // Scroll reveal: blocks below the fold rise in as their section arrives, staggered within the section.
 // They are hidden only after JS confirms motion is allowed, and only while off screen, so nothing flashes.
 const revealTargets='#how-it-works .demo,#how-it-works .setup-companion,#agents .section-heading,#agents .agent-card,#evaluations .eval-copy,#evaluations .card-block,#get-started>h2,#get-started .path-options,#get-started .start-path,.closing-band .closing-inner';
@@ -178,17 +172,24 @@ if('IntersectionObserver' in window&&!motion.matches){
  pending.forEach(element=>reveals.observe(element));
  motion.addEventListener('change',()=>{if(motion.matches)pending.forEach(element=>element.classList.add('is-revealed'));});
 }
-// One topic open at a time: native exclusive accordion via name, with this fallback for older browsers.
-const agentMore=[...document.querySelectorAll('[data-agent] details')];
-agentMore.forEach(details=>details.addEventListener('toggle',()=>{
- if(details.open)agentMore.forEach(other=>{if(other!==details&&other.open)other.open=false;});
+// Learn more and the setup topics open in one modal, so the page never moves. Without JS, details open inline.
+const agentDialog=get('agent-dialog');
+function openDialog(title,nodes){
+ get('agent-dialog-title').textContent=title;
+ get('agent-dialog-body').replaceChildren(...nodes.map(node=>node.cloneNode(true)));
+ agentDialog.showModal();
+}
+document.querySelectorAll('[data-agent] summary').forEach(summary=>summary.addEventListener('click',event=>{
+ event.preventDefault();
+ const card=summary.closest('[data-agent]');
+ openDialog(card.querySelector('h3').textContent,[...card.querySelector('.agent-more').children]);
 }));
-const setupTopics=[...document.querySelectorAll('.setup-topics details')];
-setupTopics.forEach(details=>details.addEventListener('toggle',()=>{
- if(!details.open)return;
- setupTopics.forEach(other=>{if(other!==details&&other.open)other.open=false;});
- entrance(details.querySelector('p'));
+document.querySelectorAll('.setup-topics summary').forEach(summary=>summary.addEventListener('click',event=>{
+ event.preventDefault();
+ openDialog(summary.textContent,[summary.parentElement.querySelector('p')]);
 }));
+agentDialog.querySelector('.agent-dialog-close').addEventListener('click',()=>agentDialog.close());
+agentDialog.addEventListener('click',event=>{if(event.target===agentDialog)agentDialog.close();});
 motion.addEventListener('change',()=>{if(motion.matches)decorativeAnimations.forEach(animation=>animation.cancel());});
 
 // Evaluation steps: select to explain, and light the connectors around a hovered or selected step.
