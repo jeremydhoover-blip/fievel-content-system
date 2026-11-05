@@ -619,3 +619,4 @@ body{background:var(--bg)}
 
 /* Setup note: a requirement people should see before installing */
 .start-steps .step-note{margin-top:10px;padding:10px 14px;border:1px solid var(--apricot-line);border-radius:10px;background:var(--apricot);color:var(--ink);font-size:14px;line-height:1.6}
+.step-link{display:inline-block;margin:0 0 8px}
