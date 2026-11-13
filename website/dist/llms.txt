@@ -1,0 +1,27 @@
+# Fievel
+
+> Fievel is a free, open-source plugin that helps content designers and product teams build a content system for AI: product context, content standards, knowledge sources, AI behavior rules, evaluations, and governance, saved as files the team owns.
+
+Fievel works inside a coding agent. It guides people through building their content system one step at a time, then turns their rules into realistic test scenarios, automatic checks on saved responses, and expert review for meaning and tone. It is in beta, MIT licensed, and runs on a computer, not a phone.
+
+## Get started
+
+- [Website](https://fievel.ai/): what Fievel does and how to install it
+- [Plugin for Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ad963ac7c8c8191ad0f23cd3beb563f): listed in OpenAI's plugin directory
+- [GitHub repository](https://github.com/jeremydhoover-blip/fievel-content-system): source code, install steps for Claude Code and Codex, and use with GitHub Copilot
+
+## What it includes
+
+- Six guided skills: getting started, content standards, knowledge sources, AI behavior, evaluations, and content audits
+- A local command-line tool that validates a content system, runs checks on saved responses, and builds a read-only viewer
+- An optional hosted tool server for the Codex plugin that processes requests in memory and stores no content
+
+## Requirements
+
+- Codex, Claude Code, or GitHub Copilot in VS Code, on a computer
+- Python 3.10 or later for the local tools
+
+## Policies
+
+- [Privacy policy](https://fievel.ai/privacy.html)
+- [Terms](https://fievel.ai/terms.html)

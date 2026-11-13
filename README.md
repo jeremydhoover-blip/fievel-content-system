@@ -9,8 +9,9 @@ Your output is a set of readable, reusable files that you own.
 
 Version 0.3.0 includes a seven-stage workflow, six skills, draft templates, a
 complete fictional booking support example, a local command-line tool and a
-read-only viewer that maps how your system connects. There is no hosted service
-or custom agent framework.
+read-only viewer that maps how your system connects. The Codex plugin can also use
+an optional hosted tool server that processes requests in memory and stores no
+content. There is no custom agent framework.
 
 ## Start with your coding agent
 
